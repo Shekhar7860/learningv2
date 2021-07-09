@@ -1,0 +1,43 @@
+.badge-item {
+    position: relative;
+    background: var(--lightGrayColor);
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 1 31.5%;
+    padding: 1rem;
+    border: 1px solid var(--grayAccent);
+    transition: .3s ease-in-out;
+}
+
+.badge-item:hover{
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, .1);
+    transition: .3s ease-in-out;
+}
+
+.badge-item img {
+    width: 100px;
+    height: 100px;
+    padding: 1rem;
+}
+
+.badge-item .badge-count {
+    font-size: 1.3rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    font-weight: 700;
+    color: var(--textLightColor);
+}
+
+.badge-item-content h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.badge-item-content p {
+    margin: 0;
+    font-size: .9rem;
+}

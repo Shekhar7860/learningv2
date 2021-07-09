@@ -1,0 +1,46 @@
+.latest-item {
+    display: flex;   
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--lightGrayColor);
+    padding: 8px 0;
+    padding-bottom: 1rem;
+}
+
+.latest-item-text{
+    width: 70%;
+    text-align: left;
+}
+
+.latest-item-context {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: left;
+}
+
+.latest-item-text h3 {
+    margin: 0;
+}
+.latest-item-text p {
+    margin: 0;
+}
+
+.latest-item-profile {
+    width: 30%;
+}
+
+.latest-item-profile span {
+    margin-right: 4px;
+}
+
+.latest-item-spec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.latest-item-context h4 {
+    color: var(--textLightColor);
+}

@@ -1,0 +1,47 @@
+.notification-drop {
+    background: var(--backgroundWhiteColor);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, .2);
+    min-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.notification-drop .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.notification-drop h3 {
+    color: var(--textPrimaryColor);
+}
+
+.notification-body {
+
+}
+
+.notification-header button {
+    border-radius: 8rem;
+    background: var(--buttonSecondaryColor);
+    color: var(--buttonSecondaryTextColor);
+    padding: 0 1rem;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.notification-footer button {
+    border-radius: 8rem;
+    background: var(--lightGrayColor);
+    color: var(--textPrimaryColor);
+    padding: 0 1rem;
+    height: 35px;
+    border: none;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+}

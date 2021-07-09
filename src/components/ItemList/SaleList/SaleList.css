@@ -1,0 +1,12 @@
+.sale-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: -12px;
+    margin-top: 8px;
+}
+
+@media only screen and (max-width: 450px) {
+    .sale-list {
+        display: block;
+    }
+}

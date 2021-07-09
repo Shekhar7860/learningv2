@@ -1,0 +1,51 @@
+:root {
+    --textHiddenColor: #642ab5;
+    --textWhiteColor: #fff;
+    --backgroundWhiteColor: #fff;
+    --textBlackColor: #000;
+    --backgroundColor: #FEFEFE;
+    --themeDarkestColor: #1a1325;
+    --themeExtraDarkColor: #24163a;
+    --themeDarkColor: #301c4d;
+    --themeNormalColor: #3e2069;
+    --themeLightColor: #51258f;
+    --textLightColor: rgb(134, 134, 134);
+    --purple7: #854eca;
+    --purple8: #ab7ae0;
+    --purple9: #cda8f0;
+    --lightPurple: #ebd7fa;
+    --accentColor: #177ddc;
+    --primaryColor: #854eca;
+    --textPrimaryColor: #1f1f1f;
+    --lightGrayColor: #e6e6e6;
+    --grayAccent: #bfbfbf;
+    --grayColor: #595959;
+    --darkGrayColor: #141414;
+    --backgroundGradient: linear-gradient(to left, #5d3792,  #ff4b93);
+    /* --buttonColor: radial-gradient(73.62% 92.72% at 50.59% 46.59%, #7C4296 0%, #D53876 100%); */
+    --buttonColor: #d81b60;
+    --buttonLightColor: radial-gradient(73.62% 92.72% at 50.59% 46.59%, #712c91 0%, #c72767 100%); 
+    --buttonSecondaryColor: #ead3ff; 
+    --buttonSecondaryTextColor: #420080; 
+    --subscribeColor: #ccc;
+    --foregroundColor: #ddd;
+    --backgroundLoaderColor: #eee;
+}   
+
+.dark-theme {
+    --backgroundColor: #1a1a2e;
+    --textPrimaryColor: #fff;
+    --textWhiteColor: #120338;
+    --themeNormalColor: #eee;
+    --lightGrayColor: #2b2b50;
+    --foregroundColor: #1e1e36;
+    --backgroundLoaderColor: #20203b;
+    --backgroundWhiteColor: #20203b;
+    --buttonColor: #961645;
+    --grayColor: #ccc;
+    --textLightColor: #ccc;
+    --grayAccent: #eee;
+    --textBlackColor: #fff;
+    --primaryColor: #177ddc;
+    --subscribeColor: #20203b;
+}

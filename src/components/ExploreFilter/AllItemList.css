@@ -1,0 +1,12 @@
+.all-items {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem calc(3rem - 14px);
+}
+
+@media only screen and (max-width: 450px) {
+    .all-items {
+        padding: 0;
+        display: block;
+    }
+}

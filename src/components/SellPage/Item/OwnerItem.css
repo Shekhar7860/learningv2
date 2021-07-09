@@ -1,0 +1,37 @@
+.owner-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.owner-item .owner-content {
+    display: flex;  
+    align-items: center;
+}
+
+.owner-info {
+    margin-left: 12px;
+}
+
+.owner-info h5 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--textPrimaryColor);
+    font-weight: 700;
+    line-height: 1rem;
+}
+.owner-info p {
+    margin: 0;
+    color: var(--textLightColor);
+    font-weight: 500;
+}
+
+.owner-item button {
+    width: 100%;
+    border-radius: 8rem;
+    height: 40px;
+    background: var(--buttonSecondaryColor);
+    color: var(--buttonSecondaryTextColor);
+    border: none;
+    outline: none;
+    margin-top: 12px;
+}

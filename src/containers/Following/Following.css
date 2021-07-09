@@ -1,0 +1,28 @@
+.following-container {
+    padding-top: 80px;
+}
+
+.following-container-header {
+    padding: 1rem 3rem;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.following-container-header h1 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--textPrimaryColor);
+    margin: 0;
+}
+
+@media only screen and (max-width: 450px) {
+    .following-container-header {
+        padding: 1rem 12px;
+    }
+
+    .following-container-header h1 {
+        font-size: 1.5rem;
+    }
+}

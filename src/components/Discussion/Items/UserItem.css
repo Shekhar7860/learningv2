@@ -1,0 +1,36 @@
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--lightGrayColor);
+    padding: 12px 0;
+}
+
+.user-item-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.user-item-info h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.user-item-info {
+    margin-left: 1rem;
+}
+
+.user-item-info p {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--textLightColor);
+}
+
+.user-item-right p {
+    margin: 0;
+    font-weight: 500;
+    color: var(--textLightColor);
+}

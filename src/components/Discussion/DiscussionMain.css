@@ -1,0 +1,64 @@
+.discussion-main {
+    width: 80%;
+    margin: 2rem auto;
+}
+
+.discussion-main .discussion-main-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.ant-select-selector {
+    border-radius: 0 !important;
+}
+
+.discussion-category {
+    display: flex;
+    justify-content: space-between;
+}
+
+.discussion-category-container {
+    width: 49%;
+}
+
+.discussion-latest {
+    text-align: left;
+}
+
+.discussion-latest-container {
+    width: 49%;
+}
+
+.discussion-category-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--grayAccent);
+    margin-bottom: 8px;
+}
+.discussion-latest-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--grayAccent);
+    margin-bottom: 8px;
+}
+.discussion-category-header p,
+.discussion-latest-header p{
+    font-weight: 500;
+    color: var(--textLightColor);
+}
+
+@media only screen and (max-width: 450px) {
+    .discussion-category {
+        flex-flow: column;
+    }
+
+    .discussion-category-container {
+        width: 100%;
+    }
+    
+    .discussion-latest-container {
+        width: 100%;
+    }
+}

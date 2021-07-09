@@ -1,0 +1,10 @@
+.my-content {
+    width: 95%;
+    margin: 1rem auto;
+}
+
+.my-content-activity-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}

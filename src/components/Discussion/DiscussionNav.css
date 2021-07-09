@@ -1,0 +1,130 @@
+.discussion-nav {
+  padding: 8px 0;
+  padding-top: 12px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, .1);
+}
+
+.discussion-nav-context {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.discussion-nav p {
+  margin: 0;
+}
+
+.discussion-nav .discussion-nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.discussion-nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discussion-nav img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.discussion-nav a {
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 8px;
+}
+
+.discussion-nav svg {
+    margin-right: 8px;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.discussion-nav a:hover{
+    background: var(--lightGrayColor);
+}
+.discussion-nav svg:hover{
+    background: var(--lightGrayColor);
+}
+
+.discussion-nav-menu {
+  background: var(--textWhiteColor);
+  padding: 1rem;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, .1);
+  border-radius: 8px;
+  width: 350px;
+}
+
+.discussion-nav-menu-top {
+  display: grid;
+  grid-template-columns: auto auto;
+  border-bottom: 1px solid var(--grayAccent);
+  padding-bottom: 8px;
+}
+
+.discussion-nav-menu-top a {
+  color: var(--grayColor);
+  font-weight: 500;
+}
+
+.discussion-nav-menu-top p {
+  padding: 4px;
+  margin: 0;
+}
+
+.discussion-nav-menu-top p:hover {
+  background: var(--buttonSecondaryColor);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.discussion-nav-menu-categories {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.discussion-nav-menu-middle h4 {
+  padding: 4px;
+}
+.discussion-nav-menu-middle h4:hover {
+  cursor: pointer;
+  background: var(--buttonSecondaryColor);
+}
+
+.discussion-nav-menu-categories p {
+  margin: 0;
+  padding: 4px;
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.discussion-nav-menu-categories p > span {
+  color: var(--textPrimaryColor);
+  font-weight: 700;
+}
+.discussion-nav-menu-categories p:hover{
+  background: var(--buttonSecondaryColor);
+}
+
+.discussion-nav-menu-bottom {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 4px;
+  border-top: 1px solid var(--grayAccent);
+  margin-top: 4px;
+}
+
+.discussion-nav-menu-bottom h4 {
+  cursor: pointer;
+}

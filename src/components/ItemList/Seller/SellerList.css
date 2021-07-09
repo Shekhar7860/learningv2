@@ -1,0 +1,67 @@
+@import url('../../../utils/Colors.css');
+
+.seller-list {
+    padding: 1rem 3rem;
+    padding-top: 2rem;
+}
+
+.seller-list h1 {
+    color: var(--textPrimaryColor);
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.seller-item-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0 -1rem;
+    overflow-x: scroll;
+}
+
+.seller-list ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+.seller-list ::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.seller-list-title-seller {
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    margin: 0 12px;
+    cursor: pointer;
+}
+.seller-list-title-seller span {
+    color: var(--textLightColor);
+}
+.seller-list-title-day {
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    margin: 0 12px;
+    cursor: pointer;
+}
+.seller-list-title-day span {
+    color: var(--textLightColor);
+}
+
+@media only screen and (max-width: 450px) {
+    .seller-list {
+        padding: 1rem 12px;
+    }
+
+    .seller-list .seller-item-list {
+        margin: 0 -12px;
+    }
+
+    .seller-list h1 {
+        font-size: 1.5rem;
+    }
+}

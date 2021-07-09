@@ -1,0 +1,27 @@
+.feature-list {
+    padding: 1rem 2rem;
+    position: relative;
+}
+
+.feature-item-list {
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+}
+
+.feature-item-list::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    display: none;
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+.feature-item-list::-webkit-scrollbar-thumb {
+    background: transparent;
+    display: none;
+}
+
+@media only screen and (max-width: 450px) {
+    .feature-list {
+        padding: 12px;
+    }
+}

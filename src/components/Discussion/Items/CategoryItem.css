@@ -1,0 +1,25 @@
+.category-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: 1px solid var(--grayAccent);
+    text-align: left;
+    padding: 8px;
+    border-left: 4px solid #000;
+}
+
+.category-item h1 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--textPrimaryColor);
+    cursor: pointer;
+}
+
+.category-item p {
+    padding-right: 1rem;
+}
+
+.category-item .category-sub {
+    min-width: 70px;
+}

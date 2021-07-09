@@ -1,0 +1,36 @@
+.login-modal {
+
+}
+
+.login-modal-item {
+    margin-bottom: 1rem;
+}
+
+.login-modal .forgot-text {
+    cursor: pointer;
+    color: var(--accentColor);
+    font-weight: 500;
+}
+
+.login-modal-footer {
+    border-top: 1px solid var(--grayAccent);
+    padding-top: 1rem;
+}
+
+.login-modal button {
+    margin-right: 1rem;
+}
+
+.login-modal-item .some-tag {
+    color: var(--textLightColor);
+}
+
+.login-modal p {
+    margin-top: 4px;
+}
+
+.login-modal p > span {
+    cursor: pointer;
+    color: var(--accentColor);
+    font-weight: 500;
+}

@@ -1,0 +1,21 @@
+.discussion-badge {
+    width: 75%;
+    margin: 2rem auto;
+    text-align: left;
+    padding-bottom: 4rem;
+}
+
+.discussion-badge h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.discussion-badge .discussion-badge-div {
+    margin-top: 2rem;
+}
+
+.discussion-badges-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -8px;
+}

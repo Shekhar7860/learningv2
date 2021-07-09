@@ -1,0 +1,52 @@
+.how-nav {
+    display: flex;   
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+.how-nav p{ 
+    margin: 0;
+}
+
+.how-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.how-nav img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.how-nav .how-nav-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-nav .how-nav-item {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.how-nav-item:hover {
+    cursor: pointer;
+    background: var(--lightGrayColor);
+}
+
+.how-nav-item svg {
+    margin-right: 8px;
+}
+
+.how-nav-item p {
+    margin: 0;
+}
