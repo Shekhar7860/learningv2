@@ -3,7 +3,9 @@ import React from "react";
 import Web3 from "web3";
 import "./ConnectDialog.css";
 import { connect } from "react-redux";
-import { setLoggedIn } from "./../../redux/actions/user";
+import { setLoggedIn, saveUserData } from "./../../redux/actions/user";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
 const ethereum = typeof window != undefined ? window.ethereum : {};
 const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
 
@@ -12,30 +14,81 @@ const ConnectDialog = ({
   showConnectDialog,
   toggleWalletDialog,
   setLoggedData,
+  setUserData,
 }) => {
-  const connectToWallet = async () => {
-    //console.log("sss", setLoggedIn);
+  const connectToWallet = (param) => {
+    switch (param) {
+      case "metaMask":
+        connectMetaMask();
+        break;
+      case "walletConnect":
+        connectWalletConnect();
+        break;
+      default:
+      // code block
+    }
+  };
+
+  const connectWalletConnect = async () => {
+    const connector = new WalletConnect({
+      bridge: "https://bridge.walletconnect.org",
+      qrcodeModal: QRCodeModal, // Required
+    });
+    // const { accounts, chainId } = await connector.connect();
+    connector
+      .connect()
+      .then((result) => {
+        console.log("ress", result);
+        setUserData(result);
+        setLoggedData(true);
+        showConnectDialog();
+      })
+      .catch((error) => {
+        // Handle Error or Rejection
+        console.error("error", error);
+      });
+    connector.on("connect", (error, payload) => {
+      console.log(`connector.on("connect")`);
+
+      if (error) {
+        throw error;
+      }
+
+      onConnect(payload);
+    });
+  };
+
+  const onConnect = (data) => {
+    setUserData(data);
     setLoggedData(true);
-    // setLogged(true);
     showConnectDialog();
+  };
+  const connectMetaMask = async () => {
     if (ethereum !== undefined) {
       await window.ethereum.request({ method: "eth_requestAccounts" });
     } else {
       alert("Please Install Metamask");
     }
     const accounts = await web3.eth.getAccounts();
-
+    let balance = 0;
+    if (accounts.length > 0) {
+      balance = await web3.eth.getBalance(accounts[0]);
+      balance = web3.utils.fromWei(balance, "ether");
+    }
+    setUserData({ account: accounts[0], balance });
     if (window.localStorage.getItem("loggedIn") == null) {
       if (accounts[0].length > 0) {
         const signature = await web3.eth.personal.sign(
           `Connecting MetaMask`,
           accounts[0],
-          "" // MetaMask will ignore the password argument here
+          ""
         );
         localStorage.setItem("loggedIn", "yes");
       }
     } else {
     }
+    setLoggedData(true);
+    showConnectDialog();
   };
 
   return (
@@ -65,7 +118,10 @@ const ConnectDialog = ({
               <span onClick={toggleWalletDialog}> What is wallet?</span>
             </h3>
             <div className="connect-item-container">
-              <div className="connect-item" onClick={connectToWallet}>
+              <div
+                className="connect-item"
+                onClick={() => connectToWallet("metaMask")}
+              >
                 <img
                   src="https://rarible.com/static/15b466863644140afb0f0edd08fa74b0.svg"
                   alt="metamask"
@@ -79,7 +135,10 @@ const ConnectDialog = ({
                 />
                 <h2>Fortmatic</h2>
               </div>
-              <div className="connect-item">
+              <div
+                className="connect-item"
+                onClick={() => connectToWallet("walletConnect")}
+              >
                 <img
                   src="https://rarible.com/static/4705c8de03ce7004d56aafa558ff5237.svg"
                   alt="metamask"
@@ -127,6 +186,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setLoggedData: (url) => dispatch(setLoggedIn(url)),
+    setUserData: (data) => dispatch(saveUserData(data)),
   };
 };
 

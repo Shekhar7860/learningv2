@@ -3,7 +3,6 @@ import FilterFun from "../../functions/FilterFun";
 import "./ExploreFilter.css";
 
 const ExploreFilter = () => {
-
   const { items, data } = FilterFun();
 
   return (
@@ -17,10 +16,10 @@ const ExploreFilter = () => {
         </h1>
       </div>
       <div className="explore-item-list">
-        {items.map(item => (
-        <div className="explore-item">
-          <p>{item.title}</p>
-        </div>
+        {items.map((item, index) => (
+          <div className="explore-item" key={index}>
+            <p>{item.title}</p>
+          </div>
         ))}
         {/* <div className="explore-item">
           <p>Memes</p>

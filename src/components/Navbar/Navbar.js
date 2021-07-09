@@ -99,7 +99,6 @@ const Navbar = (props) => {
   const [socialLogged, setSocialLogged] = useState(false);
 
   useEffect(() => {
-    // console.log("prrr", props);
     if (props.data == true) {
       setLogged(true);
     }
@@ -334,7 +333,7 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.user,
+    loggedIn: state.user.status,
   };
 };
 

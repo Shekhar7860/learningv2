@@ -7,21 +7,35 @@ import { connect } from "react-redux";
 import { setLoggedIn } from "../../redux/actions/user";
 import { web3 } from "../../constants/constants";
 
-const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf }) => {
+const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf, data }) => {
   const [account, setAccount] = useState("");
   const [balance, setBalance] = useState(0);
+  const [icon, setIcon] = useState("");
   useEffect(() => {
-    getdata();
+    setData();
   }, []);
-  const getdata = async () => {
-    const accounts = await web3.eth.getAccounts();
-    if (accounts.length > 0) {
-      setAccount(accounts[0]);
-      let balance = await web3.eth.getBalance(accounts[0]);
-      balance = web3.utils.fromWei(balance, "ether");
-      setBalance(balance);
+
+  const setData = () => {
+    const { user } = data;
+    if (user.data.params != undefined) {
+      setAccount(user.data.params[0].accounts[0]);
+      setIcon(user.data.params[0].peerMeta.icons[0]);
+    } else if (user.data.chainId != undefined) {
+      setAccount(user.data.accounts[0]);
+    } else {
+      setAccount(user.data.account);
+      setBalance(user.data.balance);
     }
   };
+  // const getdata = async () => {
+  //   const accounts = await web3.eth.getAccounts();
+  //   if (accounts.length > 0) {
+  //     setAccount(accounts[0]);
+  //     let balance = await web3.eth.getBalance(accounts[0]);
+  //     balance = web3.utils.fromWei(balance, "ether");
+  //     setBalance(balance);
+  //   }
+  // };
   const { darkTheme, toggleDarkTheme } = AutoPlayFun();
   const disconnect = () => {
     loggedOf(false);
