@@ -8,7 +8,7 @@ const DialogFun = () => {
   const [confirmDialog, setConfirmDialog] = useState(false);
   const [createCollDialog, setCreateCollDialog] = useState(false);
   const [confCollectionDialog, setConfCollectionDialog] = useState(false);
-  const [thanksDialog, setThanksDialog] = useState(false)
+  const [thanksDialog, setThanksDialog] = useState(false);
 
   const togglePurchaseDialog = () => {
     setPurchaseDialog(!purchaseDialog);
@@ -29,22 +29,37 @@ const DialogFun = () => {
   const toggleConfirmDialog = () => {
     setConfirmDialog(!confirmDialog);
   };
- 
+
   const toggleCreateCollDialog = () => {
     setCreateCollDialog(!createCollDialog);
   };
- 
+
   const toggleConfCollDialog = () => {
     setConfCollectionDialog(!confCollectionDialog);
   };
- 
+
   const toggleThanksDialog = () => {
     setThanksDialog(!thanksDialog);
   };
 
-  return { togglePurchaseDialog,
-    purchaseDialog, toggleBidDialog, bidDialog,
-  shareDialog, createCollDialog, toggleThanksDialog, thanksDialog, toggleConfCollDialog, confCollectionDialog, toggleCreateCollDialog, toggleConfirmDialog, confirmDialog, toggleShareDialog, toggleReportDialog, reportDialog };
+  return {
+    togglePurchaseDialog,
+    purchaseDialog,
+    toggleBidDialog,
+    bidDialog,
+    shareDialog,
+    createCollDialog,
+    toggleThanksDialog,
+    thanksDialog,
+    toggleConfCollDialog,
+    confCollectionDialog,
+    toggleCreateCollDialog,
+    toggleConfirmDialog,
+    confirmDialog,
+    toggleShareDialog,
+    toggleReportDialog,
+    reportDialog,
+  };
 };
 
 export default DialogFun;

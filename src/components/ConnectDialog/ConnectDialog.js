@@ -1,14 +1,13 @@
 import { Modal } from "antd";
 import React from "react";
 import Web3 from "web3";
+import Fortmatic from "fortmatic";
 import "./ConnectDialog.css";
 import { connect } from "react-redux";
 import { setLoggedIn, saveUserData } from "./../../redux/actions/user";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
-const ethereum = typeof window != undefined ? window.ethereum : {};
-const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
-
+import { FORMATIC_API_KEY } from "../../constants/constants";
 const ConnectDialog = ({
   modalVisible,
   showConnectDialog,
@@ -24,6 +23,8 @@ const ConnectDialog = ({
       case "walletConnect":
         connectWalletConnect();
         break;
+      case "fortmatic":
+        connectformatic();
       default:
       // code block
     }
@@ -64,6 +65,8 @@ const ConnectDialog = ({
     showConnectDialog();
   };
   const connectMetaMask = async () => {
+    const ethereum = typeof window != undefined ? window.ethereum : {};
+    const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
     if (ethereum !== undefined) {
       await window.ethereum.request({ method: "eth_requestAccounts" });
     } else {
@@ -89,6 +92,13 @@ const ConnectDialog = ({
     }
     setLoggedData(true);
     showConnectDialog();
+  };
+
+  const connectformatic = async () => {
+    const fm = new Fortmatic(FORMATIC_API_KEY);
+    web3 = new Web3(fm.getProvider());
+    const accounts = await web3.eth.getAccounts();
+    console.log("fm", accounts);
   };
 
   return (
@@ -128,7 +138,10 @@ const ConnectDialog = ({
                 />
                 <h2>Metamask</h2>
               </div>
-              <div className="connect-item">
+              <div
+                className="connect-item"
+                onClick={() => connectToWallet("fortmatic")}
+              >
                 <img
                   src="https://rarible.com/static/bd9302c4068517e1072e192479e2d6c8.svg"
                   alt="metamask"
@@ -145,7 +158,7 @@ const ConnectDialog = ({
                 />
                 <h2>WalletConnect</h2>
               </div>
-              <div className="connect-item">
+              {/* <div className="connect-item">
                 <img
                   src="https://rarible.com/static/c664363eba7d752c71a281c293701085.svg"
                   alt="metamask"
@@ -165,7 +178,7 @@ const ConnectDialog = ({
                   alt="metamask"
                 />
                 <h2>Torus</h2>
-              </div>
+              </div> */}
             </div>
             <h3>
               We do not own your private keys and cannot access your funds
