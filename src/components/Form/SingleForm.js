@@ -2,38 +2,81 @@ import { Input, Form } from "antd";
 import React from "react";
 import DialogFun from "../../functions/DialogFun";
 import ConfirmCreateDialog from "../Dialogs/ConfirmCreateDialog";
+import Web3 from "web3";
 import { web3 } from "../../constants/constants";
 import { METAMASK_RECEIVER_ACCOUNT } from "../../constants/constants";
 import "./SingleForm.css";
+const StoreHash = require("./../../abis/StoreHash.json");
+import { create } from "ipfs-http-client";
+const client = create("https://ipfs.infura.io:5001/api/v0");
 
-const SingleForm = ({ type, nameChange }) => {
+const SingleForm = ({ type, nameChange, selectedFile }) => {
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
 
   const submitData = () => {
-    toggleConfirmDialog();
+    console.log("myweb3", web3);
+    // web3 = new Web3(web3.currentProvider);
+    // console.log("myweb2", web3);
+    const contract = new web3.eth.Contract(
+      StoreHash.abi,
+      "0xA57c6519b73510361f3B51F2cdF583c8be7AED35"
+    );
+    contract.methods
+      .getHash()
+      .call()
+      .then(function (info) {
+        console.log("info: ", info);
+      });
+    // contract.methods
+    //   .getInfo()
+    //   .call({ from: "0x572714280e8f3590ad133cD3388A97a1AB595909" })
+    //   .then(function (info) {
+    //     console.log("info: ", info);
+    //   });
+    console.log("contract", contract);
+    // toggleConfirmDialog();
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
+    return false;
+    console.log("selected", selectedFile);
     console.log("Success:", values);
+    try {
+      const doc = JSON.stringify({
+        file: selectedFile,
+        ...values,
+      });
+      const obj = {
+        file: selectedFile,
+        ...values,
+      };
+      console.log("doc", obj);
+      const added = await client.add(selectedFile);
+      console.log("added", added);
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      //  updateFileUrl(url)
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
     if (values.username && values.royalties) {
       const accounts = await web3.eth.getAccounts();
-      web3.eth.sendTransaction(
-        {
-          nonce: 56,
-          from: accounts[0],
-          to: METAMASK_RECEIVER_ACCOUNT,
-          value: 45,
-        },
-        (err, transactionId) => {
-          if (err) {
-            console.log("err", err);
-          } else {
-            console.log("success", transactionId);
-          }
-        }
-      );
+      // web3.eth.sendTransaction(
+      //   {
+      //     nonce: 56,
+      //     from: accounts[0],
+      //     to: METAMASK_RECEIVER_ACCOUNT,
+      //     value: 45,
+      //   },
+      //   (err, transactionId) => {
+      //     if (err) {
+      //       console.log("err", err);
+      //     } else {
+      //       console.log("success", transactionId);
+      //     }
+      //   }
+      // );
       // toggleConfirmDialog();
     }
   };
@@ -99,7 +142,7 @@ const SingleForm = ({ type, nameChange }) => {
         </div>
       </Form.Item>
       <Form.Item>
-        <button>Submit</button>
+        <button onClick={submitData}>Submit</button>
       </Form.Item>
       <ConfirmCreateDialog
         toggleDialog={toggleConfirmDialog}

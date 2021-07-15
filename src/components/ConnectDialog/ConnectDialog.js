@@ -65,13 +65,18 @@ const ConnectDialog = ({
     showConnectDialog();
   };
   const connectMetaMask = async () => {
+    // console.log("web3", web3);
     const ethereum = typeof window != undefined ? window.ethereum : {};
     const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
+    console.log("dd", web3);
+    web3.currentProvider.enable();
     if (ethereum !== undefined) {
       await window.ethereum.request({ method: "eth_requestAccounts" });
     } else {
       alert("Please Install Metamask");
     }
+    // console.log("data", web3.eth);
+
     const accounts = await web3.eth.getAccounts();
     let balance = 0;
     if (accounts.length > 0) {

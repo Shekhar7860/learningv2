@@ -3,6 +3,7 @@ import { useState } from "react";
 const CreateFun = () => {
   const [image, setImage] = useState("");
   const [createImage, setCreateImage] = useState("");
+  const [file, setFile] = useState([]);
 
   const pickFile = (e) => {
     if (e.target.files[0]) {
@@ -11,6 +12,7 @@ const CreateFun = () => {
         setImage(e.target.result);
       };
       reader.readAsDataURL(e.target.files[0]);
+      setFile(e.target.files[0]);
     }
   };
   const pickCreateFile = (e) => {
@@ -24,10 +26,10 @@ const CreateFun = () => {
   };
 
   const removeFile = () => {
-      setImage("")
-  }
+    setImage("");
+  };
 
-  return { pickFile, image, removeFile, pickCreateFile, createImage };
+  return { pickFile, image, removeFile, pickCreateFile, createImage, file };
 };
 
 export default CreateFun;

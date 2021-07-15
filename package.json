@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@openzeppelin/contracts": "^4.2.0",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -12,8 +13,11 @@
     "@walletconnect/qrcode-modal": "^1.5.0-rc.7",
     "antd": "^4.15.1",
     "aos": "^2.3.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
     "fortmatic": "^2.2.1",
     "identicon.js": "^2.3.3",
+    "ipfs-http-client": "^50.1.2",
     "react": "^17.0.2",
     "react-content-loader": "^6.0.3",
     "react-dom": "^17.0.2",
@@ -27,6 +31,7 @@
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "truffle-hdwallet-provider": "^1.0.17",
     "web-vitals": "^1.1.1",
     "web3": "^1.4.0"
   },
