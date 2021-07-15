@@ -1,60 +1,43 @@
 import { Input, Form } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import DialogFun from "../../functions/DialogFun";
 import ConfirmCreateDialog from "../Dialogs/ConfirmCreateDialog";
 import Web3 from "web3";
 import { web3 } from "../../constants/constants";
 import { METAMASK_RECEIVER_ACCOUNT } from "../../constants/constants";
+import { postContract } from "../../contractDetails/post";
+import { list } from "../../contractDetails/list";
 import "./SingleForm.css";
+import ipfs from "../../functions/Ipfs";
 const StoreHash = require("./../../abis/StoreHash.json");
-import { create } from "ipfs-http-client";
-const client = create("https://ipfs.infura.io:5001/api/v0");
 
-const SingleForm = ({ type, nameChange, selectedFile }) => {
+const SingleForm = ({ type, nameChange, imagehash }) => {
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
-
-  const submitData = () => {
-    console.log("myweb3", web3);
-    // web3 = new Web3(web3.currentProvider);
-    // console.log("myweb2", web3);
-    const contract = new web3.eth.Contract(
-      StoreHash.abi,
-      "0xA57c6519b73510361f3B51F2cdF583c8be7AED35"
-    );
-    contract.methods
-      .getHash()
-      .call()
-      .then(function (info) {
-        console.log("info: ", info);
-      });
-    // contract.methods
-    //   .getInfo()
-    //   .call({ from: "0x572714280e8f3590ad133cD3388A97a1AB595909" })
-    //   .then(function (info) {
-    //     console.log("info: ", info);
-    //   });
-    console.log("contract", contract);
-    // toggleConfirmDialog();
+  const submitData = async () => {
+    // console.log("im", imagehash);
   };
   const onFinishFailed = (errorInfo) => {
     //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
-    return false;
-    console.log("selected", selectedFile);
-    console.log("Success:", values);
+    const contract = await postContract();
+    const accounts = await web3.eth.getAccounts();
     try {
       const doc = JSON.stringify({
-        file: selectedFile,
+        file: `https://ipfs.infura.io/ipfs/${imagehash}`,
         ...values,
       });
-      const obj = {
-        file: selectedFile,
-        ...values,
-      };
-      console.log("doc", obj);
-      const added = await client.add(selectedFile);
-      console.log("added", added);
+      const added = await ipfs.add(doc);
+      contract.methods.createProduct(added.path).send(
+        {
+          from: accounts[0],
+        },
+        (error, transactionHash) => {
+          console.log(transactionHash);
+          toggleConfirmDialog();
+          // this.setState({ transactionHash });
+        }
+      );
       // const url = `https://ipfs.infura.io/ipfs/${added.path}`
       //  updateFileUrl(url)
     } catch (error) {

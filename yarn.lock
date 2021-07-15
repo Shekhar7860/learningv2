@@ -11505,6 +11505,13 @@
   dependencies:
     "asap" "~2.0.6"
 
+"promisify@^0.0.3":
+  "integrity" "sha1-dU22HynuZHarVDxFtGTSH171VoY="
+  "resolved" "https://registry.npmjs.org/promisify/-/promisify-0.0.3.tgz"
+  "version" "0.0.3"
+  dependencies:
+    "when" ""
+
 "prompts@^2.0.1", "prompts@2.4.0":
   "integrity" "sha512-awZAKrk3vN6CroQukBL+R9051a4R3zCZBlJm/HBfrSZ8iTpYix3VX1vU4mveiLpiwmOJT4wokTF9m6HUk4KqWQ=="
   "resolved" "https://registry.npmjs.org/prompts/-/prompts-2.4.0.tgz"
@@ -15515,6 +15522,11 @@
     "lodash" "^4.7.0"
     "tr46" "^2.0.2"
     "webidl-conversions" "^6.1.0"
+
+"when@":
+  "integrity" "sha1-xxMLan6gRpPoQs3J56Hyqjmjn4I="
+  "resolved" "https://registry.npmjs.org/when/-/when-3.7.8.tgz"
+  "version" "3.7.8"
 
 "which-boxed-primitive@^1.0.2":
   "integrity" "sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg=="

@@ -796,10 +796,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        201,
-                        202
+                        297,
+                        298
                       ],
-                      "referencedDeclaration": 201,
+                      "referencedDeclaration": 297,
                       "src": "608:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -890,10 +890,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        201,
-                        202
+                        297,
+                        298
                       ],
-                      "referencedDeclaration": 201,
+                      "referencedDeclaration": 297,
                       "src": "683:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1052,7 +1052,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 198,
+                            "referencedDeclaration": 294,
                             "src": "864:3:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -1201,7 +1201,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 198,
+                          "referencedDeclaration": 294,
                           "src": "969:3:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2053,10 +2053,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                201,
-                                202
+                                297,
+                                298
                               ],
-                              "referencedDeclaration": 201,
+                              "referencedDeclaration": 297,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -2207,10 +2207,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                201,
-                                202
+                                297,
+                                298
                               ],
-                              "referencedDeclaration": 201,
+                              "referencedDeclaration": 297,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -2483,7 +2483,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 198,
+                                      "referencedDeclaration": 294,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -2640,7 +2640,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 198,
+                                  "referencedDeclaration": 294,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2706,7 +2706,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-15T01:21:07.423Z",
+  "updatedAt": "2021-07-15T19:54:04.828Z",
   "devdoc": {
     "methods": {}
   },

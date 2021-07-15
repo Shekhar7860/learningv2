@@ -11,7 +11,7 @@ import CreateCollectionDialog from "../Dialogs/CreateCollectionDialog";
 import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 
 const CreateSingle = () => {
-  const { pickFile, image, removeFile, file } = CreateFun();
+  const { pickFile, image, removeFile, hash } = CreateFun();
   const [sale, setSale] = useState(false);
   const [instant, setInstant] = useState(false);
   const [unlock, setUnlock] = useState(false);
@@ -170,7 +170,7 @@ const CreateSingle = () => {
             </div>
           </div>
         </div>
-        <SingleForm nameChange={nameChange} type={"S"} selectedFile={file} />
+        <SingleForm nameChange={nameChange} type={"S"} imagehash={hash} />
       </div>
       <CreateCollectionDialog
         modalVisible={createCollDialog}
