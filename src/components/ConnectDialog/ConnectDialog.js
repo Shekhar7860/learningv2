@@ -68,8 +68,6 @@ const ConnectDialog = ({
     // console.log("web3", web3);
     const ethereum = typeof window != undefined ? window.ethereum : {};
     const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
-    console.log("dd", web3);
-    web3.currentProvider.enable();
     if (ethereum !== undefined) {
       await window.ethereum.request({ method: "eth_requestAccounts" });
     } else {
@@ -82,7 +80,9 @@ const ConnectDialog = ({
     if (accounts.length > 0) {
       balance = await web3.eth.getBalance(accounts[0]);
       balance = web3.utils.fromWei(balance, "ether");
+      balance = parseFloat(balance).toFixed(4);
     }
+
     setUserData({ account: accounts[0], balance });
     if (window.localStorage.getItem("loggedIn") == null) {
       if (accounts[0].length > 0) {

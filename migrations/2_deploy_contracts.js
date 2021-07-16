@@ -1,8 +1,7 @@
-// const StoreHash = artifacts.require("StoreHash");
 var Posts = artifacts.require("../src/contracts/Posts.sol");
-// import {StoreHash} from '../src/contracts/StoreHash.sol'
+var Items = artifacts.require("../src/contracts/Items.sol");
 module.exports = function (deployer) {
-  deployer.deploy(Posts);
+  deployer.deploy(Items);
 };
 // module.exports = function (deployer) {
 //   deployer.deploy(StoreHash);

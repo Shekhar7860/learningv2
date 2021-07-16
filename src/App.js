@@ -15,48 +15,53 @@ import HowItWork from "./containers/HowItWork/HowItWork";
 import Support from "./containers/Support/Support";
 import Discussion from "./containers/Discussion/Discussion";
 import SellPage from "./containers/SellPage/SellPage";
-import AutoPlayFun from "./functions/AutoPlayFun";
+import { useEffect } from "react";
+import { initializeWeb3 } from "./constants/constants";
 
 function App() {
+  useEffect(() => {
+    initializeWeb3();
+  }, []);
+
   return (
     <div className="App">
       <Router>
         <Route path="/" exact>
-        <Navbar />
+          <Navbar />
           <Home />
           <Footer />
         </Route>
         <Route path="/my-items">
-        <Navbar />
+          <Navbar />
           <MyItems />
           <Footer />
         </Route>
         <Route path="/following">
-        <Navbar />
+          <Navbar />
           <Following />
           <Footer />
         </Route>
         <Route path="/activity">
-        <Navbar />
+          <Navbar />
           <Activity />
         </Route>
         <Route path="/token" exact>
-        <Navbar />
+          <Navbar />
           <TokenPage />
           <Footer />
         </Route>
         <Route path="/create/single">
-        <Navbar />
+          <Navbar />
           <Create type={"S"} />
           <Footer />
         </Route>
         <Route path="/create/multiple">
-        <Navbar />
+          <Navbar />
           <Create type={"M"} />
           <Footer />
         </Route>
         <Route path="/edit">
-        <Navbar />
+          <Navbar />
           <EditProfile />
           <Footer />
         </Route>
@@ -65,7 +70,7 @@ function App() {
           <SellPage />
         </Route>
         <Route path="/search">
-        <Navbar />
+          <Navbar />
           <SearchPage />
         </Route>
         <Route path="/how-it-work">

@@ -1,12 +1,17 @@
-.sale-list{
-    display: flex;
-    flex-wrap: wrap;
-    margin: -12px;
-    margin-top: 8px;
+.sale-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -12px;
+  margin-top: 8px;
+}
+.center-align {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
 }
 
 @media only screen and (max-width: 450px) {
-    .sale-list {
-        display: block;
-    }
+  .sale-list {
+    display: block;
+  }
 }

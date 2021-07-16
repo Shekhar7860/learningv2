@@ -1,46 +1,7 @@
 // import React, { useEffect } from "react";
-import { getCodeFromData } from "interface-ipld-format/node_modules/multicodec/src/";
-import { error } from "loglevel";
-import React, { useEffect, useState } from "react";
-import { postContract } from "../contractDetails/post";
-import ipfs from "./Ipfs";
 
 const ActivityListFun = () => {
-  const [list, setlist] = useState([]);
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const contract = await postContract();
-    const count = await contract.methods.productCount().call();
-    let products = [...list];
-    for (let i = 1; i <= count; i++) {
-      const product = await contract.methods.products(i).call();
-      const source = ipfs.cat(product.content);
-      let contents = "";
-      const decoder = new TextDecoder("utf-8");
-      for await (const chunk of source) {
-        contents += decoder.decode(chunk, {
-          stream: true,
-        });
-      }
-      contents += decoder.decode();
-      const jsonData = JSON.parse(contents);
-      products.push({
-        preview: jsonData.file,
-        title: jsonData.username,
-        eth: jsonData.royalties,
-        time: jsonData.properties,
-        category: "LISTING",
-        userThumb:
-          "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
-        userId: "pigAndNick AKA MI",
-      });
-    }
-    setlist(products);
-  };
-  const list2 = [
+  const list = [
     {
       preview:
         "https://lh3.googleusercontent.com/huckKGNXG7us6XuES0grg7L6Yy3v02d5KmRBzWRjejde1TPmhRYyoFwcEpO4bhW9bZj_6DbC1SgLLczA8t3UShmn-unwbo8cEV0P=s250",

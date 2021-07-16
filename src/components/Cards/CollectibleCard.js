@@ -117,12 +117,12 @@ const CollectibleCard = ({ card }) => {
       <div className="collectible-main-content">
         <div className="collectible-footer">
           <div className="collectible-content">
-            <h2 onClick={() => goToSellPage(card)}>VIBE Zone 2.0</h2>
+            <h2 onClick={() => goToSellPage(card)}>{card.title}</h2>
             <h3>
               Auction <span>1 of 1</span>
             </h3>
             <p>
-              Bid <span>3.4 SNFT</span>
+              Bid <span>{card.eth} SNFT</span>
             </p>
           </div>
           <div className="collectible-more-icon">
