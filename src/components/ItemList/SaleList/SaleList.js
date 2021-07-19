@@ -133,7 +133,6 @@ const SaleList = () => {
       }
       contents += decoder.decode();
       const jsonData = JSON.parse(contents);
-      console.log("json", jsonData);
       products.push({
         url: jsonData.file,
         multiple: false,
@@ -145,6 +144,7 @@ const SaleList = () => {
         userThumb:
           "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
         userId: accounts[0],
+        fileType: jsonData.fileType,
       });
     }
     setItems(products);

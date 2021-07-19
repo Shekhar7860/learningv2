@@ -11,7 +11,7 @@ import CreateCollectionDialog from "../Dialogs/CreateCollectionDialog";
 import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 
 const CreateSingle = () => {
-  const { pickFile, image, removeFile, hash } = CreateFun();
+  const { pickFile, image, removeFile, hash, fileType } = CreateFun();
   const [sale, setSale] = useState(false);
   const [instant, setInstant] = useState(false);
   const [unlock, setUnlock] = useState(false);
@@ -32,7 +32,6 @@ const CreateSingle = () => {
     confCollectionDialog,
     toggleConfCollDialog,
   } = DialogFun();
-
   return (
     <div className="create-single-container">
       <Preview
@@ -41,6 +40,7 @@ const CreateSingle = () => {
         unlock={unlock}
         name={name}
         image={image}
+        fileType={fileType}
       />
       <div className="create-single-upload">
         <h1>Create Single Collectible</h1>
@@ -50,7 +50,13 @@ const CreateSingle = () => {
             {image !== "" ? (
               <div>
                 <CloseCircleFilled onClick={removeFile} />
-                <img src={image} alt="picked file" />
+                {fileType.type == "video" ? (
+                  <video width="400" controls>
+                    <source src={image} />
+                  </video>
+                ) : (
+                  <img src={image} alt="picked file" />
+                )}
               </div>
             ) : (
               <div className="upload-input">
@@ -170,7 +176,7 @@ const CreateSingle = () => {
             </div>
           </div>
         </div>
-        <SingleForm nameChange={nameChange} type={"S"} imagehash={hash} />
+        <SingleForm nameChange={nameChange} type={fileType} imagehash={hash} />
       </div>
       <CreateCollectionDialog
         modalVisible={createCollDialog}

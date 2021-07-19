@@ -79,7 +79,6 @@ const CollectibleCard = ({ card }) => {
   };
 
   const [thumb, setThumb] = useState("");
-
   return (
     <div className="collectible-item">
       <div
@@ -89,7 +88,26 @@ const CollectibleCard = ({ card }) => {
         className="collectible-preview"
         onClick={() => goToSellPage(card)}
       >
-        {card.image ? (
+        {card.fileType != undefined ? (
+          card.fileType.type == "video" ? (
+            <video width="100%" height={"250"} controls>
+              <source src={card.url} type={card.fileType.fileType} />
+            </video>
+          ) : (
+            <img
+              className="collectible-img"
+              src={card.url}
+              alt="collectible preview"
+            />
+          )
+        ) : (
+          <img
+            className="collectible-img"
+            src={card.url}
+            alt="collectible preview"
+          />
+        )}
+        {/* {card.image ? (
           <img
             className="collectible-img"
             src={card.url}
@@ -112,7 +130,7 @@ const CollectibleCard = ({ card }) => {
               url={card.url}
             />
           </div>
-        )}
+        )} */}
       </div>
       <div className="collectible-main-content">
         <div className="collectible-footer">

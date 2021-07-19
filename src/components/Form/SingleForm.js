@@ -45,12 +45,15 @@ const SingleForm = ({ type, nameChange, imagehash }) => {
     //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
+    //  console.log("image hash", `https://ipfs.infura.io/ipfs/${imagehash}`);
+    // return false;
     toggleConfirmDialog();
     const contract = await postContract();
     const accounts = await web3.eth.getAccounts();
     try {
       const doc = JSON.stringify({
         file: `https://ipfs.infura.io/ipfs/${imagehash}`,
+        fileType: type,
         ...values,
       });
       const added = await ipfs.add(doc);
