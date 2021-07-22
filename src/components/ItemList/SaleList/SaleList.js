@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CollectibleCard from "../../Cards/CollectibleCard";
 import { postContract } from "../../../contractDetails/item";
+import { postCollectible } from "../../../contractDetails/erc1155";
 import "./SaleList.css";
 import { web3 } from "../../../constants/constants";
 import ipfs from "../../../functions/Ipfs";
+import { contents } from "../../../functions/ipfsContents";
 import { Spin } from "antd";
 const itemsold = [
   {
@@ -108,7 +110,7 @@ const itemsold = [
   },
 ];
 
-const SaleList = () => {
+const SaleList = ({ onCallBack }) => {
   const [items, setItems] = useState([]);
   useEffect(() => {
     getData();
@@ -118,21 +120,14 @@ const SaleList = () => {
     const accounts = await web3.eth.getAccounts();
     // communicating with ethereum blockchain database
     const contract = await postContract();
+    const collectTableContract = await postCollectible();
     const count = await contract.methods.productCount().call();
     let products = [...items];
     for (let i = 1; i <= count; i++) {
       const product = await contract.methods.products(i).call();
       // accessing data from ipfs has
-      const source = ipfs.cat(product.name);
-      let contents = "";
-      const decoder = new TextDecoder("utf-8");
-      for await (const chunk of source) {
-        contents += decoder.decode(chunk, {
-          stream: true,
-        });
-      }
-      contents += decoder.decode();
-      const jsonData = JSON.parse(contents);
+      const ipfsData = await contents(product.name);
+      const jsonData = JSON.parse(ipfsData);
       products.push({
         url: jsonData.file,
         multiple: false,
@@ -147,7 +142,43 @@ const SaleList = () => {
         fileType: jsonData.fileType,
       });
     }
+    await collectTableContract.methods
+      .getTokensOfERC1155(accounts[0])
+      .call()
+      .then(async (tokens) => {
+        for (var i = 0; i < tokens.length; i++) {
+          await collectTableContract.methods
+            .ercTokens(tokens[i])
+            .call()
+            .then(async (result) => {
+              const remainingBalance = await collectTableContract.methods
+                .balanceOf(accounts[0], tokens[i])
+                .call();
+              const ipfsData = await contents(result.metaData);
+              const jsonData = JSON.parse(ipfsData);
+              if (result.owner == accounts[0]) {
+                products.push({
+                  balance: remainingBalance,
+                  totalSupply: result.totalSupply,
+                  url: jsonData.file,
+                  multiple: true,
+                  image: true,
+                  title: jsonData.username,
+                  eth: jsonData.royalties,
+                  properties: jsonData.properties,
+                  category: "LISTING",
+                  userThumb:
+                    "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
+                  userId: accounts[0],
+                  fileType: jsonData.fileType,
+                });
+              }
+            });
+        }
+      });
+    console.log("pr", products);
     setItems(products);
+    onCallBack(products);
   };
   return (
     <>

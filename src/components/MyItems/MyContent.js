@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs } from "antd";
 import "./MyContent.css";
 import SaleList from "../ItemList/SaleList/SaleList";
@@ -11,10 +11,12 @@ import MyFilter from "./MyFilter";
 const { TabPane } = Tabs;
 
 const MyContent = () => {
-  const { show, changeDrawer, activeTab, changeTab, key, changeKey } = DrawerControlerFun();
+  const [productsCount, setProductsCount] = useState(0);
+  const { show, changeDrawer, activeTab, changeTab, key, changeKey } =
+    DrawerControlerFun();
 
   const callback = (key) => {
-    changeKey(key)
+    changeKey(key);
     if (key === "6" || key === "7") {
       changeDrawer();
       changeTab(activeTab);
@@ -22,18 +24,20 @@ const MyContent = () => {
       changeTab(key);
     }
   };
-
+  const callBack = (products) => {
+    setProductsCount(products.length);
+  };
   return (
     <div className="my-content">
       <Tabs defaultActiveKey="1" onChange={callback} activeKey={activeTab}>
-        <TabPane tab="On sale(154)" key="1">
-          <SaleList />
+        <TabPane tab={`On sale(${productsCount})`} key="1">
+          <SaleList onCallBack={callBack} />
         </TabPane>
         <TabPane tab="Collectible(23)" key="2">
           <EmptyContent />
         </TabPane>
-        <TabPane tab="Created(23)" key="3">
-          <SaleList />
+        <TabPane tab={`Created(${productsCount})`} key="3">
+          <SaleList onCallBack={callBack} />
         </TabPane>
         <TabPane tab="Liked(543)" key="4">
           <EmptyContent />
@@ -46,17 +50,19 @@ const MyContent = () => {
         </TabPane>
         <TabPane tab="Following(54)" key="6"></TabPane>
         <TabPane tab="Followers(26.5k)" key="7"></TabPane>
-        {key === "6"?
-        <FollowList
-          type={"Following"}
-          show={show}
-          changeDrawer={changeDrawer}
-        />:
-        <FollowList
-          type={"Followers"}
-          show={show}
-          changeDrawer={changeDrawer}
-        />}
+        {key === "6" ? (
+          <FollowList
+            type={"Following"}
+            show={show}
+            changeDrawer={changeDrawer}
+          />
+        ) : (
+          <FollowList
+            type={"Followers"}
+            show={show}
+            changeDrawer={changeDrawer}
+          />
+        )}
       </Tabs>
     </div>
   );

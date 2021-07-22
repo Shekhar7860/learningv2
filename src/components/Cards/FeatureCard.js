@@ -15,25 +15,27 @@ const FeatureCard = ({ card }) => {
 
   const goToProfilePage = () => {
     history.push({
-      pathname: '/my-items',
-      state: 'user'
-    })
-  }
+      pathname: "/my-items",
+      state: "user",
+    });
+  };
 
   return (
     <div className="feature-card" onClick={goToProfilePage}>
-        {loading?<FeatureLoader />:
-      <div>
-        <div className="feature-image">
-          <img src={card.url} alt={card.title} />
+      {loading ? (
+        <FeatureLoader />
+      ) : (
+        <div>
+          <div className="feature-image">
+            <img src={card.url} alt={card.title} />
+          </div>
+          <div className="feature-image-fade"></div>
+          <div className="feature-content">
+            <h3>{card.author !== "" ? `by ${card.author}` : ""}</h3>
+            <h2>{card.title}</h2>
+          </div>
         </div>
-        <div className="feature-image-fade"></div>
-        <div className="feature-content">
-          <h3>{card.author !== "" ? `by ${card.author}` : ""}</h3>
-          <h2>{card.title}</h2>
-        </div>
-      </div>
-      }
+      )}
     </div>
   );
 };

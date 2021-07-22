@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import CreateFun from "../../functions/CreateFun";
 import Preview from "../Preview/Preview";
 import "./CreateSingle.css";
+import { audioUrl } from "../../constants/constants";
 import TokenIcon from "../../assets/png/snft.png";
 import SingleForm from "../Form/SingleForm";
 import DialogFun from "../../functions/DialogFun";
+import ReactPlayer from "react-player";
 import CreateCollectionDialog from "../Dialogs/CreateCollectionDialog";
 import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 
@@ -32,6 +34,7 @@ const CreateSingle = () => {
     confCollectionDialog,
     toggleConfCollDialog,
   } = DialogFun();
+  console.log("audio", audioUrl);
   return (
     <div className="create-single-container">
       <Preview
@@ -51,7 +54,7 @@ const CreateSingle = () => {
               <div>
                 <CloseCircleFilled onClick={removeFile} />
                 {fileType.type == "video" ? (
-                  <video width="400" controls>
+                  <video width="200" controls>
                     <source src={image} />
                   </video>
                 ) : (
@@ -176,7 +179,12 @@ const CreateSingle = () => {
             </div>
           </div>
         </div>
-        <SingleForm nameChange={nameChange} type={fileType} imagehash={hash} />
+        <SingleForm
+          nameChange={nameChange}
+          type={fileType}
+          imagehash={hash}
+          collectionType={"S"}
+        />
       </div>
       <CreateCollectionDialog
         modalVisible={createCollDialog}

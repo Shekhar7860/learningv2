@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BlankImage from "../../assets/svg/blank_card.svg";
 import ReactPlayer from "react-player";
 import "./CollectibleCard.css";
-
+import { audioUrl } from "../../constants/constants";
 const PreviewCard = ({
   image,
   eth,

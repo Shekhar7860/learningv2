@@ -4,10 +4,9 @@ import React from "react";
 import FollowCard from "../../Follower/FollowCard";
 import "./FollowList.css";
 
-const FollowList = ({show, changeDrawer, type}) => {
+const FollowList = ({ show, changeDrawer, type }) => {
   return (
     <div className="follow-list">
-    
       <Drawer
         title={type}
         placement="left"

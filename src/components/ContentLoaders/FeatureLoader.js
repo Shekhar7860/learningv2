@@ -1,11 +1,11 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
-import '../../utils/Colors.css'
+import "../../utils/Colors.css";
 
 const FeatureLoader = (props) => {
   return (
     <ContentLoader
-      viewBox="0 0 100% 100%"
+      // viewBox={"0 0 100% 100%"}
       height="100%"
       width={"100%"}
       backgroundColor="var(--backgroundLoaderColor)"

@@ -7,11 +7,12 @@ import { web3 } from "../../constants/constants";
 import { METAMASK_RECEIVER_ACCOUNT } from "../../constants/constants";
 // import { postContract } from "../../contractDetails/post";
 import { postContract } from "../../contractDetails/item";
+import { postCollectible } from "../../contractDetails/erc1155";
 import "./SingleForm.css";
 import { withRouter } from "react-router-dom";
 import ipfs from "../../functions/Ipfs";
 import { useHistory } from "react-router-dom";
-const SingleForm = ({ type, nameChange, imagehash }) => {
+const SingleForm = ({ type, nameChange, imagehash, collectionType }) => {
   const history = useHistory();
   const childRef = useRef();
   useEffect(() => {
@@ -45,31 +46,58 @@ const SingleForm = ({ type, nameChange, imagehash }) => {
     //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
-    //  console.log("image hash", `https://ipfs.infura.io/ipfs/${imagehash}`);
-    // return false;
-    toggleConfirmDialog();
-    const contract = await postContract();
-    const accounts = await web3.eth.getAccounts();
-    try {
-      const doc = JSON.stringify({
-        file: `https://ipfs.infura.io/ipfs/${imagehash}`,
-        fileType: type,
-        ...values,
-      });
-      const added = await ipfs.add(doc);
-      contract.methods.createProduct(accounts[0], added.path).send(
-        {
-          from: accounts[0],
-        },
-        (error, transactionHash) => {
-          console.log(transactionHash);
-          // this.setState({ transactionHash });
-        }
-      );
-      // const url = `https://ipfs.infura.io/ipfs/${added.path}`
-      //  updateFileUrl(url)
-    } catch (error) {
-      console.log("Error uploading file: ", error);
+    if (collectionType == "S") {
+      toggleConfirmDialog();
+      const contract = await postContract();
+      const accounts = await web3.eth.getAccounts();
+      try {
+        const doc = JSON.stringify({
+          file: `https://ipfs.infura.io/ipfs/${imagehash}`,
+          fileType: type,
+          ...values,
+        });
+        const added = await ipfs.add(doc);
+        contract.methods.createProduct(accounts[0], added.path).send(
+          {
+            from: accounts[0],
+          },
+          (error, transactionHash) => {
+            console.log(transactionHash);
+          }
+        );
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
+    } else {
+      toggleConfirmDialog();
+      const contractMultiple = await postCollectible();
+      const accounts = await web3.eth.getAccounts();
+      try {
+        const doc = JSON.stringify({
+          file: `https://ipfs.infura.io/ipfs/${imagehash}`,
+          fileType: type,
+          ...values,
+        });
+        const added = await ipfs.add(doc);
+        const tx1 = await contractMultiple.methods
+          .create(accounts[0], values.copies, added.path, "0x0")
+          .send({ from: accounts[0] })
+          .once(
+            "receipt",
+            async (receipt) => {
+              console.log("receipt1", receipt.events.URI.returnValues._id);
+              childRef.current.hideLoading();
+              toggleConfirmDialog();
+              setTimeout(() => {
+                history.push("/my-items");
+              }, 1000);
+            },
+            () => {}
+          );
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
+      // console.log("data", contractMultiple);
     }
   };
   return (
@@ -112,16 +140,20 @@ const SingleForm = ({ type, nameChange, imagehash }) => {
             <h3>Royalties</h3>
             <Input placeholder="e.g. 10%" />
           </div>
-          {type === "S" ? (
-            ""
-          ) : (
-            <div className="copy-input">
-              <h3>Number of copies</h3>
-              <Input placeholder="E.g. 10" />
-            </div>
-          )}
         </div>
       </Form.Item>
+      {collectionType == "M" ? (
+        <Form.Item
+          name="copies"
+          rules={[{ required: true, message: "Copies must not be empty" }]}
+        >
+          <div className="copy-input">
+            <h3>Number of copies</h3>
+            <Input placeholder="E.g. 10" />
+          </div>
+        </Form.Item>
+      ) : null}
+
       <Form.Item name="properties">
         <div className="royalti-input">
           <h3>

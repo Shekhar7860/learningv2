@@ -1,0 +1,317 @@
+{
+  "contractName": "ERC1155Metadata_URI",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "uri",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"uri\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"uri(uint256)\":{\"details\":\"URIs are defined in RFC 3986. The URI may point to a JSON file that conforms to the \\\"ERC-1155 Metadata URI JSON Schema\\\".\",\"return\":\"URI string\"}}},\"userdoc\":{\"methods\":{\"uri(uint256)\":{\"notice\":\"A distinct Uniform Resource Identifier (URI) for a given token.\"}},\"notice\":\"Note: The ERC-165 identifier for this interface is 0x0e89341c.\"}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/IERC1155Metadata.sol\":\"ERC1155Metadata_URI\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/IERC1155Metadata.sol\":{\"keccak256\":\"0x481be8f5600867d9902a408c6d4678755117f43a7a9289e51e4aafefeb8b22bc\",\"urls\":[\"bzz-raw://f46ff245e3fe98487dabaa03915a58356df3285741aaf7663fad6cf4334eefd9\",\"dweb:/ipfs/QmUj5Q3XTz81ENd8sdky8Q6DqbAiXDkKoUWEE7aQhny8qj\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n\n/**\n    Note: The ERC-165 identifier for this interface is 0x0e89341c.\n*/\ninterface ERC1155Metadata_URI {\n    /**\n        @notice A distinct Uniform Resource Identifier (URI) for a given token.\n        @dev URIs are defined in RFC 3986.\n        The URI may point to a JSON file that conforms to the \"ERC-1155 Metadata URI JSON Schema\".\n        @return URI string\n    */\n    function uri(uint256 _id) external view returns (string memory);\n}\n",
+  "sourcePath": "/Users/mac15/Desktop/shekhar/learnings-v2 (2)/src/contracts/IERC1155Metadata.sol",
+  "ast": {
+    "absolutePath": "project:/src/contracts/IERC1155Metadata.sol",
+    "exportedSymbols": {
+      "ERC1155Metadata_URI": [
+        3632
+      ]
+    },
+    "id": 3633,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3624,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:20"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "Note: The ERC-165 identifier for this interface is 0x0e89341c.",
+        "fullyImplemented": false,
+        "id": 3632,
+        "linearizedBaseContracts": [
+          3632
+        ],
+        "name": "ERC1155Metadata_URI",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given token.\n@dev URIs are defined in RFC 3986.\nThe URI may point to a JSON file that conforms to the \"ERC-1155 Metadata URI JSON Schema\".\n@return URI string",
+            "id": 3631,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "uri",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3627,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3626,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3631,
+                  "src": "412:11:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3625,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "412:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "411:13:20"
+            },
+            "returnParameters": {
+              "id": 3630,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3629,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3631,
+                  "src": "448:13:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 3628,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "448:6:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "447:15:20"
+            },
+            "scope": 3632,
+            "src": "399:64:20",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3633,
+        "src": "99:366:20"
+      }
+    ],
+    "src": "0:466:20"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/src/contracts/IERC1155Metadata.sol",
+      "exportedSymbols": {
+        "ERC1155Metadata_URI": [
+          3632
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 3624,
+        "name": "PragmaDirective",
+        "src": "0:23:20"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": "Note: The ERC-165 identifier for this interface is 0x0e89341c.",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            3632
+          ],
+          "name": "ERC1155Metadata_URI",
+          "scope": 3633
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": "@notice A distinct Uniform Resource Identifier (URI) for a given token.\n@dev URIs are defined in RFC 3986.\nThe URI may point to a JSON file that conforms to the \"ERC-1155 Metadata URI JSON Schema\".\n@return URI string",
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "uri",
+              "scope": 3632,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_id",
+                      "scope": 3631,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 3625,
+                        "name": "ElementaryTypeName",
+                        "src": "412:7:20"
+                      }
+                    ],
+                    "id": 3626,
+                    "name": "VariableDeclaration",
+                    "src": "412:11:20"
+                  }
+                ],
+                "id": 3627,
+                "name": "ParameterList",
+                "src": "411:13:20"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 3631,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 3628,
+                        "name": "ElementaryTypeName",
+                        "src": "448:6:20"
+                      }
+                    ],
+                    "id": 3629,
+                    "name": "VariableDeclaration",
+                    "src": "448:13:20"
+                  }
+                ],
+                "id": 3630,
+                "name": "ParameterList",
+                "src": "447:15:20"
+              }
+            ],
+            "id": 3631,
+            "name": "FunctionDefinition",
+            "src": "399:64:20"
+          }
+        ],
+        "id": 3632,
+        "name": "ContractDefinition",
+        "src": "99:366:20"
+      }
+    ],
+    "id": 3633,
+    "name": "SourceUnit",
+    "src": "0:466:20"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-07-21T07:48:58.982Z",
+  "devdoc": {
+    "methods": {
+      "uri(uint256)": {
+        "details": "URIs are defined in RFC 3986. The URI may point to a JSON file that conforms to the \"ERC-1155 Metadata URI JSON Schema\".",
+        "return": "URI string"
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "uri(uint256)": {
+        "notice": "A distinct Uniform Resource Identifier (URI) for a given token."
+      }
+    },
+    "notice": "Note: The ERC-165 identifier for this interface is 0x0e89341c."
+  }
+}

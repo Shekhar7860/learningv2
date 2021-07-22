@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Modal } from "antd";
 import "./CreateDialog.css";
 import SingleIcon from "../../assets/svg/single_card.svg";
@@ -6,21 +6,21 @@ import MultipleIcon from "../../assets/svg/multiple_card.svg";
 import CreateDialogFun from "../../functions/CreateDialogFun";
 
 const CreateDialog = ({ modalVisible, showCreateDialog }) => {
-
-    const { goToSingleItem, goToMultipleItem } = CreateDialogFun();
-
-    const goToSingle = () => {
-      showCreateDialog();
-      goToSingleItem();
-    }
-    const goToMultiple = () => {
-      showCreateDialog();
-      goToMultipleItem();
-    }
+  const nodeRef = useRef(null);
+  const { goToSingleItem, goToMultipleItem } = CreateDialogFun();
+  const goToSingle = () => {
+    showCreateDialog();
+    goToSingleItem();
+  };
+  const goToMultiple = () => {
+    showCreateDialog();
+    goToMultipleItem();
+  };
 
   return (
     <div>
       <Modal
+        nodeRef={nodeRef}
         title="Create Collection"
         style={{ top: 50 }}
         visible={modalVisible}
@@ -28,7 +28,7 @@ const CreateDialog = ({ modalVisible, showCreateDialog }) => {
         onCancel={showCreateDialog}
         footer={[]}
       >
-        <div className="create-dialog">
+        <div className="create-dialog" ref={nodeRef}>
           <h3>
             Choose “Single” if you want your collectible to be one of a kind or
             “Multiple” if you want to sell one collectible multiple times

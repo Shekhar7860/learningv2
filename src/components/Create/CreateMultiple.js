@@ -1,6 +1,6 @@
 import { CloseCircleFilled, PlusOutlined } from "@ant-design/icons";
 import { Input, Select, Switch, Form } from "antd";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import CreateFun from "../../functions/CreateFun";
 import Preview from "../Preview/Preview";
 import "./CreateSingle.css";
@@ -10,9 +10,8 @@ import DialogFun from "../../functions/DialogFun";
 import CreateCollectionDialog from "../Dialogs/CreateCollectionDialog";
 import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 
-
 const CreateMultiple = () => {
-  const { pickFile, image, removeFile } = CreateFun();
+  const { pickFile, image, removeFile, hash, fileType } = CreateFun();
 
   const [sale, setSale] = useState(false);
   const [instant, setInstant] = useState(false);
@@ -43,6 +42,7 @@ const CreateMultiple = () => {
         unlock={unlock}
         name={name}
         image={image}
+        fileType={fileType}
       />
       <div className="create-single-upload">
         <h1>Create Multiple Collectible</h1>
@@ -52,7 +52,13 @@ const CreateMultiple = () => {
             {image !== "" ? (
               <div>
                 <CloseCircleFilled onClick={removeFile} />
-                <img src={image} alt="picked file" />
+                {fileType.type == "video" ? (
+                  <video width="200" controls>
+                    <source src={image} />
+                  </video>
+                ) : (
+                  <img src={image} alt="picked file" />
+                )}
               </div>
             ) : (
               <div className="upload-input">
@@ -172,7 +178,12 @@ const CreateMultiple = () => {
             </div>
           </div>
         </div>
-        <SingleForm nameChange={nameChange} type={"M"} />
+        <SingleForm
+          nameChange={nameChange}
+          type={fileType}
+          imagehash={hash}
+          collectionType={"M"}
+        />
       </div>
       <CreateCollectionDialog
         modalVisible={createCollDialog}

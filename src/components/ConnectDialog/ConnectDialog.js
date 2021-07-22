@@ -103,7 +103,7 @@ const ConnectDialog = ({
     const fm = new Fortmatic(FORMATIC_API_KEY);
     web3 = new Web3(fm.getProvider());
     const accounts = await web3.eth.getAccounts();
-    console.log("fm", accounts);
+    // console.log("fm", accounts);
   };
 
   return (

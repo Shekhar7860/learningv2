@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ipfs from "./Ipfs";
+import { audioUrl } from "../constants/constants";
 const CreateFun = () => {
   const [image, setImage] = useState("");
   const [createImage, setCreateImage] = useState("");
@@ -8,7 +9,6 @@ const CreateFun = () => {
 
   const pickFile = async (e) => {
     let file = e.target.files[0];
-    console.log("file", file);
     let fileSize = file.size / 1048576;
     if (fileSize > 30) {
       alert("File exceeds the maximum size 30MB");
@@ -19,19 +19,20 @@ const CreateFun = () => {
     }
     if (file.type.indexOf("image") > -1) {
       setFileType({ type: "image", fileType: file.type });
+      if (e.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          setImage(e.target.result);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
     }
     if (file.type.indexOf("audio") > -1) {
       setFileType({ type: "audio", fileType: file.type });
+      setImage(audioUrl);
     }
-    if (e.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-      const result = await ipfs.add(e.target.files[0]);
-      setHash(result.path);
-    }
+    const result = await ipfs.add(e.target.files[0]);
+    setHash(result.path);
   };
   const pickCreateFile = (e) => {
     if (e.target.files[0]) {

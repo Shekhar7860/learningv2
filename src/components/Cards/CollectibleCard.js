@@ -10,7 +10,7 @@ import ShareDialog from "../Dialogs/ShareDialog";
 import ThanksDialog from "../Dialogs/ThanksDialog";
 import ReactPlayer from "react-player";
 import VideoThumbnail from "react-video-thumbnail";
-
+import { audioUrl } from "../../constants/constants";
 import "./CollectibleCard.css";
 import { VideocamOutlined } from "@material-ui/icons";
 
@@ -77,7 +77,6 @@ const CollectibleCard = ({ card }) => {
     //   img.style.visibility = "hidden"
     // }
   };
-
   const [thumb, setThumb] = useState("");
   return (
     <div className="collectible-item">
@@ -93,6 +92,17 @@ const CollectibleCard = ({ card }) => {
             <video width="100%" height={"250"} controls>
               <source src={card.url} type={card.fileType.fileType} />
             </video>
+          ) : card.fileType.type == "audio" ? (
+            <>
+              <audio style={{ width: 200 }} controls>
+                <source src={card.url} type={card.fileType.fileType} />
+              </audio>
+              <img
+                className="collectible-img"
+                src={audioUrl}
+                alt="collectible preview"
+              />
+            </>
           ) : (
             <img
               className="collectible-img"
@@ -100,6 +110,10 @@ const CollectibleCard = ({ card }) => {
               alt="collectible preview"
             />
           )
+        ) : card.image == false ? (
+          <video width="100%" height={"250"} controls>
+            <source src={card.url} type={"video/mp4"} />
+          </video>
         ) : (
           <img
             className="collectible-img"
@@ -140,7 +154,12 @@ const CollectibleCard = ({ card }) => {
               Auction <span>1 of 1</span>
             </h3>
             <p>
-              Bid <span>{card.eth} SNFT</span>
+              Bid <span>{card.eth} SNFT</span>{" "}
+              {card.multiple && (
+                <span>
+                  {card.balance}/{card.totalSupply}
+                </span>
+              )}
             </p>
           </div>
           <div className="collectible-more-icon">
