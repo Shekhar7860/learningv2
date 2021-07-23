@@ -14,7 +14,7 @@ import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 
 const CreateSingle = () => {
   const { pickFile, image, removeFile, hash, fileType } = CreateFun();
-  const [sale, setSale] = useState(false);
+  const [sale, setSale] = useState(true);
   const [instant, setInstant] = useState(false);
   const [unlock, setUnlock] = useState(false);
   const [price, setPrice] = useState("");
@@ -34,7 +34,7 @@ const CreateSingle = () => {
     confCollectionDialog,
     toggleConfCollDialog,
   } = DialogFun();
-  console.log("audio", audioUrl);
+
   return (
     <div className="create-single-container">
       <Preview
@@ -82,7 +82,7 @@ const CreateSingle = () => {
               <p>You'll receive bids on this item</p>
             </div>
             <Switch
-              defaultChecked={false}
+              defaultChecked={true}
               onChange={(checked) => {
                 setSale(checked);
               }}
@@ -184,6 +184,7 @@ const CreateSingle = () => {
           type={fileType}
           imagehash={hash}
           collectionType={"S"}
+          sale={sale}
         />
       </div>
       <CreateCollectionDialog

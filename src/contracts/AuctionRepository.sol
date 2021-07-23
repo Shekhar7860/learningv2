@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
-import "./Items.sol";
 pragma experimental ABIEncoderV2;
 
+import "./Artabia.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 /**
  * @title Auction Repository
@@ -9,14 +9,16 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
  * Moreover, it includes the basic functionalities of an auction house
  */
 
-contract AuctionContract {
+contract AuctionRepository {
     using SafeMath for uint;
     // Array with all auctions
     Auction[] public auctions;
-    
-    Items public NFTContract;
+
     // Mapping from auction index to user bids
     mapping(uint256 => Bid[]) public auctionBids;
+
+    Artabia public NFTContract;
+
     // Mapping from owner to a list of owned auctions
     mapping(address => uint256[]) public auctionOwner;
 
@@ -63,6 +65,7 @@ contract AuctionContract {
     }
 
       constructor(address _NFTAddress) public {
+      NFTContract = Artabia(_NFTAddress);
   }
 
     /**
@@ -79,7 +82,14 @@ contract AuctionContract {
      * @param _deedRepositoryAddress address of the deed repository to validate from
      * @param _productId uint256 ID of the deed which has been registered in the deed repository
      */
- 
+    modifier contractIsProductOwner(
+        address _deedRepositoryAddress,
+        uint256 _productId
+    ) {
+        address productOwner = Artabia(_deedRepositoryAddress).ownerOf(_productId);
+        require(productOwner == msg.sender);
+        _;
+    }
 
     /**
      * @dev Disallow payments to this contract directly
@@ -239,7 +249,43 @@ contract AuctionContract {
      * @param _endDate uint256 starting price of the auction
      * @return bool whether the auction is created
      */
-    
+    function createAuction(
+        address _deedRepositoryAddress,
+        uint256 _productId,
+        string memory _auctionTitle,
+        string memory _metadata,
+        uint256 _startPrice,
+        uint256 _endPrice,
+        uint256 _startDate,
+        uint256 _endDate,
+        uint256 _royalityFee
+    ) public  contractIsProductOwner(_deedRepositoryAddress, _productId) returns (bool) {
+        uint256 auctionId = auctions.length;
+        Auction memory newAuction;
+        newAuction.id = auctionId;
+        newAuction.name = _auctionTitle;
+        newAuction.startPrice = _startPrice;
+        newAuction.endPrice = _endPrice;
+        newAuction.metadata = _metadata;
+        newAuction.productId = _productId;
+        newAuction.deedRepositoryAddress = _deedRepositoryAddress;
+        newAuction.owner = msg.sender;
+        newAuction.active = true;
+        newAuction.royalityFee = _royalityFee;
+        newAuction.startDate = _startDate;
+        newAuction.endDate = _endDate;
+
+        auctions.push(newAuction);
+        auctionOwner[msg.sender].push(auctionId);
+
+        
+        //  (bool success, bytes memory result) = _deedRepositoryAddress.delegatecall(abi.encodeWithSignature("products(uint256)",_productId));
+
+        
+
+        emit AuctionCreated(msg.sender, auctionId );
+        return true;
+    }
 
    
     /**
@@ -249,7 +295,61 @@ contract AuctionContract {
      * @param _auctionId uint ID of the created auction
      @param _endDate uint ID of the created auction
      */
-    
+    function finalizeAuction(uint256 _auctionId,uint256 _endDate) public {
+        Auction memory myAuction = auctions[_auctionId];
+        uint256 bidsLength = auctionBids[_auctionId].length;
+
+        require(myAuction.owner == msg.sender);
+        
+        ( uint256 id, string memory name, address payable owner, address payable creator, uint256 price, uint256 royaltyFee, uint256 webFee) = NFTContract.products(myAuction.productId); 
+        
+
+      
+
+        // 1. if auction not ended just revert
+        // if (block.timestamp < myAuction.blockDeadline) revert();
+
+        // if there are no bids cancel
+        if (bidsLength == 0) {
+            // cancelAuction(_auctionId);
+        } else {
+            // 2. the money goes to the auction owner
+            Bid memory lastBid = auctionBids[_auctionId][bidsLength - 1];
+            // (bool resp, bytes memory data) = myAuction.deedRepositoryAddress.delegatecall(abi.encodeWithSignature("div(uint256,uint256)", 25, 1000));
+            // uint256 webOwnerAmount = mul(div(25,1000) , lastBid.amount);
+            // uint256 AuctionOwnerAmount = sub(lastBid.amount , webOwnerAmount);
+            //  if (!_webOwner.send(lastBid.webOwnedAmount)) {
+            //     revert();
+            // }
+            // if (!myAuction.owner.send(lastBid.auctionOwnerAmount)) {
+            //     revert();
+            // }
+           
+            uint256 remaining = lastBid.amount.sub(lastBid.amount.div(100).mul(royaltyFee)+lastBid.amount.div(100).mul(webFee));
+            if (!owner.send(remaining)) {
+                revert();
+            }
+            if (!creator.send(lastBid.amount.div(100).mul(royaltyFee))) {
+                revert();
+            }
+
+            // require(NFTContract.ownerOf(myAuction.productId) == msg.sender, "NOT OWNER");
+            // NFTContract.approve(address(this) to, uint256 tokenId)(msg.sender, address(this));
+            // NFTContract.setApprovalForAll(address(this), true);
+            // NFTContract.safeTransferFrom( msg.sender, lastBid.from , myAuction.productId);
+
+            // approve and transfer from this contract to the bid winner
+              // approve and transfer from this contract to the bid winner 
+            // if(approveAndTransfer(address(this), lastBid.from, myAuction.deedRepositoryAddress, myAuction.productId)){
+                if(true){
+                auctions[_auctionId].active = false;
+                auctions[_auctionId].endPrice = lastBid.amount;
+                auctions[_auctionId].endDate = _endDate;    
+                emit AuctionFinalized(msg.sender, _auctionId, lastBid.from, myAuction.productId );
+                // emit Contract( id, name, owner, price,royaltyFee);
+            }
+        }
+    }
 
        /**
      * @dev Finalized an ended auction
@@ -303,9 +403,9 @@ contract AuctionContract {
 
         // owner can't bid on their auctions
         Auction memory myAuction = auctions[_auctionId];
-        // if (myAuction.owner == msg.sender) {
-        //      revert();
-        // }
+        if (myAuction.owner == msg.sender) {
+             revert();
+        }
 
         // if auction is expired
         // if (block.timestamp > myAuction.blockDeadline) revert();

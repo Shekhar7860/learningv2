@@ -16,10 +16,13 @@ const BidDialog = ({ modalVisible, toggleDialog, check, data }) => {
     const contract = await auctionContract();
     console.log("ether", ether);
     await contract.methods
-      .bidOnAuction(1)
+      .bidOnAuction(0)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
         console.log("auction bid", val);
+      })
+      .then(async (error) => {
+        console.log("auction bid", error);
       });
     // setLoading(true);
     // setTimeout(() => {

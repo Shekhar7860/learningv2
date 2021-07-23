@@ -12,7 +12,7 @@ import "./SingleForm.css";
 import { withRouter } from "react-router-dom";
 import ipfs from "../../functions/Ipfs";
 import { useHistory } from "react-router-dom";
-const SingleForm = ({ type, nameChange, imagehash, collectionType }) => {
+const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
   const history = useHistory();
   const childRef = useRef();
   useEffect(() => {
@@ -153,18 +153,37 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType }) => {
           </div>
         </Form.Item>
       ) : null}
-
-      <Form.Item name="properties">
-        <div className="royalti-input">
-          <h3>
-            Properties <span>(Optional)</span>
-          </h3>
-          <Input.Group className="input-group">
-            <Input placeholder="e.g. Size" />
-            <Input placeholder="e.g. M" />
-          </Input.Group>
-        </div>
-      </Form.Item>
+      {sale == true ? (
+        <Form.Item
+          name="bid"
+          rules={[
+            {
+              required: true,
+              message: "Bid Is Required",
+            },
+          ]}
+        >
+          <div className="royalti-input">
+            <h3>Minimum Bid</h3>
+            <Input placeholder="e.g. 0.1 ETH" />
+          </div>
+        </Form.Item>
+      ) : (
+        <Form.Item
+          name="price"
+          rules={[
+            {
+              required: true,
+              message: "Price Is Required",
+            },
+          ]}
+        >
+          <div className="royalti-input">
+            <h3>Price</h3>
+            <Input placeholder="e.g. 0.1 ETH" />
+          </div>
+        </Form.Item>
+      )}
       <Form.Item>
         <button onClick={submitData}>Submit</button>
       </Form.Item>

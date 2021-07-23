@@ -14,11 +14,13 @@ const CreateFun = () => {
       alert("File exceeds the maximum size 30MB");
       return;
     }
-    if (file.type.indexOf("video") > -1) {
-      setFileType({ type: "video", fileType: file.type });
-    }
-    if (file.type.indexOf("image") > -1) {
-      setFileType({ type: "image", fileType: file.type });
+    if (file.type.indexOf("image") > -1 || file.type.indexOf("video") > -1) {
+      if (file.type.indexOf("video") > -1) {
+        setFileType({ type: "video", fileType: file.type });
+      }
+      if (file.type.indexOf("image") > -1) {
+        setFileType({ type: "image", fileType: file.type });
+      }
       if (e.target.files[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
