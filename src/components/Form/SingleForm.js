@@ -1,40 +1,75 @@
 import { Input, Form } from "antd";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import DialogFun from "../../functions/DialogFun";
 import ConfirmCreateDialog from "../Dialogs/ConfirmCreateDialog";
+import Web3 from "web3";
 import { web3 } from "../../constants/constants";
 import { METAMASK_RECEIVER_ACCOUNT } from "../../constants/constants";
+// import { postContract } from "../../contractDetails/post";
+import { postContract } from "../../contractDetails/item";
 import "./SingleForm.css";
-
-const SingleForm = ({ type, nameChange }) => {
+import { withRouter } from "react-router-dom";
+import ipfs from "../../functions/Ipfs";
+import { useHistory } from "react-router-dom";
+const SingleForm = ({ type, nameChange, imagehash }) => {
+  const history = useHistory();
+  const childRef = useRef();
+  useEffect(() => {
+    getHashData();
+  }, []);
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
 
-  const submitData = () => {
-    toggleConfirmDialog();
+  const getHashData = async () => {
+    // Triggering of events from block chain
+    const contract = await postContract();
+    contract.events
+      .ProductCreated({}, function (error, event) {
+        childRef.current.hideLoading();
+        toggleConfirmDialog();
+        setTimeout(() => {
+          history.push("/my-items");
+        }, 1000);
+      })
+      .on("data", function (event) {
+        //console.log("data", event); // same results as the optional callback above
+      })
+      .on("changed", function (event) {
+        // remove event from local database
+      })
+      .on("error", console.error);
+  };
+  const submitData = async () => {
+    // console.log("im", imagehash);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    if (values.username && values.royalties) {
-      const accounts = await web3.eth.getAccounts();
-      web3.eth.sendTransaction(
+    //  console.log("image hash", `https://ipfs.infura.io/ipfs/${imagehash}`);
+    // return false;
+    toggleConfirmDialog();
+    const contract = await postContract();
+    const accounts = await web3.eth.getAccounts();
+    try {
+      const doc = JSON.stringify({
+        file: `https://ipfs.infura.io/ipfs/${imagehash}`,
+        fileType: type,
+        ...values,
+      });
+      const added = await ipfs.add(doc);
+      contract.methods.createProduct(accounts[0], added.path).send(
         {
-          nonce: 56,
           from: accounts[0],
-          to: METAMASK_RECEIVER_ACCOUNT,
-          value: 45,
         },
-        (err, transactionId) => {
-          if (err) {
-            console.log("err", err);
-          } else {
-            console.log("success", transactionId);
-          }
+        (error, transactionHash) => {
+          console.log(transactionHash);
+          // this.setState({ transactionHash });
         }
       );
-      // toggleConfirmDialog();
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      //  updateFileUrl(url)
+    } catch (error) {
+      console.log("Error uploading file: ", error);
     }
   };
   return (
@@ -99,9 +134,10 @@ const SingleForm = ({ type, nameChange }) => {
         </div>
       </Form.Item>
       <Form.Item>
-        <button>Submit</button>
+        <button onClick={submitData}>Submit</button>
       </Form.Item>
       <ConfirmCreateDialog
+        ref={childRef}
         toggleDialog={toggleConfirmDialog}
         modalVisible={confirmDialog}
       />
@@ -109,4 +145,4 @@ const SingleForm = ({ type, nameChange }) => {
   );
 };
 
-export default SingleForm;
+export default withRouter(SingleForm);

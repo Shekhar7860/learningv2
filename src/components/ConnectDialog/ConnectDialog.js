@@ -65,6 +65,7 @@ const ConnectDialog = ({
     showConnectDialog();
   };
   const connectMetaMask = async () => {
+    // console.log("web3", web3);
     const ethereum = typeof window != undefined ? window.ethereum : {};
     const web3 = typeof window != undefined ? new Web3(window.ethereum) : {};
     if (ethereum !== undefined) {
@@ -72,12 +73,16 @@ const ConnectDialog = ({
     } else {
       alert("Please Install Metamask");
     }
+    // console.log("data", web3.eth);
+
     const accounts = await web3.eth.getAccounts();
     let balance = 0;
     if (accounts.length > 0) {
       balance = await web3.eth.getBalance(accounts[0]);
       balance = web3.utils.fromWei(balance, "ether");
+      balance = parseFloat(balance).toFixed(4);
     }
+
     setUserData({ account: accounts[0], balance });
     if (window.localStorage.getItem("loggedIn") == null) {
       if (accounts[0].length > 0) {
