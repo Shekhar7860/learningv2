@@ -12,6 +12,7 @@ const { TabPane } = Tabs;
 
 const MyContent = () => {
   const [productsCount, setProductsCount] = useState(0);
+  const [saleProductsCount, setSaleProductsCount] = useState(0);
   const { show, changeDrawer, activeTab, changeTab, key, changeKey } =
     DrawerControlerFun();
 
@@ -24,20 +25,24 @@ const MyContent = () => {
       changeTab(key);
     }
   };
-  const callBack = (products) => {
-    setProductsCount(products.length);
+  const callBack = (products, param) => {
+    if (param == "sale") {
+      setSaleProductsCount(products.length);
+    } else {
+      setProductsCount(products.length);
+    }
   };
   return (
     <div className="my-content">
       <Tabs defaultActiveKey="1" onChange={callback} activeKey={activeTab}>
-        <TabPane tab={`On sale(${productsCount})`} key="1">
-          <SaleList onCallBack={callBack} />
+        <TabPane tab={`On sale(${saleProductsCount})`} key="1">
+          <SaleList onCallBack={callBack} sale={true} />
         </TabPane>
         <TabPane tab="Collectible(23)" key="2">
           <EmptyContent />
         </TabPane>
         <TabPane tab={`Created(${productsCount})`} key="3">
-          <SaleList onCallBack={callBack} />
+          <SaleList onCallBack={callBack} sale={false} />
         </TabPane>
         <TabPane tab="Liked(543)" key="4">
           <EmptyContent />

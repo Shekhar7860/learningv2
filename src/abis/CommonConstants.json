@@ -4,22 +4,22 @@
   "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{},\"notice\":\"Note: Simple contract to use as base for const vals\"}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/Common.sol\":\"CommonConstants\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/Common.sol\":{\"keccak256\":\"0x900d50cdfedbcf60e9e1ef727674ead98b35abf5a01714ed285989d410c01db8\",\"urls\":[\"bzz-raw://9903b443608607b5f94e85f77d35528baf9adb8c7acc70bc0818437a251f4c8b\",\"dweb:/ipfs/QmRHVoDnjh7ihKZJCXbsVwMEodGEtKBE1wJcvxqkqec2R2\"]}},\"version\":1}",
   "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a723158205622b46f192f328f6bc5cd615a829da59f659859c15f781b840b6b21d5ea6f3864736f6c63430005100032",
   "deployedBytecode": "0x6080604052600080fdfea265627a7a723158205622b46f192f328f6bc5cd615a829da59f659859c15f781b840b6b21d5ea6f3864736f6c63430005100032",
-  "sourceMap": "88:326:11:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;88:326:11;;;;;;;",
-  "deployedSourceMap": "88:326:11:-;;;;;",
+  "sourceMap": "88:326:25:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;88:326:25;;;;;;;",
+  "deployedSourceMap": "88:326:25:-;;;;;",
   "source": "pragma solidity ^0.5.0;\n\n/**\n    Note: Simple contract to use as base for const vals\n*/\ncontract CommonConstants {\n\n    bytes4 constant internal ERC1155_ACCEPTED = 0xf23a6e61; // bytes4(keccak256(\"onERC1155Received(address,address,uint256,uint256,bytes)\"))\n    bytes4 constant internal ERC1155_BATCH_ACCEPTED = 0xbc197c81; // bytes4(keccak256(\"onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)\"))\n}\n",
   "sourcePath": "/Users/mac15/Desktop/shekhar/learnings-v2 (2)/src/contracts/Common.sol",
   "ast": {
     "absolutePath": "project:/src/contracts/Common.sol",
     "exportedSymbols": {
       "CommonConstants": [
-        1433
+        3996
       ]
     },
-    "id": 1434,
+    "id": 3997,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1426,
+        "id": 3989,
         "literals": [
           "solidity",
           "^",
@@ -27,7 +27,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:11"
+        "src": "0:23:25"
       },
       {
         "baseContracts": [],
@@ -35,20 +35,20 @@
         "contractKind": "contract",
         "documentation": "Note: Simple contract to use as base for const vals",
         "fullyImplemented": true,
-        "id": 1433,
+        "id": 3996,
         "linearizedBaseContracts": [
-          1433
+          3996
         ],
         "name": "CommonConstants",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1429,
+            "id": 3992,
             "name": "ERC1155_ACCEPTED",
             "nodeType": "VariableDeclaration",
-            "scope": 1433,
-            "src": "120:54:11",
+            "scope": 3996,
+            "src": "120:54:25",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -56,10 +56,10 @@
               "typeString": "bytes4"
             },
             "typeName": {
-              "id": 1427,
+              "id": 3990,
               "name": "bytes4",
               "nodeType": "ElementaryTypeName",
-              "src": "120:6:11",
+              "src": "120:6:25",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes4",
                 "typeString": "bytes4"
@@ -68,14 +68,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30786632336136653631",
-              "id": 1428,
+              "id": 3991,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "164:10:11",
+              "src": "164:10:25",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_4063915617_by_1",
@@ -87,11 +87,11 @@
           },
           {
             "constant": true,
-            "id": 1432,
+            "id": 3995,
             "name": "ERC1155_BATCH_ACCEPTED",
             "nodeType": "VariableDeclaration",
-            "scope": 1433,
-            "src": "261:60:11",
+            "scope": 3996,
+            "src": "261:60:25",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -99,10 +99,10 @@
               "typeString": "bytes4"
             },
             "typeName": {
-              "id": 1430,
+              "id": 3993,
               "name": "bytes4",
               "nodeType": "ElementaryTypeName",
-              "src": "261:6:11",
+              "src": "261:6:25",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes4",
                 "typeString": "bytes4"
@@ -111,14 +111,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30786263313937633831",
-              "id": 1431,
+              "id": 3994,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "311:10:11",
+              "src": "311:10:25",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_3155786881_by_1",
@@ -129,18 +129,18 @@
             "visibility": "internal"
           }
         ],
-        "scope": 1434,
-        "src": "88:326:11"
+        "scope": 3997,
+        "src": "88:326:25"
       }
     ],
-    "src": "0:415:11"
+    "src": "0:415:25"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "project:/src/contracts/Common.sol",
       "exportedSymbols": {
         "CommonConstants": [
-          1433
+          3996
         ]
       }
     },
@@ -154,9 +154,9 @@
             ".0"
           ]
         },
-        "id": 1426,
+        "id": 3989,
         "name": "PragmaDirective",
-        "src": "0:23:11"
+        "src": "0:23:25"
       },
       {
         "attributes": {
@@ -170,17 +170,17 @@
           "documentation": "Note: Simple contract to use as base for const vals",
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            1433
+            3996
           ],
           "name": "CommonConstants",
-          "scope": 1434
+          "scope": 3997
         },
         "children": [
           {
             "attributes": {
               "constant": true,
               "name": "ERC1155_ACCEPTED",
-              "scope": 1433,
+              "scope": 3996,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "bytes4",
@@ -192,9 +192,9 @@
                   "name": "bytes4",
                   "type": "bytes4"
                 },
-                "id": 1427,
+                "id": 3990,
                 "name": "ElementaryTypeName",
-                "src": "120:6:11"
+                "src": "120:6:25"
               },
               {
                 "attributes": {
@@ -209,20 +209,20 @@
                   "type": "int_const 4063915617",
                   "value": "0xf23a6e61"
                 },
-                "id": 1428,
+                "id": 3991,
                 "name": "Literal",
-                "src": "164:10:11"
+                "src": "164:10:25"
               }
             ],
-            "id": 1429,
+            "id": 3992,
             "name": "VariableDeclaration",
-            "src": "120:54:11"
+            "src": "120:54:25"
           },
           {
             "attributes": {
               "constant": true,
               "name": "ERC1155_BATCH_ACCEPTED",
-              "scope": 1433,
+              "scope": 3996,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "bytes4",
@@ -234,9 +234,9 @@
                   "name": "bytes4",
                   "type": "bytes4"
                 },
-                "id": 1430,
+                "id": 3993,
                 "name": "ElementaryTypeName",
-                "src": "261:6:11"
+                "src": "261:6:25"
               },
               {
                 "attributes": {
@@ -251,24 +251,24 @@
                   "type": "int_const 3155786881",
                   "value": "0xbc197c81"
                 },
-                "id": 1431,
+                "id": 3994,
                 "name": "Literal",
-                "src": "311:10:11"
+                "src": "311:10:25"
               }
             ],
-            "id": 1432,
+            "id": 3995,
             "name": "VariableDeclaration",
-            "src": "261:60:11"
+            "src": "261:60:25"
           }
         ],
-        "id": 1433,
+        "id": 3996,
         "name": "ContractDefinition",
-        "src": "88:326:11"
+        "src": "88:326:25"
       }
     ],
-    "id": 1434,
+    "id": 3997,
     "name": "SourceUnit",
-    "src": "0:415:11"
+    "src": "0:415:25"
   },
   "compiler": {
     "name": "solc",
@@ -276,7 +276,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-21T07:48:58.942Z",
+  "updatedAt": "2021-07-26T04:48:39.212Z",
   "devdoc": {
     "methods": {}
   },

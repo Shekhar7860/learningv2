@@ -1,11 +1,16 @@
 var Posts = artifacts.require("../src/contracts/Posts.sol");
-var Items = artifacts.require("../src/contracts/Items.sol");
-const ERC1155Tradable = artifacts.require("ERC1155Tradable");
-const AuctionContract = artifacts.require("AuctionContract");
+var Elements = artifacts.require("../src/contracts/Elements.sol");
+const AuctionContract = artifacts.require(
+  "../src/contracts/AuctionContract.sol"
+);
+const ERC1155Tradable = artifacts.require(
+  "../src/contracts/ERC1155Tradable.sol"
+);
 module.exports = function (deployer) {
   deployer.deploy(ERC1155Tradable, "ERC", "ERC1155");
-  deployer.deploy(Items);
-  deployer.deploy(AuctionContract, Items.address);
+  deployer.deploy(Elements).then(function () {
+    return deployer.deploy(AuctionContract, Elements.address);
+  });
 };
 // module.exports = function (deployer) {
 //   deployer.deploy(StoreHash);

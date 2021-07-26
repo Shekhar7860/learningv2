@@ -7,6 +7,7 @@ import { web3 } from "../../../constants/constants";
 import ipfs from "../../../functions/Ipfs";
 import { contents } from "../../../functions/ipfsContents";
 import { Spin } from "antd";
+import { auctionContract } from "../../../contractDetails/auction";
 const itemsold = [
   {
     url: "https://firebasestorage.googleapis.com/v0/b/learnings-fde29.appspot.com/o/eight.mp4?alt=media&token=23b2334d-93ab-4de5-b1c0-c6089e4cff8b",
@@ -110,38 +111,96 @@ const itemsold = [
   },
 ];
 
-const SaleList = ({ onCallBack }) => {
+const SaleList = ({ onCallBack, sale }) => {
   const [items, setItems] = useState([]);
+  const [auctions, setAuctions] = useState([]);
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
+    let auctionItems = [...auctions];
+    const auction = await auctionContract();
+    const accounts3 = await web3.eth.getAccounts();
+    await auction.methods
+      .getCount()
+      .call()
+      .then(async (value) => {
+        for (let i = 0; i < value; i++) {
+          //  this.auctionListLoaderArray = Array(value - i);
+          const auction2 = await auction.methods
+            .auctions(i)
+            .call()
+            .then(async (auctions) => {
+              console.log("autions", auctions);
+              const ipfsData = await contents(auctions.metadata);
+              const jsonData = JSON.parse(ipfsData);
+              auctionItems.push({
+                sale: jsonData.sale,
+                url: jsonData.file,
+                multiple: false,
+                image: true,
+                title: jsonData.username,
+                eth: jsonData.royalties,
+                time: jsonData.properties,
+                category: "LISTING",
+                userThumb:
+                  "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
+                userId: accounts3[0],
+                fileType: jsonData.fileType,
+                tokenType: "erc721",
+              });
+            });
+          // });
+        }
+      });
+    setAuctions(auctionItems);
+    return false;
+    console.log("web3", web3);
+    let totalCreatedProducts = 0;
     const accounts = await web3.eth.getAccounts();
+    let listItems = [...items];
     // communicating with ethereum blockchain database
     const contract = await postContract();
     const collectTableContract = await postCollectible();
-    const count = await contract.methods.productCount().call();
-    let products = [...items];
-    for (let i = 1; i <= count; i++) {
-      const product = await contract.methods.products(i).call();
-      // accessing data from ipfs has
-      const ipfsData = await contents(product.name);
-      const jsonData = JSON.parse(ipfsData);
-      products.push({
-        url: jsonData.file,
-        multiple: false,
-        image: true,
-        title: jsonData.username,
-        eth: jsonData.royalties,
-        time: jsonData.properties,
-        category: "LISTING",
-        userThumb:
-          "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
-        userId: accounts[0],
-        fileType: jsonData.fileType,
+    await contract.methods
+      .getTokensOf(accounts[0])
+      .call()
+      .then(async (value) => {
+        //  console.log("tokens value", value);
+        for (let i = 0; i < value.length; i++) {
+          const product = await contract.methods
+            .products(value[i])
+            .call()
+            .then(async (products) => {
+              totalCreatedProducts += 1;
+              var uri = await contract.methods
+                .tokenURI(value[i])
+                .call()
+                .then(async (data) => {
+                  const ipfsData = await contents(data);
+                  const jsonData = JSON.parse(ipfsData);
+
+                  listItems.push({
+                    sale: jsonData.sale,
+                    url: jsonData.file,
+                    multiple: false,
+                    image: true,
+                    title: jsonData.username,
+                    eth: jsonData.royalties,
+                    time: jsonData.properties,
+                    category: "LISTING",
+                    userThumb:
+                      "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
+                    userId: accounts[0],
+                    fileType: jsonData.fileType,
+                    tokenType: "erc721",
+                  });
+                });
+            });
+        }
       });
-    }
+
     await collectTableContract.methods
       .getTokensOfERC1155(accounts[0])
       .call()
@@ -157,7 +216,8 @@ const SaleList = ({ onCallBack }) => {
               const ipfsData = await contents(result.metaData);
               const jsonData = JSON.parse(ipfsData);
               if (result.owner == accounts[0]) {
-                products.push({
+                listItems.push({
+                  sale: jsonData.sale,
                   balance: remainingBalance,
                   totalSupply: result.totalSupply,
                   url: jsonData.file,
@@ -171,20 +231,33 @@ const SaleList = ({ onCallBack }) => {
                     "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
                   userId: accounts[0],
                   fileType: jsonData.fileType,
+                  tokenType: "erc1155",
                 });
               }
             });
         }
       });
-    console.log("pr", products);
-    setItems(products);
-    onCallBack(products);
+    console.log("it", listItems);
+    let saleItems = [];
+    for (let i in listItems) {
+      if (listItems[i].sale == true) {
+        saleItems.push(listItems[i]);
+      }
+    }
+
+    if (sale == true) {
+      setItems(saleItems);
+      onCallBack(saleItems, "sale");
+    } else {
+      setItems(listItems);
+      onCallBack(listItems, "created");
+    }
   };
   return (
     <>
-      {items.length > 0 ? (
+      {auctions.length > 0 ? (
         <div className="sale-list">
-          {items.map((card, index) => (
+          {auctions.map((card, index) => (
             <CollectibleCard card={card} key={index + card.url} />
           ))}
         </div>

@@ -11,12 +11,13 @@ const BidDialog = ({ modalVisible, toggleDialog, check, data }) => {
     setPrice(e.target.value);
   };
   const placeBid = async () => {
+    console.log("price", price);
     const ether = web3.utils.toWei(price, "ether");
     const accounts = await web3.eth.getAccounts();
     const contract = await auctionContract();
     console.log("ether", ether);
     await contract.methods
-      .bidOnAuction(0)
+      .bidOnAuction(7)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
         console.log("auction bid", val);

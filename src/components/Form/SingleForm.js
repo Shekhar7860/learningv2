@@ -1,12 +1,13 @@
 import { Input, Form } from "antd";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DialogFun from "../../functions/DialogFun";
 import ConfirmCreateDialog from "../Dialogs/ConfirmCreateDialog";
 import Web3 from "web3";
 import { web3 } from "../../constants/constants";
+import { auctionContract } from "../../contractDetails/auction";
 import { METAMASK_RECEIVER_ACCOUNT } from "../../constants/constants";
 // import { postContract } from "../../contractDetails/post";
-import { postContract } from "../../contractDetails/item";
+import { postContract, networkAddress } from "../../contractDetails/item";
 import { postCollectible } from "../../contractDetails/erc1155";
 import "./SingleForm.css";
 import { withRouter } from "react-router-dom";
@@ -19,17 +20,20 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     getHashData();
   }, []);
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
+  const [bid, setBid] = useState(0);
 
   const getHashData = async () => {
     // Triggering of events from block chain
     const contract = await postContract();
     contract.events
       .ProductCreated({}, function (error, event) {
-        childRef.current.hideLoading();
-        toggleConfirmDialog();
-        setTimeout(() => {
-          history.push("/my-items");
-        }, 1000);
+        if (sale == false) {
+          childRef.current.hideLoading();
+          toggleConfirmDialog();
+          setTimeout(() => {
+            history.push("/my-items");
+          }, 1000);
+        }
       })
       .on("data", function (event) {
         //console.log("data", event); // same results as the optional callback above
@@ -46,39 +50,58 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
+    console.log("va", values.bid);
+    let transferId = 0;
+    let added = "";
+    setBid(values.bid);
+    const auction = await auctionContract();
+    const accounts = await web3.eth.getAccounts();
     if (collectionType == "S") {
       toggleConfirmDialog();
       const contract = await postContract();
-      const accounts = await web3.eth.getAccounts();
       try {
         const doc = JSON.stringify({
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
+          sale,
           ...values,
         });
-        const added = await ipfs.add(doc);
-        contract.methods.createProduct(accounts[0], added.path).send(
-          {
-            from: accounts[0],
-          },
-          (error, transactionHash) => {
-            console.log(transactionHash);
-          }
-        );
+        added = await ipfs.add(doc);
+        const tx2 = await contract.methods
+          .createProduct(
+            accounts[0],
+            added.path,
+            `https://ipfs.infura.io/ipfs/${imagehash}`,
+            values.royalties,
+            values.royalties,
+            sale == false ? values.price : values.bid
+          )
+          .send({ from: accounts[0] })
+          .once(
+            "receipt",
+            async (receipt) => {
+              transferId = receipt.events.ProductCreated.returnValues.id;
+              console.log("receipt1", receipt);
+            },
+            () => {}
+          )
+          .catch(() => {
+            console.log("err", error);
+          });
       } catch (error) {
         console.log("Error uploading file: ", error);
       }
     } else {
       toggleConfirmDialog();
       const contractMultiple = await postCollectible();
-      const accounts = await web3.eth.getAccounts();
       try {
         const doc = JSON.stringify({
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
+          sale,
           ...values,
         });
-        const added = await ipfs.add(doc);
+        added = await ipfs.add(doc);
         const tx1 = await contractMultiple.methods
           .create(accounts[0], values.copies, added.path, "0x0")
           .send({ from: accounts[0] })
@@ -98,6 +121,40 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         console.log("Error uploading file: ", error);
       }
       // console.log("data", contractMultiple);
+    }
+    if (sale == true) {
+      console.log("auction started");
+      var today = new Date();
+      today.setHours(today.getHours() + 1);
+      var unix_time = today.getTime() / 1000;
+
+      var repositoryAddress = await networkAddress();
+      //let price = 2;
+      let selectedBid = bid.toString();
+      const ether = web3.utils.toWei(selectedBid, "ether");
+      // console.log("ether", ether);
+      var startDate = new Date().getTime() / 1000;
+      var endDate = web3.utils.toWei("0", "ether");
+      await auction.methods
+        .createAuction(
+          repositoryAddress,
+          transferId,
+          "shekhar",
+          added.path,
+          ether,
+          ether,
+          ether,
+          ether,
+          values.royalties
+        )
+        .send({ from: accounts[0] })
+        .then(async (val) => {
+          console.log("auction", val);
+          toggleConfirmDialog();
+          setTimeout(() => {
+            history.push("/my-items");
+          }, 1000);
+        });
     }
   };
   return (

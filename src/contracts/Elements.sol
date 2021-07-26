@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721Full.sol";
 import "@openzeppelin/contracts/drafts/Counters.sol";
 
 
-contract Artabia is ERC721Full {
+contract Elements is ERC721Full {
     string public name;
     uint256 public productCount = 0;
 
