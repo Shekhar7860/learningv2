@@ -114,6 +114,7 @@ const itemsold = [
 const SaleList = ({ onCallBack, sale }) => {
   const [items, setItems] = useState([]);
   const [auctions, setAuctions] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getData();
   }, []);
@@ -132,10 +133,13 @@ const SaleList = ({ onCallBack, sale }) => {
             .auctions(i)
             .call()
             .then(async (auctions) => {
-              console.log("autions", auctions);
+              // console.log("auctions", auctions);
               const ipfsData = await contents(auctions.metadata);
               const jsonData = JSON.parse(ipfsData);
+              // console.log('js', )
               auctionItems.push({
+                owner: auctions.owner,
+                tokenId: auctions.id,
                 sale: jsonData.sale,
                 url: jsonData.file,
                 multiple: false,
@@ -155,8 +159,9 @@ const SaleList = ({ onCallBack, sale }) => {
         }
       });
     setAuctions(auctionItems);
-    return false;
-    console.log("web3", web3);
+    setLoading(false);
+    onCallBack(auctionItems, "sale");
+
     let totalCreatedProducts = 0;
     const accounts = await web3.eth.getAccounts();
     let listItems = [...items];
@@ -237,34 +242,40 @@ const SaleList = ({ onCallBack, sale }) => {
             });
         }
       });
-    console.log("it", listItems);
-    let saleItems = [];
-    for (let i in listItems) {
-      if (listItems[i].sale == true) {
-        saleItems.push(listItems[i]);
-      }
-    }
 
-    if (sale == true) {
-      setItems(saleItems);
-      onCallBack(saleItems, "sale");
-    } else {
-      setItems(listItems);
-      onCallBack(listItems, "created");
-    }
+    setItems(listItems);
+    onCallBack(listItems, "created");
   };
   return (
     <>
-      {auctions.length > 0 ? (
-        <div className="sale-list">
-          {auctions.map((card, index) => (
-            <CollectibleCard card={card} key={index + card.url} />
-          ))}
-        </div>
+      {sale == true ? (
+        <>
+          {auctions.length > 0 ? (
+            <div className="sale-list">
+              {auctions.map((card, index) => (
+                <CollectibleCard card={card} key={index + card.url} />
+              ))}
+            </div>
+          ) : (
+            <div className="center-align">
+              <Spin size={"large"} spinning={loading} />
+            </div>
+          )}
+        </>
       ) : (
-        <div className="center-align">
-          <Spin size={"large"} />
-        </div>
+        <>
+          {items.length > 0 ? (
+            <div className="sale-list">
+              {items.map((card, index) => (
+                <CollectibleCard card={card} key={index + card.url} />
+              ))}
+            </div>
+          ) : (
+            <div className="center-align">
+              <Spin size={"large"} spinning={loading} />
+            </div>
+          )}
+        </>
       )}
     </>
   );

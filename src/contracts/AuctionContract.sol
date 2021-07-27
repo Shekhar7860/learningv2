@@ -442,6 +442,8 @@ contract AuctionContract {
         // newBid.auctionOwnerAmount = _auctionOwnerAmount;
         // newBid.webOwnedAmount = _webOwnedAmount;
         auctionBids[_auctionId].push(newBid);
+        emit BidSuccess(msg.sender, _auctionId);
+        
         
     }
 }

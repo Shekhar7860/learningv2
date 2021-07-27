@@ -611,7 +611,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7014,
+                          "referencedDeclaration": 7010,
                           "src": "864:3:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -888,7 +888,7 @@
                           "name": "gasleft",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7007,
+                          "referencedDeclaration": 7003,
                           "src": "1028:7:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_gasleft_view$__$returns$_t_uint256_$",
@@ -1233,10 +1233,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        7017,
-                        7018
+                        7013,
+                        7014
                       ],
-                      "referencedDeclaration": 7018,
+                      "referencedDeclaration": 7014,
                       "src": "1452:7:20",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1770,7 +1770,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7014,
+                          "referencedDeclaration": 7010,
                           "src": "1849:3:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2047,7 +2047,7 @@
                           "name": "gasleft",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7007,
+                          "referencedDeclaration": 7003,
                           "src": "2022:7:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_gasleft_view$__$returns$_t_uint256_$",
@@ -2515,7 +2515,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7014,
+                          "referencedDeclaration": 7010,
                           "src": "2595:3:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2961,10 +2961,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        7017,
-                        7018
+                        7013,
+                        7014
                       ],
-                      "referencedDeclaration": 7018,
+                      "referencedDeclaration": 7014,
                       "src": "3073:7:20",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3433,7 +3433,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 7014,
+                          "referencedDeclaration": 7010,
                           "src": "3399:3:20",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4249,7 +4249,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7014,
+                                  "referencedDeclaration": 7010,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -4550,7 +4550,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7007,
+                                  "referencedDeclaration": 7003,
                                   "type": "function () view returns (uint256)",
                                   "value": "gasleft"
                                 },
@@ -4790,10 +4790,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                7017,
-                                7018
+                                7013,
+                                7014
                               ],
-                              "referencedDeclaration": 7018,
+                              "referencedDeclaration": 7014,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -5514,7 +5514,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7014,
+                                  "referencedDeclaration": 7010,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -5815,7 +5815,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7007,
+                                  "referencedDeclaration": 7003,
                                   "type": "function () view returns (uint256)",
                                   "value": "gasleft"
                                 },
@@ -6270,7 +6270,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7014,
+                                  "referencedDeclaration": 7010,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -6637,10 +6637,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                7017,
-                                7018
+                                7013,
+                                7014
                               ],
-                              "referencedDeclaration": 7018,
+                              "referencedDeclaration": 7014,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -7275,7 +7275,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 7014,
+                                  "referencedDeclaration": 7010,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -7422,7 +7422,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-26T04:48:39.202Z",
+  "updatedAt": "2021-07-27T04:26:30.999Z",
   "devdoc": {
     "details": "Multi-Fungible Tokens with minting and burning methods. These methods assume     a parent contract to be executed as they are `internal` functions",
     "methods": {

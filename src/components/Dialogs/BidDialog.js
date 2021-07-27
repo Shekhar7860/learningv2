@@ -4,23 +4,28 @@ import { Input, Modal, Spin } from "antd";
 import { connect } from "react-redux";
 import { auctionContract } from "../../contractDetails/auction";
 import { web3 } from "../../constants/constants";
-const BidDialog = ({ modalVisible, toggleDialog, check, data }) => {
+const BidDialog = ({
+  modalVisible,
+  toggleDialog,
+  check,
+  data,
+  biddingData,
+}) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
   const placeBid = async () => {
-    console.log("price", price);
     const ether = web3.utils.toWei(price, "ether");
     const accounts = await web3.eth.getAccounts();
     const contract = await auctionContract();
-    console.log("ether", ether);
     await contract.methods
-      .bidOnAuction(7)
+      .bidOnAuction(biddingData.tokenId)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
         console.log("auction bid", val);
+        toggleDialog();
       })
       .then(async (error) => {
         console.log("auction bid", error);

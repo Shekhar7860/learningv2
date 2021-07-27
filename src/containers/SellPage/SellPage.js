@@ -13,7 +13,10 @@ import { useHistory } from "react-router";
 import ShareDialog from "../../components/Dialogs/ShareDialog";
 import ReportDialog from "../../components/Dialogs/ReportDialog";
 import ThanksDialog from "../../components/Dialogs/ThanksDialog";
+import { connect } from "react-redux";
 import ReactPlayer from "react-player";
+import { auctionContract } from "../../contractDetails/auction";
+import { TrainRounded } from "@material-ui/icons";
 
 const { TabPane } = Tabs;
 
@@ -35,14 +38,20 @@ const menu = (toggleShareDialog, toggleReportDialog) => (
   </Menu>
 );
 
-const SellPage = ({ match }) => {
+const SellPage = ({ match, data }) => {
   const history = useHistory();
+  const [bidButton, showBidButton] = useState(false);
   const [card, setCard] = useState(null);
 
   useEffect(() => {
     const param = history.location;
+    if (data.user != null) {
+      if (data.user.data.account != param.state.owner) {
+        showBidButton(true);
+      }
+    }
     setCard(param.state);
-  });
+  }, []);
 
   const {
     toggleBidDialog,
@@ -58,7 +67,7 @@ const SellPage = ({ match }) => {
   return (
     <div className="sell-page">
       <div className="sell-page-left">
-        {card && card.image ? (
+        {card && card.fileType.type == "image" ? (
           <Image
             className="sell-page-left-preview"
             src={card && card.url}
@@ -111,17 +120,22 @@ const SellPage = ({ match }) => {
               <HistoryList />
             </TabPane>
             <TabPane tab="Bids" key="4">
-              <BidList />
+              <BidList biddingData={card} />
             </TabPane>
           </Tabs>
         </div>
         <div className="sell-page-right-footer">
           <OwnerItem item={item} />
-          <button onClick={toggleBidDialog}>Place a bid</button>
-          <p>Item is not on sale, but you can place a bid</p>
+          {bidButton == true ? (
+            <>
+              <button onClick={toggleBidDialog}>Place a bid</button>
+              <p>Item is not on sale, but you can place a bid</p>
+            </>
+          ) : null}
         </div>
       </div>
       <BidDialog
+        biddingData={card}
         check={false}
         modalVisible={bidDialog}
         toggleDialog={toggleBidDialog}
@@ -142,5 +156,10 @@ const SellPage = ({ match }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    data: state,
+  };
+};
 
-export default SellPage;
+export default connect(mapStateToProps, null)(SellPage);

@@ -134,6 +134,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
       const ether = web3.utils.toWei(selectedBid, "ether");
       // console.log("ether", ether);
       var startDate = new Date().getTime() / 1000;
+      var endPrice = web3.utils.toWei("0", "ether");
       var endDate = web3.utils.toWei("0", "ether");
       await auction.methods
         .createAuction(
@@ -142,14 +143,13 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
           "shekhar",
           added.path,
           ether,
-          ether,
-          ether,
-          ether,
+          endPrice,
+          startDate.toFixed(0),
+          endDate,
           values.royalties
         )
         .send({ from: accounts[0] })
         .then(async (val) => {
-          console.log("auction", val);
           toggleConfirmDialog();
           setTimeout(() => {
             history.push("/my-items");

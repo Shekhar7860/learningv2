@@ -304,7 +304,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 7001,
+                            "referencedDeclaration": 6997,
                             "src": "941:3:19",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -716,7 +716,7 @@
                                     "name": "abi",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 7001,
+                                    "referencedDeclaration": 6997,
                                     "src": "1488:3:19",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_magic_abi",
@@ -2597,7 +2597,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 7001,
+                                      "referencedDeclaration": 6997,
                                       "type": "abi",
                                       "value": "abi"
                                     },
@@ -3152,7 +3152,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 7001,
+                                                  "referencedDeclaration": 6997,
                                                   "type": "abi",
                                                   "value": "abi"
                                                 },
@@ -4674,7 +4674,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-26T04:48:39.201Z",
+  "updatedAt": "2021-07-27T04:26:30.998Z",
   "devdoc": {
     "details": "Methods assume a deterministic generation of URI based on token IDs.     Methods also assume that URI uses hex representation of token IDs.",
     "methods": {

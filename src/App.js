@@ -15,13 +15,28 @@ import HowItWork from "./containers/HowItWork/HowItWork";
 import Support from "./containers/Support/Support";
 import Discussion from "./containers/Discussion/Discussion";
 import SellPage from "./containers/SellPage/SellPage";
+import { connect } from "react-redux";
 import { useEffect } from "react";
-import { initializeWeb3 } from "./constants/constants";
+import { initializeWeb3, web3 } from "./constants/constants";
+import { saveUserData } from "./redux/actions/user";
 
-function App() {
+function App(props) {
   useEffect(() => {
+    onChangeAccount();
     initializeWeb3();
   }, []);
+
+  const onChangeAccount = async () => {
+    ethereum.on("accountsChanged", async function (accounts) {
+      let balance = 0;
+      if (accounts.length > 0) {
+        balance = await web3.eth.getBalance(accounts[0]);
+        balance = web3.utils.fromWei(balance, "ether");
+        balance = parseFloat(balance).toFixed(4);
+      }
+      props.setUserData({ account: accounts[0], balance });
+    });
+  };
 
   return (
     <div className="App">
@@ -87,4 +102,11 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoggedData: (url) => dispatch(setLoggedIn(url)),
+    setUserData: (data) => dispatch(saveUserData(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
