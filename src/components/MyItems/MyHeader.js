@@ -25,13 +25,13 @@ import {
 } from "react-share";
 import ConnectDialogFun from "../../functions/ConnectDialogFun";
 import SocialDialog from "../ConnectDialog/SocialDialog";
-
-const MyHeader = () => {
+import { connect } from "react-redux";
+const MyHeader = ({ data }) => {
   const history = useHistory();
 
   const [userState, setUserState] = useState(false);
   const [follow, setFollow] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const goToEditPage = () => {
     history.push("/edit");
@@ -41,24 +41,17 @@ const MyHeader = () => {
     const state = history.location.state;
     if (state) {
       setUserState(true);
-      setUser(state)
     } else {
       setUserState(false);
     }
+    setUser(data);
   }, []);
 
-  const {
-    toggleReportDialog,
-    reportDialog,
-    thanksDialog,
-    toggleThanksDialog,
-  } = DialogFun();
+  const { toggleReportDialog, reportDialog, thanksDialog, toggleThanksDialog } =
+    DialogFun();
 
-  const {
-    socialDialog,
-    toggleSocialDialog
-  } = ConnectDialogFun();
-
+  const { socialDialog, toggleSocialDialog } = ConnectDialogFun();
+  console.log("user", user);
   const shareMenu = (
     <Menu onClick={() => {}}>
       <div className="social-share-body">
@@ -151,14 +144,20 @@ const MyHeader = () => {
       </div>
       <div className="my-header-user-context">
         <img
-          src={user?user.urlImage:"https://i2-prod.mirror.co.uk/incoming/article14334083.ece/ALTERNATES/s615/3_Beautiful-girl-with-a-gentle-smile.jpg"}
+          src={
+            user
+              ? "https://i2-prod.mirror.co.uk/incoming/article14334083.ece/ALTERNATES/s615/3_Beautiful-girl-with-a-gentle-smile.jpg"
+              : null
+          }
           alt="my items user profile"
         />
         <div className="user-content-box">
           <div className="user-content">
-            <h1>{user?user.name:"Liza Willams"}</h1>
+            <h1>{user ? "Liza Willams" : ""}</h1>
             <div className="user-address">
-              <h2>0x64954c9299b0fc9bcbccd76ecd07f1c435e5e194</h2>
+              <h2>
+                {user ? (user.user.data ? user.user.data.account : "") : ""}
+              </h2>
               <CopyOutlined />
             </div>
             <ReadMoreReact
@@ -222,13 +221,19 @@ const MyHeader = () => {
         modalVisible={thanksDialog}
         toggleDialog={toggleThanksDialog}
       />
-         <SocialDialog
-       modalVisible={socialDialog}
-       toggleDialog={toggleSocialDialog}
-       setSocialLogged={() => {}}
-       toggleCreate={() => {}} />
+      <SocialDialog
+        modalVisible={socialDialog}
+        toggleDialog={toggleSocialDialog}
+        setSocialLogged={() => {}}
+        toggleCreate={() => {}}
+      />
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    data: state,
+  };
+};
 
-export default MyHeader;
+export default connect(mapStateToProps, null)(MyHeader);

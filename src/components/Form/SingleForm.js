@@ -14,11 +14,12 @@ import { withRouter } from "react-router-dom";
 import ipfs from "../../functions/Ipfs";
 import { useHistory } from "react-router-dom";
 const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
+  console.log("sale", sale);
   const history = useHistory();
   const childRef = useRef();
   useEffect(() => {
     getHashData();
-  }, []);
+  }, [sale]);
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
   const [bid, setBid] = useState(0);
 

@@ -7,8 +7,8 @@ const OwnerItem = ({ item }) => {
 
   return (
     <div className="owner-item">
+      <Avatar size="large" src={profile} alt={profile} />
       <div className="owner-content">
-        <Avatar size="large" src={profile} alt={profile} />
         <div className="owner-info">
           <p>{tag}</p>
           <h5>{sub}</h5>
