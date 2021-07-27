@@ -51,7 +51,6 @@ const MyHeader = ({ data }) => {
     DialogFun();
 
   const { socialDialog, toggleSocialDialog } = ConnectDialogFun();
-  console.log("user", user);
   const shareMenu = (
     <Menu onClick={() => {}}>
       <div className="social-share-body">
