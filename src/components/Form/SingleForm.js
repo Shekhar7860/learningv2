@@ -14,7 +14,6 @@ import { withRouter } from "react-router-dom";
 import ipfs from "../../functions/Ipfs";
 import { useHistory } from "react-router-dom";
 const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
-  console.log("sale", sale);
   const history = useHistory();
   const childRef = useRef();
   useEffect(() => {
@@ -51,7 +50,6 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     //  console.log("Failed:", errorInfo);
   };
   const onFinish = async (values) => {
-    console.log("va", values.bid);
     let transferId = 0;
     let added = "";
     setBid(values.bid);
@@ -86,7 +84,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
             },
             () => {}
           )
-          .catch(() => {
+          .catch((error) => {
             console.log("err", error);
           });
       } catch (error) {

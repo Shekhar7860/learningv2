@@ -27,7 +27,7 @@ function App(props) {
   }, []);
 
   const onChangeAccount = async () => {
-    ethereum.on("accountsChanged", async function (accounts) {
+    window.ethereum.on("accountsChanged", async function (accounts) {
       let balance = 0;
       if (accounts.length > 0) {
         balance = await web3.eth.getBalance(accounts[0]);
