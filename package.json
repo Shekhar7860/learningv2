@@ -23,6 +23,7 @@
     "identicon.js": "^2.3.3",
     "ipfs-http-client": "^50.1.2",
     "multi-token-standard": "^0.8.13",
+    "node-fetch": "npm:@achingbrain/node-fetch@^2.6.7",
     "promisify": "^0.0.3",
     "react": "^17.0.2",
     "react-content-loader": "^6.0.3",
