@@ -14,6 +14,7 @@ const ConnectDialog = ({
   toggleWalletDialog,
   setLoggedData,
   setUserData,
+  data,
 }) => {
   const connectToWallet = (param) => {
     switch (param) {

@@ -29,19 +29,19 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.0;\n\n\n/**\n * @title ERC165\n * @dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md\n */\ninterface ERC165 {\n\n    /**\n     * @notice Query if a contract implements an interface\n     * @param _interfaceId The interface identifier, as specified in ERC-165\n     * @dev Interface identification is specified in ERC-165. This function\n     * uses less than 30,000 gas.\n     */\n    function supportsInterface(bytes4 _interfaceId)\n    external\n    view\n    returns (bool);\n}\n",
-  "sourcePath": "/Users/mac15/Desktop/shekhar/learnings-v2 (2)/src/contracts/ERC165.sol",
+  "sourcePath": "/Users/mac15/Desktop/amandeep/learningv2/src/contracts/ERC165.sol",
   "ast": {
     "absolutePath": "project:/src/contracts/ERC165.sol",
     "exportedSymbols": {
       "ERC165": [
-        6072
+        6078
       ]
     },
-    "id": 6073,
+    "id": 6079,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6064,
+        "id": 6070,
         "literals": [
           "solidity",
           "^",
@@ -57,9 +57,9 @@
         "contractKind": "interface",
         "documentation": "@title ERC165\n@dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md",
         "fullyImplemented": false,
-        "id": 6072,
+        "id": 6078,
         "linearizedBaseContracts": [
-          6072
+          6078
         ],
         "name": "ERC165",
         "nodeType": "ContractDefinition",
@@ -67,22 +67,22 @@
           {
             "body": null,
             "documentation": "@notice Query if a contract implements an interface\n@param _interfaceId The interface identifier, as specified in ERC-165\n@dev Interface identification is specified in ERC-165. This function\nuses less than 30,000 gas.",
-            "id": 6071,
+            "id": 6077,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "supportsInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6067,
+              "id": 6073,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6066,
+                  "id": 6072,
                   "name": "_interfaceId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6071,
+                  "scope": 6077,
                   "src": "433:19:32",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -91,7 +91,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 6065,
+                    "id": 6071,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "433:6:32",
@@ -107,15 +107,15 @@
               "src": "432:21:32"
             },
             "returnParameters": {
-              "id": 6070,
+              "id": 6076,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6069,
+                  "id": 6075,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6071,
+                  "scope": 6077,
                   "src": "489:4:32",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -124,7 +124,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 6068,
+                    "id": 6074,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "489:4:32",
@@ -139,14 +139,14 @@
               ],
               "src": "488:6:32"
             },
-            "scope": 6072,
+            "scope": 6078,
             "src": "406:89:32",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 6073,
+        "scope": 6079,
         "src": "120:377:32"
       }
     ],
@@ -157,7 +157,7 @@
       "absolutePath": "project:/src/contracts/ERC165.sol",
       "exportedSymbols": {
         "ERC165": [
-          6072
+          6078
         ]
       }
     },
@@ -171,7 +171,7 @@
             ".0"
           ]
         },
-        "id": 6064,
+        "id": 6070,
         "name": "PragmaDirective",
         "src": "0:23:32"
       },
@@ -187,10 +187,10 @@
           "documentation": "@title ERC165\n@dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md",
           "fullyImplemented": false,
           "linearizedBaseContracts": [
-            6072
+            6078
           ],
           "name": "ERC165",
-          "scope": 6073
+          "scope": 6079
         },
         "children": [
           {
@@ -204,7 +204,7 @@
                 null
               ],
               "name": "supportsInterface",
-              "scope": 6072,
+              "scope": 6078,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "external"
@@ -216,7 +216,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "_interfaceId",
-                      "scope": 6071,
+                      "scope": 6077,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bytes4",
@@ -229,17 +229,17 @@
                           "name": "bytes4",
                           "type": "bytes4"
                         },
-                        "id": 6065,
+                        "id": 6071,
                         "name": "ElementaryTypeName",
                         "src": "433:6:32"
                       }
                     ],
-                    "id": 6066,
+                    "id": 6072,
                     "name": "VariableDeclaration",
                     "src": "433:19:32"
                   }
                 ],
-                "id": 6067,
+                "id": 6073,
                 "name": "ParameterList",
                 "src": "432:21:32"
               },
@@ -249,7 +249,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 6071,
+                      "scope": 6077,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -262,32 +262,32 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 6068,
+                        "id": 6074,
                         "name": "ElementaryTypeName",
                         "src": "489:4:32"
                       }
                     ],
-                    "id": 6069,
+                    "id": 6075,
                     "name": "VariableDeclaration",
                     "src": "489:4:32"
                   }
                 ],
-                "id": 6070,
+                "id": 6076,
                 "name": "ParameterList",
                 "src": "488:6:32"
               }
             ],
-            "id": 6071,
+            "id": 6077,
             "name": "FunctionDefinition",
             "src": "406:89:32"
           }
         ],
-        "id": 6072,
+        "id": 6078,
         "name": "ContractDefinition",
         "src": "120:377:32"
       }
     ],
-    "id": 6073,
+    "id": 6079,
     "name": "SourceUnit",
     "src": "0:498:32"
   },
@@ -297,7 +297,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-27T04:26:30.975Z",
+  "updatedAt": "2021-07-28T12:49:54.223Z",
   "devdoc": {
     "details": "https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md",
     "methods": {

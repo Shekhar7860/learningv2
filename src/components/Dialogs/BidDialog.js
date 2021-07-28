@@ -3,7 +3,7 @@ import "./Dialog.css";
 import { Input, Modal, Spin } from "antd";
 import { connect } from "react-redux";
 import { auctionContract } from "../../contractDetails/auction";
-import { web3 } from "../../constants/constants";
+import { web3, serviceFee } from "../../constants/constants";
 const BidDialog = ({
   modalVisible,
   toggleDialog,
@@ -93,11 +93,14 @@ const BidDialog = ({
             </div>
             <div className="purchase-dialog-item flex-container">
               <p>Service fee</p>
-              <h4>0 ETH</h4>
+              <h4>{serviceFee} ETH</h4>
             </div>
             <div className="purchase-dialog-item flex-container">
               <p>You will pay</p>
-              <h4>0 ETH</h4>
+              <h4>
+                {data ? (price !== "" ? parseInt(price) + serviceFee : 0) : 0}{" "}
+                ETH
+              </h4>
             </div>
             <div className="purchase-dialog-action">
               <button onClick={placeBid} className="proceed-btn">

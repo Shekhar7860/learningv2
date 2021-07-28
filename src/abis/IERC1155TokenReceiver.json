@@ -1183,7 +1183,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-27T04:26:30.993Z",
+  "updatedAt": "2021-07-28T12:49:54.252Z",
   "devdoc": {
     "details": "ERC-1155 interface for accepting safe transfers.",
     "methods": {

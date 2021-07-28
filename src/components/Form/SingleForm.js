@@ -20,7 +20,6 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     getHashData();
   }, [sale]);
   const { toggleConfirmDialog, confirmDialog } = DialogFun();
-  const [bid, setBid] = useState(0);
 
   const getHashData = async () => {
     // Triggering of events from block chain
@@ -28,7 +27,6 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     contract.events
       .ProductCreated({}, function (error, event) {
         if (sale == false) {
-          childRef.current.hideLoading();
           toggleConfirmDialog();
           setTimeout(() => {
             history.push("/my-items");
@@ -52,7 +50,6 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
   const onFinish = async (values) => {
     let transferId = 0;
     let added = "";
-    setBid(values.bid);
     const auction = await auctionContract();
     const accounts = await web3.eth.getAccounts();
     if (collectionType == "S") {
@@ -123,15 +120,15 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     }
     if (sale == true) {
       console.log("auction started");
+      let selectedBid = values.bid.toString();
+      const ether = web3.utils.toWei(selectedBid, "ether");
       var today = new Date();
       today.setHours(today.getHours() + 1);
       var unix_time = today.getTime() / 1000;
 
       var repositoryAddress = await networkAddress();
       //let price = 2;
-      let selectedBid = bid.toString();
-      const ether = web3.utils.toWei(selectedBid, "ether");
-      // console.log("ether", ether);
+
       var startDate = new Date().getTime() / 1000;
       var endPrice = web3.utils.toWei("0", "ether");
       var endDate = web3.utils.toWei("0", "ether");
