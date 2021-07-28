@@ -22186,8 +22186,8 @@
     "4": {
       "events": {},
       "links": {},
-      "address": "0xF04cC5710831BfF1C00725D9305ac82b9F9f27bc",
-      "transactionHash": "0x800a6c503d025d43689754fbccbe7dc594e4fdeedb13bd8c781ccd380713aea8"
+      "address": "0x01CE8AA3067b99C9A077803b370A00e722b83d6b",
+      "transactionHash": "0xe852761bf58bb2aa5f2d6de4d5ed3c76b5d35ebaed4b7a07032618c4d3d110d1"
     },
     "5777": {
       "events": {},
@@ -22197,7 +22197,8 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-28T12:49:54.270Z",
+  "updatedAt": "2021-07-28T12:56:01.557Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "bidOnAuction(uint256)": {
