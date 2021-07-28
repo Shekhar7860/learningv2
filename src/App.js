@@ -104,7 +104,6 @@ function App(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setLoggedData: (url) => dispatch(setLoggedIn(url)),
     setUserData: (data) => dispatch(saveUserData(data)),
   };
 };
