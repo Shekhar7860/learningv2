@@ -3,8 +3,9 @@ import SellFun from "../../functions/SellFun";
 import OwnerItem from "./Item/OwnerItem";
 import { auctionContract } from "../../contractDetails/auction";
 import { web3 } from "../../constants/constants";
-const BidList = ({ biddingData, callBack }) => {
+const BidList = ({ biddingData, callBack, productData }) => {
   const [bidsList, setBidsList] = useState([]);
+
   useEffect(() => {
     getAuctions();
   }, []);
@@ -20,12 +21,12 @@ const BidList = ({ biddingData, callBack }) => {
       .call({ from: accounts[0] })
       .then(async (data) => {
         data.map(async (x) => {
-          console.log("x", x);
           list.push({
             profile:
               "https://i2-prod.mirror.co.uk/incoming/article14334083.ece/ALTERNATES/s615/3_Beautiful-girl-with-a-gentle-smile.jpg",
             tag: `${web3.utils.fromWei(x.amount, "ether")} WETH`,
             sub: `by ${x.from}`,
+            owner: x.from,
           });
         });
         highest = Math.max.apply(
@@ -43,11 +44,16 @@ const BidList = ({ biddingData, callBack }) => {
   };
 
   return (
-    <div>
+    <>
       {bidsList.map((info, index) => (
-        <OwnerItem item={info} key={info.profile + index} />
+        <OwnerItem
+          item={info}
+          key={info.profile + index}
+          page={"bid-list"}
+          owner={productData.owner}
+        />
       ))}
-    </div>
+    </>
   );
 };
 

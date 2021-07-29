@@ -133,7 +133,7 @@ const SaleList = ({ onCallBack, sale }) => {
             .auctions(i)
             .call()
             .then(async (auctions) => {
-              console.log("acc", auctions);
+              //   console.log("acc", auctions);
               const ipfsData = await contents(auctions.metadata);
               const jsonData = JSON.parse(ipfsData);
               // console.log('js', )

@@ -62,8 +62,7 @@ var settings = {
 };
 
 const CollectionList = () => {
-
-  const {items} = CollectionFun();
+  const { items } = CollectionFun();
 
   return (
     <div>
@@ -77,7 +76,7 @@ const CollectionList = () => {
         <div className="hotbid-item-list">
           <Carousel {...settings}>
             {items.map((item, index) => (
-              <CollectionCard card={item} key={index+item.cover} />
+              <CollectionCard card={item} key={index + item.cover} />
             ))}
           </Carousel>
         </div>

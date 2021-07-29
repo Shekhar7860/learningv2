@@ -24,7 +24,6 @@ const BidDialog = ({
       .bidOnAuction(biddingData.tokenId)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
-        console.log("auction bid", val);
         toggleDialog();
       })
       .then(async (error) => {

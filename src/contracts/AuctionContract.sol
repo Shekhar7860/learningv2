@@ -11,6 +11,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract AuctionContract {
     using SafeMath for uint;
+    uint[] public hotAuctions;
     // Array with all auctions
     Auction[] public auctions;
 
@@ -391,6 +392,9 @@ contract AuctionContract {
         }
     }
 
+    function getHotAuctions() public view returns (uint[] memory) {
+       return hotAuctions;
+    }
     /**
      * @dev Bidder sends bid on an auction
      * @dev Auction should be active and not ended
@@ -442,6 +446,7 @@ contract AuctionContract {
         // newBid.auctionOwnerAmount = _auctionOwnerAmount;
         // newBid.webOwnedAmount = _webOwnedAmount;
         auctionBids[_auctionId].push(newBid);
+        hotAuctions.push(_auctionId);
         emit BidSuccess(msg.sender, _auctionId);
         
         

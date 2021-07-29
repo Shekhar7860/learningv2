@@ -1,37 +1,53 @@
 .owner-item {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--lightGrayColor);
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--lightGrayColor);
 }
 
 .owner-item .owner-content {
-    display: flex;  
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .owner-info {
-    margin-left: 12px;
+  margin-left: 12px;
+  word-break: break-all;
+}
+.sell-page-right-content {
+  padding: 16px 1rem;
+  height: calc(100vh - 380px);
 }
 
+.ant-avatar-lg {
+  flex-shrink: 0;
+}
+.ant-avatar > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 .owner-info h5 {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--textPrimaryColor);
-    font-weight: 700;
-    line-height: 1rem;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--textPrimaryColor);
+  font-weight: 700;
+  line-height: 1rem;
 }
 .owner-info p {
-    margin: 0;
-    color: var(--textLightColor);
-    font-weight: 500;
+  margin: 0;
+  color: var(--textLightColor);
+  font-weight: 500;
 }
 
 .owner-item button {
-    width: 100%;
-    border-radius: 8rem;
-    height: 40px;
-    background: var(--buttonSecondaryColor);
-    color: var(--buttonSecondaryTextColor);
-    border: none;
-    outline: none;
-    margin-top: 12px;
+  min-width: 60px;
+  border-radius: 8rem;
+  height: 40px;
+  background: var(--buttonColor);
+  color: white;
+  border: none;
+  outline: none;
+  margin-top: 12px;
 }

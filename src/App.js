@@ -28,13 +28,14 @@ function App(props) {
 
   const onChangeAccount = async () => {
     window.ethereum.on("accountsChanged", async function (accounts) {
+      const accounts2 = await web3.eth.getAccounts();
       let balance = 0;
       if (accounts.length > 0) {
         balance = await web3.eth.getBalance(accounts[0]);
         balance = web3.utils.fromWei(balance, "ether");
         balance = parseFloat(balance).toFixed(4);
       }
-      props.setUserData({ account: accounts[0], balance });
+      props.setUserData({ account: accounts2[0], balance });
     });
   };
 
