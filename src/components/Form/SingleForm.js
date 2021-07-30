@@ -119,7 +119,6 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
       // console.log("data", contractMultiple);
     }
     if (sale == true) {
-      console.log("auction started");
       let selectedBid = values.bid.toString();
       const ether = web3.utils.toWei(selectedBid, "ether");
       var today = new Date();
@@ -148,7 +147,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         .then(async (val) => {
           toggleConfirmDialog();
           setTimeout(() => {
-            history.push("/my-items");
+            history.push("/");
           }, 1000);
         });
     }
@@ -191,7 +190,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         <div className="single-multiple-copy">
           <div className="royalti-input">
             <h3>Royalties</h3>
-            <Input placeholder="e.g. 10%" />
+            <Input placeholder="e.g. 10%" type="number" />
           </div>
         </div>
       </Form.Item>
@@ -202,7 +201,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         >
           <div className="copy-input">
             <h3>Number of copies</h3>
-            <Input placeholder="E.g. 10" />
+            <Input placeholder="E.g. 10" type="number" />
           </div>
         </Form.Item>
       ) : null}
@@ -218,7 +217,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         >
           <div className="royalti-input">
             <h3>Minimum Bid</h3>
-            <Input placeholder="e.g. 0.1 ETH" />
+            <Input placeholder="e.g. 0.1 ETH" type="number" />
           </div>
         </Form.Item>
       ) : (
@@ -233,7 +232,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
         >
           <div className="royalti-input">
             <h3>Price</h3>
-            <Input placeholder="e.g. 0.1 ETH" />
+            <Input placeholder="e.g. 0.1 ETH" type="number" />
           </div>
         </Form.Item>
       )}
