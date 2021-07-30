@@ -19,12 +19,27 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { initializeWeb3, web3 } from "./constants/constants";
 import { saveUserData } from "./redux/actions/user";
-
+import { CheckCircleOutlineOutlined } from "@material-ui/icons";
+import { useState } from "react";
+import ErrorDialog from "./components/Dialogs/ErrorDialog";
 function App(props) {
+  const [error, setError] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     onChangeAccount();
     initializeWeb3();
+    checkNetWorkId();
   }, []);
+
+  const checkNetWorkId = async () => {
+    const networkId = await web3.eth.net.getId();
+    if (networkId != 4) {
+      setError(true);
+      setModalVisible(true);
+    } else {
+      setError(false);
+    }
+  };
 
   const onChangeAccount = async () => {
     window.ethereum.on("accountsChanged", async function (accounts) {
@@ -38,6 +53,18 @@ function App(props) {
       props.setUserData({ account: accounts2[0], balance });
       window.location.reload();
     });
+    window.ethereum.on("networkChanged", function (networkId) {
+      if (networkId != 4) {
+        setModalVisible(true);
+        setError(true);
+      } else {
+        setError(false);
+      }
+    });
+  };
+
+  const hideDialog = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -45,7 +72,7 @@ function App(props) {
       <Router>
         <Route path="/" exact>
           <Navbar />
-          <Home />
+          {error == false ? <Home /> : null}
           <Footer />
         </Route>
         <Route path="/my-items">
@@ -100,6 +127,10 @@ function App(props) {
           <Discussion />
         </Route>
       </Router>
+      <ErrorDialog
+        modalVisible={modalVisible}
+        toggleDialog={() => hideDialog()}
+      />
     </div>
   );
 }
