@@ -128,15 +128,12 @@ const SaleList = ({ onCallBack, sale }) => {
       .call()
       .then(async (value) => {
         for (let i = 0; i < value; i++) {
-          //  this.auctionListLoaderArray = Array(value - i);
           const auction2 = await auction.methods
             .auctions(i)
             .call()
             .then(async (auctions) => {
-              //   console.log("acc", auctions);
               const ipfsData = await contents(auctions.metadata);
               const jsonData = JSON.parse(ipfsData);
-              // console.log('js', )
               auctionItems.push({
                 owner: auctions.owner,
                 tokenId: auctions.id,

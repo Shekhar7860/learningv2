@@ -119,6 +119,7 @@ contract Elements is ERC721Full {
         // check the seller can't buy his own product
         // Transfer the ownership to buyer
         _product.owner = _to;
+        deleteTokenOf(_from, _token);
         tokenOwner[_to].push(_token);
 
 
@@ -134,6 +135,22 @@ contract Elements is ERC721Full {
 
         emit ProductUpdated(_token, _from, _product.owner,_product.price);
     }
+
+    function deleteTokenOf(address _owner, uint256 _tokenId)
+        public
+        returns (uint256[] memory)
+    {
+        uint256[] memory ownedTokens = tokenOwner[_owner];
+          for (uint i = 0; i<ownedTokens.length; i++){
+             if(ownedTokens[i] == _tokenId){
+                 delete ownedTokens[i];
+            }
+        }
+
+        tokenOwner[_owner] = ownedTokens;
+         return ownedTokens;
+    }
+
 
 
     // function editToken(

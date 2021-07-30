@@ -2,7 +2,7 @@ import { Avatar } from "antd";
 import React from "react";
 import "./OwnerItem.css";
 import { connect } from "react-redux";
-const OwnerItem = ({ item, page, data, owner }) => {
+const OwnerItem = ({ item, page, data, owner, onClick }) => {
   const { profile, tag, sub } = item;
   const isOwner = () => {
     let d = false;
@@ -21,7 +21,9 @@ const OwnerItem = ({ item, page, data, owner }) => {
         </div>
         {page == "bid-list" ? (
           isOwner() == true ? (
-            <button className="sell-button">Sell</button>
+            <button className="sell-button" onClick={onClick}>
+              Sell
+            </button>
           ) : null
         ) : null}
       </div>

@@ -36,6 +36,7 @@ function App(props) {
         balance = parseFloat(balance).toFixed(4);
       }
       props.setUserData({ account: accounts2[0], balance });
+      window.location.reload();
     });
   };
 

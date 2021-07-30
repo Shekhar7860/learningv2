@@ -57,9 +57,8 @@ const CollectibleCard = ({ card }) => {
   } = DialogFun();
 
   const goToSellPage = (card) => {
-    //  console.log("card", card);
     history.push({
-      pathname: `token/${card.tokenId}`,
+      pathname: `token/${card.tokenId ? card.tokenId : " "}`,
       state: card,
     });
   };
