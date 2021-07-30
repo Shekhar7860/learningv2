@@ -169,7 +169,7 @@ const SaleList = ({ onCallBack, sale }) => {
       .getTokensOf(accounts[0])
       .call()
       .then(async (value) => {
-        //  console.log("tokens value", value);
+        console.log("tokens value", value);
         for (let i = 0; i < value.length; i++) {
           const product = await contract.methods
             .products(value[i])
