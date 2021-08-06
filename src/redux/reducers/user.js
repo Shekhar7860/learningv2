@@ -1,6 +1,7 @@
-import { SET_STATUS, SET_DATA } from "../actionTypes";
+import { SET_STATUS, SET_DATA, SET_PROFILE_DATA } from "../actionTypes";
 const initialState = {
   data: null,
+  profileData: {},
   status: false,
 };
 export function user(state = initialState, action) {
@@ -14,6 +15,11 @@ export function user(state = initialState, action) {
       return {
         ...state,
         data: { ...state.status, ...action.data },
+      };
+    case SET_PROFILE_DATA:
+      return {
+        ...state,
+        profileData: { ...action.data },
       };
     default:
       return state;

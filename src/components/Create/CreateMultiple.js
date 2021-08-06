@@ -13,7 +13,7 @@ import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
 const CreateMultiple = () => {
   const { pickFile, image, removeFile, hash, fileType } = CreateFun();
 
-  const [sale, setSale] = useState(false);
+  const [sale, setSale] = useState(true);
   const [instant, setInstant] = useState(false);
   const [unlock, setUnlock] = useState(false);
   const [price, setPrice] = useState("");
@@ -81,7 +81,7 @@ const CreateMultiple = () => {
               <p>You'll receive bids on this item</p>
             </div>
             <Switch
-              defaultChecked={false}
+              defaultChecked={true}
               onChange={(checked) => {
                 setSale(checked);
               }}
@@ -183,6 +183,7 @@ const CreateMultiple = () => {
           type={fileType}
           imagehash={hash}
           collectionType={"M"}
+          sale={sale}
         />
       </div>
       <CreateCollectionDialog

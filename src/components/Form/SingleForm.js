@@ -60,6 +60,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
+          tokenType: "single",
           ...values,
         });
         added = await ipfs.add(doc);
@@ -95,6 +96,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
+          tokenType: "multiple",
           ...values,
         });
         added = await ipfs.add(doc);
@@ -104,12 +106,8 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
           .once(
             "receipt",
             async (receipt) => {
-              console.log("receipt1", receipt.events.URI.returnValues._id);
-              childRef.current.hideLoading();
-              toggleConfirmDialog();
-              setTimeout(() => {
-                history.push("/my-items");
-              }, 1000);
+              console.log("receipt", receipt);
+              transferId = receipt.events.URI.returnValues._id;
             },
             () => {}
           );

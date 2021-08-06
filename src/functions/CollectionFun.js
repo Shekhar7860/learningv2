@@ -37,7 +37,7 @@ const CollectionFun = () => {
                     "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
                   userId: accounts[0],
                   fileType: jsonData.fileType,
-                  tokenType: "erc721",
+                  tokenType: jsonData.tokenType,
                   sub: jsonData.description,
                 });
               });

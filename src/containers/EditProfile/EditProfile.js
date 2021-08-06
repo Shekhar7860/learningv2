@@ -2,12 +2,28 @@ import React, { Component } from "react";
 import "./EditProfile.css";
 import EditForm from "../../components/Form/EditForm";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import Preview from '../../assets/svg/preview.svg'
-
+import Preview from "../../assets/svg/preview.svg";
+import ipfs from "../../functions/Ipfs";
+import { connect } from "react-redux";
+import { profileContract } from "../../contractDetails/profile";
+import { contents } from "../../functions/ipfsContents";
 class EditProfile extends Component {
-    state = {
-        profile: ""
-    }
+  componentDidMount = async () => {
+    let contract = await profileContract();
+    const d = await contract.methods
+      .getIpfsHashByAddress(
+        this.props.data ? this.props.data.user.data.account : null
+      )
+      .call();
+    const ipfsData = await contents(d);
+    const jsonData = JSON.parse(ipfsData);
+    this.setState({ userData: jsonData });
+  };
+  state = {
+    profile: Preview,
+    hash: "",
+    userData: {},
+  };
   goToBackPage = () => {
     window.history.back();
   };
@@ -16,17 +32,20 @@ class EditProfile extends Component {
     document.getElementById("my-file-edit").click();
   };
 
-  fileChange = (e) => {
+  fileChange = async (e) => {
     if (e.target.files[0]) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          this.setState({profile: e.target.result});
-        };
-        reader.readAsDataURL(e.target.files[0]);
-      }
-  }
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({ profile: e.target.result });
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      const result = await ipfs.add(e.target.files[0]);
+      this.setState({ hash: result.path });
+    }
+  };
 
   render() {
+    console.log("this", this.props.data);
     return (
       <div className="edit-profile">
         <div className="edit-profile-header">
@@ -39,19 +58,38 @@ class EditProfile extends Component {
         </p>
         <div className="edit-user-box">
           <img
-            src={this.state.profile !== ""? this.state.profile: Preview}
+            src={
+              this.state.userData.file !== "" &&
+              this.state.userData.file !== undefined
+                ? this.state.userData.file
+                : this.state.profile
+            }
             alt="edit profile"
           />
           <div className="edit-user-info">
             <button onClick={this.selectFile}>Upload Photo</button>
             <p>At least 400x400, Gifs work too.</p>
-            <input onChange={this.fileChange} type="file" name="my_file" id="my-file-edit" />
+            <input
+              onChange={this.fileChange}
+              type="file"
+              name="my_file"
+              id="my-file-edit"
+            />
           </div>
         </div>
-        <EditForm />
+        <EditForm
+          image={this.state.profile}
+          hash={this.state.hash}
+          userData={this.state.userData}
+        />
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    data: state,
+  };
+};
 
-export default EditProfile;
+export default connect(mapStateToProps, null)(EditProfile);

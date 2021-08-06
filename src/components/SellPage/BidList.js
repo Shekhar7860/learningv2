@@ -5,6 +5,7 @@ import { auctionContract } from "../../contractDetails/auction";
 import { web3 } from "../../constants/constants";
 import { connect } from "react-redux";
 import { postContract } from "../../contractDetails/item";
+import { postCollectible } from "../../contractDetails/erc1155";
 const BidList = ({ biddingData, callBack, productData, data }) => {
   const [bidsList, setBidsList] = useState([]);
 
@@ -49,6 +50,7 @@ const BidList = ({ biddingData, callBack, productData, data }) => {
   const sellNFT = async () => {
     const auction = await auctionContract();
     const productsContract = await postContract();
+    const erc1155 = await postCollectible();
     var today = new Date();
     today.setHours(today.getHours() + 1);
     var selectedTime = today.getTime() / 1000;
@@ -58,10 +60,17 @@ const BidList = ({ biddingData, callBack, productData, data }) => {
       .then(async (res) => {
         var fromAddress = res.events.AuctionFinalized.returnValues.from;
         var token = res.events.AuctionFinalized.returnValues.productId;
-        await productsContract.methods
-          .transferToken(data.user.data.account, fromAddress, token)
-          .send({ from: data.user.data.account })
-          .then(async (result) => {});
+        if (biddingData.tokenType == "multiple") {
+          await erc1155.methods
+            .transferToken(data.user.data.account, fromAddress, token, 2)
+            .send({ from: data.user.data.account })
+            .then(async (result) => {});
+        } else {
+          await productsContract.methods
+            .transferToken(data.user.data.account, fromAddress, token)
+            .send({ from: data.user.data.account })
+            .then(async (result) => {});
+        }
       });
   };
   return (

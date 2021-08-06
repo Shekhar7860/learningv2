@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CollectibleCard from "../../Cards/CollectibleCard";
 import { postContract } from "../../../contractDetails/item";
 import { postCollectible } from "../../../contractDetails/erc1155";
+import { gameContract } from "../../../contractDetails/gameItems";
 import "./SaleList.css";
 import { web3 } from "../../../constants/constants";
 import ipfs from "../../../functions/Ipfs";
@@ -121,8 +122,9 @@ const SaleList = ({ onCallBack, sale }) => {
 
   const getData = async () => {
     let auctionItems = [...auctions];
-    const auction = await auctionContract();
     const accounts3 = await web3.eth.getAccounts();
+    const auction = await auctionContract();
+
     await auction.methods
       .getCount()
       .call()
@@ -149,7 +151,7 @@ const SaleList = ({ onCallBack, sale }) => {
                   "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
                 userId: accounts3[0],
                 fileType: jsonData.fileType,
-                tokenType: "erc721",
+                tokenType: jsonData.tokenType,
               });
             });
           // });
@@ -169,7 +171,6 @@ const SaleList = ({ onCallBack, sale }) => {
       .getTokensOf(accounts[0])
       .call()
       .then(async (value) => {
-        console.log("tokens value", value);
         for (let i = 0; i < value.length; i++) {
           const product = await contract.methods
             .products(value[i])
@@ -196,13 +197,12 @@ const SaleList = ({ onCallBack, sale }) => {
                       "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
                     userId: accounts[0],
                     fileType: jsonData.fileType,
-                    tokenType: "erc721",
+                    tokenType: jsonData.tokenType,
                   });
                 });
             });
         }
       });
-
     await collectTableContract.methods
       .getTokensOfERC1155(accounts[0])
       .call()
@@ -215,27 +215,29 @@ const SaleList = ({ onCallBack, sale }) => {
               const remainingBalance = await collectTableContract.methods
                 .balanceOf(accounts[0], tokens[i])
                 .call();
+              console.log("rem", remainingBalance);
               const ipfsData = await contents(result.metaData);
               const jsonData = JSON.parse(ipfsData);
-              if (result.owner == accounts[0]) {
-                listItems.push({
-                  sale: jsonData.sale,
-                  balance: remainingBalance,
-                  totalSupply: result.totalSupply,
-                  url: jsonData.file,
-                  multiple: true,
-                  image: true,
-                  title: jsonData.username,
-                  eth: jsonData.royalties,
-                  properties: jsonData.properties,
-                  category: "LISTING",
-                  userThumb:
-                    "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
-                  userId: accounts[0],
-                  fileType: jsonData.fileType,
-                  tokenType: "erc1155",
-                });
-              }
+              listItems.push({
+                sale: jsonData.sale,
+                balance: remainingBalance,
+                totalSupply:
+                  result.owner == accounts[0]
+                    ? result.totalSupply
+                    : remainingBalance,
+                url: jsonData.file,
+                multiple: true,
+                image: true,
+                title: jsonData.username,
+                eth: jsonData.royalties,
+                properties: jsonData.properties,
+                category: "LISTING",
+                userThumb:
+                  "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
+                userId: accounts[0],
+                fileType: jsonData.fileType,
+                tokenType: jsonData.tokenType,
+              });
             });
         }
       });

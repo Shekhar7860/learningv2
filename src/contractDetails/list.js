@@ -3,7 +3,6 @@ const TodoList = require("../../src/abis/TodoList.json");
 
 export const list = async () => {
   const t = await web3.eth.net.getId();
-  console.log("t", t);
   const networkAddress = TodoList.networks[t].address;
   const abi = TodoList.abi;
   return new web3.eth.Contract(abi, networkAddress);

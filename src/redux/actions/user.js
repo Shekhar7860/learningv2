@@ -1,4 +1,4 @@
-import { SET_STATUS, SET_DATA } from "../actionTypes";
+import { SET_STATUS, SET_DATA, SET_PROFILE_DATA } from "../actionTypes";
 export function setLoggedIn(val) {
   return {
     type: SET_STATUS,
@@ -10,5 +10,11 @@ export function saveUserData(data) {
   return {
     type: SET_DATA,
     data,
+  };
+}
+export function setProfileData(data) {
+  return {
+    type: SET_DATA,
+    profileData: data,
   };
 }

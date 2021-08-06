@@ -18,10 +18,13 @@ import SellPage from "./containers/SellPage/SellPage";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { initializeWeb3, web3 } from "./constants/constants";
-import { saveUserData } from "./redux/actions/user";
+import { saveUserData, setProfileData } from "./redux/actions/user";
 import { CheckCircleOutlineOutlined } from "@material-ui/icons";
 import { useState } from "react";
 import ErrorDialog from "./components/Dialogs/ErrorDialog";
+import ipfs from "./functions/Ipfs";
+import { profileContract } from "./contractDetails/profile";
+import { contents } from "./functions/ipfsContents";
 function App(props) {
   const [error, setError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +36,7 @@ function App(props) {
 
   const checkNetWorkId = async () => {
     const networkId = await web3.eth.net.getId();
-    if (networkId != 4) {
+    if (networkId != 4 && networkId != 5777) {
       setError(true);
       setModalVisible(true);
     } else {
@@ -51,10 +54,18 @@ function App(props) {
         balance = parseFloat(balance).toFixed(4);
       }
       props.setUserData({ account: accounts2[0], balance });
+
+      let contract = await profileContract();
+      const d = await contract.methods
+        .getIpfsHashByAddress(accounts2[0])
+        .call();
+      const ipfsData = await contents(d);
+      const jsonData = JSON.parse(ipfsData);
+      props.saveProfileData(jsonData);
       window.location.reload();
     });
     window.ethereum.on("networkChanged", function (networkId) {
-      if (networkId != 4) {
+      if (networkId != 4 && networkId != 5777) {
         setModalVisible(true);
         setError(true);
       } else {
@@ -138,6 +149,7 @@ function App(props) {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUserData: (data) => dispatch(saveUserData(data)),
+    saveProfileData: (data) => dispatch(setProfileData(data)),
   };
 };
 

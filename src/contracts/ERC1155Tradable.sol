@@ -21,6 +21,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   using Strings for string;
 
   uint256 public _currentTokenID = 0;
+  event tokenTransfer(uint256 _tokenId);
   mapping (uint256 => address) public creators;
   mapping (uint256 => uint256) public tokenSupply;
   mapping(uint256 => ercToken) public ercTokens;
@@ -241,6 +242,16 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   function _getNextTokenID() private view returns (uint256) {
     return _currentTokenID.add(1);
   }
+
+  function transferToken(
+        address _from,
+        address payable _to,
+        uint256 _token,
+        uint256 _amount    ) public {
+          ercTokenOwner[_to].push(_token);
+        safeTransferFrom( _from ,_to, _token, _amount, '0x0');
+        emit tokenTransfer(_token);
+    }
 
   /**
     * @dev increments the value of _currentTokenID

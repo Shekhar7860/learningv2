@@ -17,6 +17,7 @@ const BidDialog = ({
     setPrice(e.target.value);
   };
   const placeBid = async () => {
+    setLoading(true);
     const ether = web3.utils.toWei(price, "ether");
     const accounts = await web3.eth.getAccounts();
     const contract = await auctionContract();
@@ -24,6 +25,7 @@ const BidDialog = ({
       .bidOnAuction(biddingData.tokenId)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
+        setLoading(false);
         toggleDialog();
       })
       .then(async (error) => {

@@ -104,9 +104,10 @@ const SellPage = ({ match, data }) => {
       <div className="sell-page-right">
         <div className="sell-page-right-header">
           <div>
-            <h1>OROCHI-96</h1>
+            <h1>{card ? card.name : "OROCHI-96"}</h1>
             <p>
-              <span>1 SNFT</span> $2,414.45 1 of 1
+              <span>{card ? card.eth : 0} SNFT</span>{" "}
+              {card ? (card.multiple == true ? "1 of 1" : null) : null}
             </p>
           </div>
           <div className="sell-page-header-action">
