@@ -7,10 +7,18 @@ import { connect } from "react-redux";
 import { setLoggedIn } from "../../redux/actions/user";
 import { web3 } from "../../constants/constants";
 
-const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf, data }) => {
+const ProfileDrop = ({
+  toggleAutoplay,
+  autoPlay,
+  loggedOf,
+  data,
+  profileData,
+}) => {
   const [account, setAccount] = useState("");
   const [balance, setBalance] = useState(0);
   const [icon, setIcon] = useState("");
+  const [image, setImage] = useState("");
+  const [name, setUserName] = useState("");
   useEffect(() => {
     setData();
   }, []);
@@ -25,6 +33,8 @@ const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf, data }) => {
     } else {
       setAccount(user.data.account);
       setBalance(user.data.balance);
+      setImage(profileData.file);
+      setUserName(profileData.username);
     }
   };
   // const getdata = async () => {
@@ -73,11 +83,12 @@ const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf, data }) => {
         <Avatar
           size="large"
           style={{ background: "#ead3ff", color: "#420080" }}
+          src={image}
         >
           S
         </Avatar>
         <div className="profile-drop-header-context">
-          <h4>User Name</h4>
+          <h4>{name}</h4>
           <p>{account}</p>
         </div>
       </div>
@@ -138,6 +149,7 @@ const ProfileDrop = ({ toggleAutoplay, autoPlay, loggedOf, data }) => {
 const mapStateToProps = (state) => {
   return {
     data: state,
+    profileData: state.user.profileData,
   };
 };
 

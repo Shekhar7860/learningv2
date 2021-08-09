@@ -97,8 +97,17 @@ const Navbar = (props) => {
   const [visibleSearch, setVisibleSearch] = useState(false);
   const [logged, setLogged] = useState(false);
   const [socialLogged, setSocialLogged] = useState(false);
+  const [image, setImage] = useState(
+    `data:image/png;base64,${new Identicon(
+      "asdhf9878fa8sdf78a7d4c2xewcwtr4r",
+      30
+    ).toString()}`
+  );
 
   useEffect(() => {
+    if (props.profileData.file != undefined) {
+      setImage(props.profileData.file);
+    }
     if (props.data == true) {
       setLogged(true);
     }
@@ -248,10 +257,11 @@ const Navbar = (props) => {
                   placement="bottomLeft"
                 >
                   <img
-                    src={`data:image/png;base64,${new Identicon(
-                      "asdhf9878fa8sdf78a7d4c2xewcwtr4r",
-                      30
-                    ).toString()}`}
+                    src={image}
+                    // src={`data:image/png;base64,${new Identicon(
+                    //   "asdhf9878fa8sdf78a7d4c2xewcwtr4r",
+                    //   30
+                    // ).toString()}`}
                     alt="navbar account profile"
                   />
                 </Dropdown>
@@ -334,6 +344,7 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.user.status,
+    profileData: state.user.profileData,
   };
 };
 

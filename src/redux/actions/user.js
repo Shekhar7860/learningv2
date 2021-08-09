@@ -14,7 +14,7 @@ export function saveUserData(data) {
 }
 export function setProfileData(data) {
   return {
-    type: SET_DATA,
+    type: SET_PROFILE_DATA,
     profileData: data,
   };
 }

@@ -47,7 +47,7 @@ const EditForm = ({ type, image, hash, data, userData }) => {
       console.log("Error uploading file: ", error);
     }
   };
-  console.log("userData", userData);
+
   return (
     <Form
       className="edit-form"

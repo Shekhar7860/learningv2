@@ -19,7 +19,7 @@ export function user(state = initialState, action) {
     case SET_PROFILE_DATA:
       return {
         ...state,
-        profileData: { ...action.data },
+        profileData: { ...state, ...action.profileData },
       };
     default:
       return state;

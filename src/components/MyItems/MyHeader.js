@@ -26,7 +26,7 @@ import {
 import ConnectDialogFun from "../../functions/ConnectDialogFun";
 import SocialDialog from "../ConnectDialog/SocialDialog";
 import { connect } from "react-redux";
-const MyHeader = ({ data }) => {
+const MyHeader = ({ data, profileData }) => {
   const history = useHistory();
 
   const [userState, setUserState] = useState(false);
@@ -43,6 +43,9 @@ const MyHeader = ({ data }) => {
       setUserState(true);
     } else {
       setUserState(false);
+    }
+    if (profileData) {
+      setProfile(profileData.file);
     }
     setUser(data);
   }, []);
@@ -142,14 +145,7 @@ const MyHeader = ({ data }) => {
         </div>
       </div>
       <div className="my-header-user-context">
-        <img
-          src={
-            user
-              ? "https://i2-prod.mirror.co.uk/incoming/article14334083.ece/ALTERNATES/s615/3_Beautiful-girl-with-a-gentle-smile.jpg"
-              : null
-          }
-          alt="my items user profile"
-        />
+        <img src={profile != "" ? profile : null} alt="my items user profile" />
         <div className="user-content-box">
           <div className="user-content">
             <h1>{user ? "Liza Willams" : ""}</h1>
@@ -232,6 +228,7 @@ const MyHeader = ({ data }) => {
 const mapStateToProps = (state) => {
   return {
     data: state,
+    profileData: state.user.profileData,
   };
 };
 

@@ -45,7 +45,6 @@ class EditProfile extends Component {
   };
 
   render() {
-    console.log("this", this.props.data);
     return (
       <div className="edit-profile">
         <div className="edit-profile-header">
