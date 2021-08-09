@@ -36,7 +36,7 @@ function App(props) {
 
   const checkNetWorkId = async () => {
     const networkId = await web3.eth.net.getId();
-    if (networkId != 4 && networkId != 5777) {
+    if (networkId != 4) {
       setError(true);
       setModalVisible(true);
     } else {
@@ -54,7 +54,6 @@ function App(props) {
         balance = parseFloat(balance).toFixed(4);
       }
       props.setUserData({ account: accounts2[0], balance });
-
       let contract = await profileContract();
       const d = await contract.methods
         .getIpfsHashByAddress(accounts2[0])
@@ -65,7 +64,7 @@ function App(props) {
       window.location.reload();
     });
     window.ethereum.on("networkChanged", function (networkId) {
-      if (networkId != 4 && networkId != 5777) {
+      if (networkId != 4) {
         setModalVisible(true);
         setError(true);
       } else {
