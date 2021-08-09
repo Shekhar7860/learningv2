@@ -149,7 +149,6 @@ const ProfileDrop = ({
 const mapStateToProps = (state) => {
   return {
     data: state,
-    profileData: state.user.profileData,
   };
 };
 

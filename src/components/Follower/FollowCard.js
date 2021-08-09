@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FollowCard.css";
 
 const FollowCard = () => {
+  const [buttonTag, setButtonTag] = useState("Follow");
+
+  const changeStatus = () => {
+    if (buttonTag == "Follow") {
+      setButtonTag("UnFollow");
+    } else {
+      setButtonTag("Follow");
+    }
+  };
   return (
     <div className="follow-card">
       <div className="follow-context">
@@ -14,7 +23,7 @@ const FollowCard = () => {
           <p>434 followers</p>
         </div>
       </div>
-      <button>Follow</button>
+      <button onClick={changeStatus}>{buttonTag}</button>
     </div>
   );
 };
