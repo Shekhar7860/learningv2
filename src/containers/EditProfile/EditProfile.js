@@ -7,6 +7,7 @@ import ipfs from "../../functions/Ipfs";
 import { connect } from "react-redux";
 import { profileContract } from "../../contractDetails/profile";
 import { contents } from "../../functions/ipfsContents";
+import { addCreator } from "../../redux/actions/creators";
 class EditProfile extends Component {
   componentDidMount = async () => {
     let contract = await profileContract();
@@ -40,6 +41,14 @@ class EditProfile extends Component {
       };
       reader.readAsDataURL(e.target.files[0]);
       const result = await ipfs.add(e.target.files[0]);
+      this.props
+        .submitCreatorData({
+          image: result.path,
+          address: this.props.data.user.data.account,
+        })
+        .then((response) => {
+          console.log("res", response);
+        });
       this.setState({ hash: result.path });
     }
   };
@@ -85,10 +94,15 @@ class EditProfile extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitCreatorData: (data) => dispatch(addCreator(data)),
+  };
+};
 const mapStateToProps = (state) => {
   return {
     data: state,
   };
 };
 
-export default connect(mapStateToProps, null)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

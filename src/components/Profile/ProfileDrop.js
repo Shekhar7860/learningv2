@@ -33,8 +33,10 @@ const ProfileDrop = ({
     } else {
       setAccount(user.data.account);
       setBalance(user.data.balance);
-      setImage(profileData.file);
-      setUserName(profileData.username);
+      if (profileData) {
+        setImage(profileData.file);
+        setUserName(profileData.username);
+      }
     }
   };
   // const getdata = async () => {

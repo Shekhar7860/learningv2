@@ -17,6 +17,7 @@
     "@walletconnect/qrcode-modal": "^1.5.0-rc.7",
     "antd": "^4.15.1",
     "aos": "^2.3.4",
+    "axios": "^0.20.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "fortmatic": "^2.2.1",

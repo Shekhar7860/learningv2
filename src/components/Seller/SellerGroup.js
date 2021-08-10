@@ -1,15 +1,13 @@
-import React from 'react'
-import './SellerGroup.css'
-import SellerItem from './SellerItem'
+import React from "react";
+import "./SellerGroup.css";
+import SellerItem from "./SellerItem";
 
-const SellerGroup = ({cards}) => {
-    return (
-        <div className="seller-group">
-            {cards.map(item => (
-            <SellerItem item={item} key={item.count + item.name} />
-            ))}
-        </div>
-    )
-}
+const SellerGroup = ({ cards }) => {
+  return (
+    <div className="seller-group">
+      <SellerItem item={cards} />
+    </div>
+  );
+};
 
-export default SellerGroup
+export default SellerGroup;

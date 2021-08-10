@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FilterFun from "../../functions/FilterFun";
 import "./ExploreFilter.css";
-
-const ExploreFilter = () => {
+import { getCreators } from "../../redux/actions/creators";
+import { connect } from "react-redux";
+const ExploreFilter = ({ getCreatorsList, userdata }) => {
   const { items, data } = FilterFun();
-
+  const [creators, setCreators] = useState([]);
+  useEffect(() => {
+    if (userdata.user.data != null && userdata.user.data != undefined) {
+      getCreatorsList(userdata.user.data.account).then((response) => {
+        setCreators(response.data);
+      });
+    }
+  }, []);
   return (
     <div className="explore-filter">
       <div className="explore-tag">
@@ -45,4 +53,15 @@ const ExploreFilter = () => {
   );
 };
 
-export default ExploreFilter;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCreatorsList: (address) => dispatch(getCreators(address)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    userdata: state,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreFilter);

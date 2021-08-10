@@ -11,6 +11,7 @@ export const initializeWeb3 = async () => {
     alert("Please Install Metamask");
   }
 };
+export const apiUrl = "https://artabia.com:3002/api";
 export const serviceFee = 0.004725;
 export const audioUrl =
   "https://firebasestorage.googleapis.com/v0/b/testfirebase-ba78c.appspot.com/o/musicplayer.jpeg?alt=media&token=694a4c58-ae4c-4166-a010-3f45cf63146b";

@@ -1,10 +1,13 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Dropdown, Menu } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SellerListFun from "../../../functions/SellerListFun";
 import SellerGroup from "../../Seller/SellerGroup";
 import "./SellerList.css";
-
+import { getCreators } from "../../../redux/actions/creators";
+import { connect } from "react-redux";
+import { web3 } from "../../../constants/constants";
+import { getDeprecatableDirectiveNodes } from "@graphql-tools/load/node_modules/@graphql-tools/utils";
 const sellerManu = (
   <Menu onClick={() => {}}>
     <Menu.Item key="1">Sellers</Menu.Item>
@@ -20,9 +23,19 @@ const dayMenu = (
   </Menu>
 );
 
-const SellerList = () => {
+const SellerList = ({ userdata, getCreatorsList }) => {
   const { items } = SellerListFun();
-
+  const [creators, setCreators] = useState([]);
+  useEffect(() => {
+    const getList = async () => {
+      const accounts = await web3.eth.getAccounts();
+      getCreatorsList(accounts[0]).then((response) => {
+        console.log("res", response.data);
+        setCreators(response.data);
+      });
+    };
+    getList();
+  }, []);
   return (
     <div className="seller-list">
       {/* <h1>
@@ -52,12 +65,22 @@ const SellerList = () => {
         </Dropdown>
       </h1> */}
       <div className="seller-item-list">
-        {items.map((item, index) => (
+        {creators.map((item, index) => (
           <SellerGroup key={index} cards={item} />
         ))}
       </div>
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCreatorsList: (address) => dispatch(getCreators(address)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    userdata: state,
+  };
+};
 
-export default SellerList;
+export default connect(mapStateToProps, mapDispatchToProps)(SellerList);
