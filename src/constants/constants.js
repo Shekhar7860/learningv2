@@ -15,3 +15,5 @@ export const apiUrl = "https://artabia.com:3002/api";
 export const serviceFee = 0.004725;
 export const audioUrl =
   "https://firebasestorage.googleapis.com/v0/b/testfirebase-ba78c.appspot.com/o/musicplayer.jpeg?alt=media&token=694a4c58-ae4c-4166-a010-3f45cf63146b";
+export const pic =
+  "https://image.freepik.com/free-photo/young-beautiful-woman-standing-yacht-luxury-travel-boat-cruise-vacation_146377-4040.jpg";

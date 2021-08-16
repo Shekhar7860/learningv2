@@ -11,8 +11,8 @@ import DialogFun from "../../functions/DialogFun";
 import ReactPlayer from "react-player";
 import CreateCollectionDialog from "../Dialogs/CreateCollectionDialog";
 import ConfCollectionDialog from "../Dialogs/ConfCollectionDialog";
-
-const CreateSingle = () => {
+import { connect } from "react-redux";
+const CreateSingle = ({ profileData }) => {
   const { pickFile, image, removeFile, hash, fileType } = CreateFun();
   const [sale, setSale] = useState(true);
   const [instant, setInstant] = useState(false);
@@ -185,6 +185,7 @@ const CreateSingle = () => {
           imagehash={hash}
           collectionType={"S"}
           sale={sale}
+          userProfile={profileData}
         />
       </div>
       <CreateCollectionDialog
@@ -200,4 +201,10 @@ const CreateSingle = () => {
   );
 };
 
-export default CreateSingle;
+const mapStateToProps = (state) => {
+  return {
+    profileData: state.user.profileData,
+  };
+};
+
+export default connect(mapStateToProps, null)(CreateSingle);

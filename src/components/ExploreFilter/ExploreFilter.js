@@ -3,16 +3,21 @@ import FilterFun from "../../functions/FilterFun";
 import "./ExploreFilter.css";
 import { getCreators } from "../../redux/actions/creators";
 import { connect } from "react-redux";
+import { web3 } from "../../constants/constants";
 const ExploreFilter = ({ getCreatorsList, userdata }) => {
   const { items, data } = FilterFun();
   const [creators, setCreators] = useState([]);
   useEffect(() => {
-    if (userdata.user.data != null && userdata.user.data != undefined) {
-      getCreatorsList(userdata.user.data.account).then((response) => {
+    const getListing = async () => {
+      const accounts = await web3.eth.getAccounts();
+      getCreatorsList(accounts[0]).then((response) => {
+        // console.log("resss", response);
         setCreators(response.data);
       });
-    }
+    };
+    getListing();
   }, []);
+
   return (
     <div className="explore-filter">
       <div className="explore-tag">

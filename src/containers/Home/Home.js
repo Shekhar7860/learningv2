@@ -16,7 +16,7 @@ class Home extends Component {
         <SellerList />
         <HotBidList />
         <CollectionList />
-        <AllItemList />
+        {/* <AllItemList /> */}
       </div>
     );
   }

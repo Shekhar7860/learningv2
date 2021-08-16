@@ -39,6 +39,7 @@ const menu = (toggleShareDialog, toggleReportDialog) => (
 );
 
 const SellPage = ({ match, data }) => {
+  console.log("data", data);
   const history = useHistory();
   const [bidButton, showBidButton] = useState(false);
   const [card, setCard] = useState(null);
@@ -80,7 +81,6 @@ const SellPage = ({ match, data }) => {
     thanksDialog,
     toggleThanksDialog,
   } = DialogFun();
-
   return (
     <div className="sell-page">
       <div className="sell-page-left">
@@ -132,7 +132,7 @@ const SellPage = ({ match, data }) => {
               <InfoList />
             </TabPane>
             <TabPane tab="Owners" key="2">
-              <OwnersList />
+              <OwnersList biddingData={card} />
             </TabPane>
             <TabPane tab="History" key="3">
               <HistoryList />
@@ -161,6 +161,7 @@ const SellPage = ({ match, data }) => {
         check={false}
         modalVisible={bidDialog}
         toggleDialog={toggleBidDialog}
+        selected={card != null ? card : { name: "", multiple: false, sub: "" }}
       />
       <ShareDialog
         modalVisible={shareDialog}

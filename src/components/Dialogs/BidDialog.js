@@ -10,9 +10,11 @@ const BidDialog = ({
   check,
   data,
   biddingData,
+  selected,
 }) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
+  const { name, sub, multiple, tokenId } = selected;
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
@@ -22,7 +24,7 @@ const BidDialog = ({
     const accounts = await web3.eth.getAccounts();
     const contract = await auctionContract();
     await contract.methods
-      .bidOnAuction(biddingData.tokenId)
+      .bidOnAuction(biddingData != undefined ? biddingData.tokenId : tokenId)
       .send({ from: accounts[0], value: ether })
       .then(async (val) => {
         setLoading(false);
@@ -37,7 +39,7 @@ const BidDialog = ({
     //   toggleDialog();
     // }, 3000);
   };
-
+  console.log("to", selected);
   return (
     <Modal
       title="Place a bid"
@@ -58,9 +60,8 @@ const BidDialog = ({
         ) : (
           <div className="purchase-dialog">
             <p>
-              You are about to place a Bid{" "}
-              <span>Galore \\ Golden Baguettes</span> from{" "}
-              <span>maximkuzlin</span>
+              You are about to place a Bid <span>{name}</span> from{" "}
+              <span>{sub}</span>
             </p>
             <div className="purchase-dialog-item">
               <h3>Your bid</h3>
@@ -83,7 +84,7 @@ const BidDialog = ({
             {check && (
               <div className="purchase-dialog-item">
                 <h3>
-                  Enter quantity <span>(5 available)</span>
+                  <p>Enter quantity. {multiple == false ? 1 : 4} available</p>
                 </h3>
                 <input bordered={false} placeholder="Enter quantity" />
               </div>

@@ -1,7 +1,7 @@
 @import url("../../utils/Colors.css");
 
 .collectible-item {
-    /* border: 1px solid var(--lightGrayColor); */
+  /* border: 1px solid var(--lightGrayColor); */
   border-radius: 1rem;
   /* padding: 1.5rem; */
   margin: 12px;
@@ -15,7 +15,7 @@
   justify-content: space-between;
 }
 
-.collectible-footer .collectible-content .name-text{
+.collectible-footer .collectible-content .name-text {
   font-size: 1rem;
 }
 
@@ -165,7 +165,6 @@
   height: 240px;
 }
 
-
 .react-thumbnail-generator {
   display: none !important;
 }
@@ -176,4 +175,7 @@
   bottom: 0;
   margin: 8px;
   color: var(--textWhiteColor);
+}
+.ant-dropdown ul li > span {
+  color: black;
 }

@@ -13,7 +13,15 @@ import "./SingleForm.css";
 import { withRouter } from "react-router-dom";
 import ipfs from "../../functions/Ipfs";
 import { useHistory } from "react-router-dom";
-const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
+
+const SingleForm = ({
+  type,
+  nameChange,
+  imagehash,
+  collectionType,
+  sale,
+  userProfile,
+}) => {
   const history = useHistory();
   const childRef = useRef();
   useEffect(() => {
@@ -55,12 +63,14 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
     if (collectionType == "S") {
       toggleConfirmDialog();
       const contract = await postContract();
+      console.log("data", userProfile);
       try {
         const doc = JSON.stringify({
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
           tokenType: "single",
+          username: userProfile.username,
           ...values,
         });
         added = await ipfs.add(doc);
@@ -96,6 +106,7 @@ const SingleForm = ({ type, nameChange, imagehash, collectionType, sale }) => {
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
+          username: userProfile.username,
           tokenType: "multiple",
           ...values,
         });

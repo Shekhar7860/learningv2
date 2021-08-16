@@ -208,11 +208,13 @@ const CollectibleCard = ({ card }) => {
       <PurchaseDialog
         modalVisible={purchaseDialog}
         toggleDialog={togglePurchaseDialog}
+        selected={card}
       />
       <BidDialog
         check={true}
         modalVisible={bidDialog}
         toggleDialog={toggleBidDialog}
+        selected={card}
       />
       <ShareDialog
         modalVisible={shareDialog}

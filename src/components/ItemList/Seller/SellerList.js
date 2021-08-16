@@ -65,7 +65,7 @@ const SellerList = ({ userdata, getCreatorsList }) => {
         </Dropdown>
       </h1> */}
       <div className="seller-item-list">
-        {creators.map((item, index) => (
+        {items.map((item, index) => (
           <SellerGroup key={index} cards={item} />
         ))}
       </div>

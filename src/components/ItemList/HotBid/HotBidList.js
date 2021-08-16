@@ -70,14 +70,17 @@ const HotBidList = () => {
           <img src={FireIcon} alt="fire icon" />
         </span> */}
       </h1>
-
-      <div className="hotbid-item-list">
-        <Carousel {...settings}>
-          {hotBids.map((item, index) => (
-            <CollectibleCard card={item} key={item.url + index} />
-          ))}
-        </Carousel>
-      </div>
+      {hotBids.length > 0 ? (
+        <div className="hotbid-item-list">
+          <Carousel {...settings}>
+            {hotBids.map((item, index) => (
+              <CollectibleCard card={item} key={item.url + index} />
+            ))}
+          </Carousel>
+        </div>
+      ) : (
+        <div className="no-record-found">No Record Found</div>
+      )}
     </div>
   );
 };

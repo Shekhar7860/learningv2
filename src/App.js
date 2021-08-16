@@ -25,6 +25,7 @@ import ErrorDialog from "./components/Dialogs/ErrorDialog";
 import ipfs from "./functions/Ipfs";
 import { profileContract } from "./contractDetails/profile";
 import { contents } from "./functions/ipfsContents";
+import { pic } from "./constants/constants";
 function App(props) {
   const [error, setError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -55,12 +56,25 @@ function App(props) {
       }
       props.setUserData({ account: accounts2[0], balance });
       let contract = await profileContract();
-      const d = await contract.methods
-        .getIpfsHashByAddress(accounts2[0])
-        .call();
-      const ipfsData = await contents(d);
-      const jsonData = JSON.parse(ipfsData);
-      props.saveProfileData(jsonData);
+      const user = await contract.methods.hasUser(accounts2[0]).call();
+      if (user == true) {
+        const d = await contract.methods
+          .getIpfsHashByAddress(accounts2[0])
+          .call();
+        const ipfsData = await contents(d);
+        const jsonData = JSON.parse(ipfsData);
+        console.log("jsonData", jsonData);
+        props.saveProfileData(jsonData);
+      } else {
+        props.saveProfileData({
+          bio: "",
+          customUrl: "",
+          email: "",
+          file: pic,
+          personalSite: "",
+          username: "",
+        });
+      }
       window.location.reload();
     });
     window.ethereum.on("networkChanged", function (networkId) {

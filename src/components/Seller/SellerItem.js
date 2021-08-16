@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 const SellerItem = ({ item }) => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -19,6 +20,7 @@ const SellerItem = ({ item }) => {
       state: item,
     });
   };
+
   return (
     <div className="seller-item" onClick={() => goToProfilePage(item)}>
       {loading ? (
@@ -33,7 +35,7 @@ const SellerItem = ({ item }) => {
           <div className="seller-item-image">
             <img
               className="seller-avatar"
-              src={"https://artabia.com:3002/api/image?filename=" + item.image}
+              src={item.urlImage}
               alt={item.name}
             />
             <img className="seller-badge" src={Badge} alt="verified badge" />

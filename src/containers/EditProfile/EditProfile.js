@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { profileContract } from "../../contractDetails/profile";
 import { contents } from "../../functions/ipfsContents";
 import { addCreator } from "../../redux/actions/creators";
+import { web3 } from "../../constants/constants";
 class EditProfile extends Component {
   componentDidMount = async () => {
     let contract = await profileContract();
@@ -41,10 +42,16 @@ class EditProfile extends Component {
       };
       reader.readAsDataURL(e.target.files[0]);
       const result = await ipfs.add(e.target.files[0]);
+      const accounts = await web3.eth.getAccounts();
+      let data = {
+        image: result.path,
+        address: accounts[0],
+      };
+      console.log("data", data);
       this.props
         .submitCreatorData({
           image: result.path,
-          address: this.props.data.user.data.account,
+          address: accounts[0],
         })
         .then((response) => {
           console.log("res", response);
@@ -54,6 +61,7 @@ class EditProfile extends Component {
   };
 
   render() {
+    console.log("sgs", this.state.profile);
     return (
       <div className="edit-profile">
         <div className="edit-profile-header">
@@ -67,8 +75,7 @@ class EditProfile extends Component {
         <div className="edit-user-box">
           <img
             src={
-              this.state.userData.file !== "" &&
-              this.state.userData.file !== undefined
+              this.state.profile == "/static/media/preview.379bfe63.svg"
                 ? this.state.userData.file
                 : this.state.profile
             }

@@ -73,13 +73,17 @@ const CollectionList = () => {
             <img src={FireIcon} alt="fire icon" />
           </span> */}
         </h1>
-        <div className="hotbid-item-list">
-          <Carousel {...settings}>
-            {items.map((item, index) => (
-              <CollectionCard card={item} key={index + item.cover} />
-            ))}
-          </Carousel>
-        </div>
+        {items.length > 0 ? (
+          <div className="hotbid-item-list">
+            <Carousel {...settings}>
+              {items.map((item, index) => (
+                <CollectionCard card={item} key={index + item.cover} />
+              ))}
+            </Carousel>
+          </div>
+        ) : (
+          <div className="no-record-found">No Record Found</div>
+        )}
       </div>
     </div>
   );

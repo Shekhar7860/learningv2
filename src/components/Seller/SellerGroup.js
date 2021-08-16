@@ -5,7 +5,9 @@ import SellerItem from "./SellerItem";
 const SellerGroup = ({ cards }) => {
   return (
     <div className="seller-group">
-      <SellerItem item={cards} />
+      {cards.map((item) => (
+        <SellerItem item={item} key={item.count + item.name} />
+      ))}
     </div>
   );
 };
