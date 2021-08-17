@@ -124,7 +124,7 @@ const SaleList = ({ onCallBack, sale }) => {
     let auctionItems = [...auctions];
     const accounts3 = await web3.eth.getAccounts();
     const auction = await auctionContract();
-
+    const accounts = await web3.eth.getAccounts();
     await auction.methods
       .getCount()
       .call()
@@ -136,23 +136,25 @@ const SaleList = ({ onCallBack, sale }) => {
             .then(async (auctions) => {
               const ipfsData = await contents(auctions.metadata);
               const jsonData = JSON.parse(ipfsData);
-              auctionItems.push({
-                owner: auctions.owner,
-                tokenId: auctions.id,
-                sale: jsonData.sale,
-                url: jsonData.file,
-                multiple: false,
-                image: true,
-                title: jsonData.username,
-                eth: jsonData.royalties,
-                time: jsonData.properties,
-                category: "LISTING",
-                userThumb:
-                  "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
-                userId: accounts3[0],
-                fileType: jsonData.fileType,
-                tokenType: jsonData.tokenType,
-              });
+              if (accounts[0] == auctions.owner) {
+                auctionItems.push({
+                  owner: auctions.owner,
+                  tokenId: auctions.id,
+                  sale: jsonData.sale,
+                  url: jsonData.file,
+                  multiple: false,
+                  image: true,
+                  title: jsonData.username,
+                  eth: jsonData.royalties,
+                  time: jsonData.properties,
+                  category: "LISTING",
+                  userThumb:
+                    "https://images.rarible.com/?fit=outsize&n=-1&url=https%3A%2F%2Fipfs.rarible.com%2Fipfs%2FQmV4Z22SMcfg1qHvuBMyAG3qwrxyCLRwiqQsdXBConUQeW&w=100",
+                  userId: accounts3[0],
+                  fileType: jsonData.fileType,
+                  tokenType: jsonData.tokenType,
+                });
+              }
             });
           // });
         }
@@ -162,7 +164,7 @@ const SaleList = ({ onCallBack, sale }) => {
     onCallBack(auctionItems, "sale");
 
     let totalCreatedProducts = 0;
-    const accounts = await web3.eth.getAccounts();
+
     let listItems = [...items];
     // communicating with ethereum blockchain database
     const contract = await postContract();

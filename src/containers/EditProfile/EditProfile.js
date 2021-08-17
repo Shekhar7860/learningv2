@@ -47,15 +47,15 @@ class EditProfile extends Component {
         image: result.path,
         address: accounts[0],
       };
-      console.log("data", data);
-      this.props
-        .submitCreatorData({
-          image: result.path,
-          address: accounts[0],
-        })
-        .then((response) => {
-          console.log("res", response);
-        });
+      // console.log("data", data);
+      // this.props
+      //   .submitCreatorData({
+      //     image: result.path,
+      //     address: accounts[0],
+      //   })
+      //   .then((response) => {
+      //     console.log("res", response);
+      //   });
       this.setState({ hash: result.path });
     }
   };

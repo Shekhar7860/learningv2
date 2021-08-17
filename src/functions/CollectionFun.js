@@ -22,6 +22,7 @@ const CollectionFun = () => {
                 const ipfsData = await contents(auctions.metadata);
                 const jsonData = JSON.parse(ipfsData);
                 collectionsList.push({
+                  bid: jsonData.bid,
                   owner: auctions.owner,
                   tokenId: auctions.id,
                   sale: jsonData.sale,
@@ -29,6 +30,7 @@ const CollectionFun = () => {
                   cover: jsonData.file,
                   multiple: false,
                   image: true,
+                  ownerName: jsonData.ownerName,
                   name: jsonData.username,
                   eth: jsonData.royalties,
                   time: jsonData.properties,

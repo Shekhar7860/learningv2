@@ -47,12 +47,11 @@ const MyHeader = ({ data, profileData }) => {
     if (profileData) {
       setProfile(profileData.file);
     }
-    setUser(data);
+    setUser(profileData);
   }, []);
 
   const { toggleReportDialog, reportDialog, thanksDialog, toggleThanksDialog } =
     DialogFun();
-
   const { socialDialog, toggleSocialDialog } = ConnectDialogFun();
   const shareMenu = (
     <Menu onClick={() => {}}>
@@ -148,11 +147,9 @@ const MyHeader = ({ data, profileData }) => {
         <img src={profile != "" ? profile : null} alt="my items user profile" />
         <div className="user-content-box">
           <div className="user-content">
-            <h1>{user ? "Liza Willams" : ""}</h1>
+            <h1>{user ? user.username : ""}</h1>
             <div className="user-address">
-              <h2>
-                {user ? (user.user.data ? user.user.data.account : "") : ""}
-              </h2>
+              <h2>{user ? (user.data ? user.data.account : "") : ""}</h2>
               <CopyOutlined />
             </div>
             <ReadMoreReact

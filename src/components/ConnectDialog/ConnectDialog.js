@@ -8,6 +8,9 @@ import { setLoggedIn, saveUserData } from "./../../redux/actions/user";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { FORMATIC_API_KEY } from "../../constants/constants";
+import MetaMaskIcon from "../../assets/png/metamask.png";
+import FortMaticIcon from "../../assets/png/fortmatic.png";
+import WalletConnectIcon from "../../assets/png/walletconnect.jpeg";
 const ConnectDialog = ({
   modalVisible,
   showConnectDialog,
@@ -138,30 +141,21 @@ const ConnectDialog = ({
                 className="connect-item"
                 onClick={() => connectToWallet("metaMask")}
               >
-                <img
-                  src="https://rarible.com/static/15b466863644140afb0f0edd08fa74b0.svg"
-                  alt="metamask"
-                />
+                <img src={MetaMaskIcon} alt="metamask" />
                 <h2>Metamask</h2>
               </div>
               <div
                 className="connect-item"
                 onClick={() => connectToWallet("fortmatic")}
               >
-                <img
-                  src="https://rarible.com/static/bd9302c4068517e1072e192479e2d6c8.svg"
-                  alt="metamask"
-                />
+                <img src={FortMaticIcon} alt="metamask" />
                 <h2>Fortmatic</h2>
               </div>
               <div
                 className="connect-item"
                 onClick={() => connectToWallet("walletConnect")}
               >
-                <img
-                  src="https://rarible.com/static/4705c8de03ce7004d56aafa558ff5237.svg"
-                  alt="metamask"
-                />
+                <img src={WalletConnectIcon} alt="metamask" />
                 <h2>WalletConnect</h2>
               </div>
               {/* <div className="connect-item">

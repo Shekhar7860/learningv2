@@ -63,14 +63,14 @@ const SingleForm = ({
     if (collectionType == "S") {
       toggleConfirmDialog();
       const contract = await postContract();
-      console.log("data", userProfile);
+      console.log("data", userProfile, values);
       try {
         const doc = JSON.stringify({
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
           tokenType: "single",
-          username: userProfile.username,
+          ownerName: userProfile.username,
           ...values,
         });
         added = await ipfs.add(doc);
@@ -106,7 +106,7 @@ const SingleForm = ({
           file: `https://ipfs.infura.io/ipfs/${imagehash}`,
           fileType: type,
           sale,
-          username: userProfile.username,
+          ownerName: userProfile.username,
           tokenType: "multiple",
           ...values,
         });

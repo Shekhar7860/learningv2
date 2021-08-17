@@ -3,16 +3,37 @@ import "./Dialog.css";
 import { Input, Modal, Spin } from "antd";
 import { connect } from "react-redux";
 import { serviceFee } from "../../constants/constants";
+import { postContract } from "../../contractDetails/item";
+import { auctionContract } from "../../contractDetails/auction";
+import { web3 } from "../../constants/constants";
 const PurchaseDialog = ({ modalVisible, toggleDialog, selected, data }) => {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { name, sub, multiple } = selected;
-  const setProgressOn = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toggleDialog();
-    }, 3000);
+  const setProgressOn = async () => {
+    const auction = await auctionContract();
+    const accounts = await web3.eth.getAccounts();
+    const ether = web3.utils.toWei(selected.bid.toString(), "ether");
+    if (quantity == 1) {
+      setLoading(true);
+      await auction.methods
+        .purchasePriceAuction(selected.tokenId)
+        .send({ from: accounts[0], value: ether })
+        .then(async (val) => {
+          setLoading(false);
+          toggleDialog();
+        })
+        .catch((error) => {
+          setLoading(false);
+          toggleDialog();
+        });
+    } else {
+      alert("invalid quantity");
+    }
+  };
+
+  const handleChange = (e) => {
+    setQuantity(e.target.value);
   };
 
   return (
@@ -39,7 +60,12 @@ const PurchaseDialog = ({ modalVisible, toggleDialog, selected, data }) => {
               <span>{sub}</span>
             </p>
             <div className="purchase-dialog-item">
-              <input bordered={false} placeholder="Enter quantity" />
+              <input
+                type="number"
+                bordered={false}
+                placeholder="Enter quantity"
+                onChange={handleChange}
+              />
               <p>Enter quantity. {multiple == false ? 1 : 4} available</p>
             </div>
             <div className="purchase-dialog-item flex">

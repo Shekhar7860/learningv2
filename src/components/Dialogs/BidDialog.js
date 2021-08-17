@@ -39,7 +39,6 @@ const BidDialog = ({
     //   toggleDialog();
     // }, 3000);
   };
-  console.log("to", selected);
   return (
     <Modal
       title="Place a bid"

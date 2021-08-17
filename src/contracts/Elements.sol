@@ -45,7 +45,7 @@ contract Elements is ERC721Full {
         uint256 price
     );
 
-    constructor() public ERC721Full("Artabia", "ArtabiaCollection") {}
+    constructor() public ERC721Full("SingleToken", "SingleTokenCollection") {}
 
     function createProduct(
         address owner,
@@ -149,6 +149,15 @@ contract Elements is ERC721Full {
 
         tokenOwner[_owner] = ownedTokens;
          return ownedTokens;
+    }
+
+    function transferERC721Token(address seller, address payable to, uint256 _tokenId) external {
+    _transferFrom(seller, to, _tokenId);
+    tokenOwner[to].push(_tokenId);
+    Product memory _product = products[_tokenId];
+    _product.owner = to;
+    products[_tokenId] = _product;
+    deleteTokenOf(seller, _tokenId);
     }
 
 

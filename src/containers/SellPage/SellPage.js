@@ -39,7 +39,6 @@ const menu = (toggleShareDialog, toggleReportDialog) => (
 );
 
 const SellPage = ({ match, data }) => {
-  console.log("data", data);
   const history = useHistory();
   const [bidButton, showBidButton] = useState(false);
   const [card, setCard] = useState(null);
@@ -129,7 +128,7 @@ const SellPage = ({ match, data }) => {
           <h3>Surrogate #96</h3>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Info" key="1">
-              <InfoList />
+              <InfoList biddingData={card} />
             </TabPane>
             <TabPane tab="Owners" key="2">
               <OwnersList biddingData={card} />

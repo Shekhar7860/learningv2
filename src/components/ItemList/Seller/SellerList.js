@@ -30,7 +30,6 @@ const SellerList = ({ userdata, getCreatorsList }) => {
     const getList = async () => {
       const accounts = await web3.eth.getAccounts();
       getCreatorsList(accounts[0]).then((response) => {
-        console.log("res", response.data);
         setCreators(response.data);
       });
     };

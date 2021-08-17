@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SellFun from "../../functions/SellFun";
+import "./SellStyle.css";
 import OwnerItem from "./Item/OwnerItem";
 import { auctionContract } from "../../contractDetails/auction";
 import { web3 } from "../../constants/constants";
@@ -75,15 +76,19 @@ const BidList = ({ biddingData, callBack, productData, data }) => {
   };
   return (
     <>
-      {bidsList.map((info, index) => (
-        <OwnerItem
-          item={info}
-          key={info.profile + index}
-          page={"bid-list"}
-          owner={productData.owner}
-          onClick={sellNFT}
-        />
-      ))}
+      {bidsList.length > 0 ? (
+        bidsList.map((info, index) => (
+          <OwnerItem
+            item={info}
+            key={info.profile + index}
+            page={"bid-list"}
+            owner={productData.owner}
+            onClick={sellNFT}
+          />
+        ))
+      ) : (
+        <div className="noBid">No Bid Found</div>
+      )}
     </>
   );
 };

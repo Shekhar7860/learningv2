@@ -1,10 +1,10 @@
 import { Input, Form } from "antd";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "./EditForm.css";
 import { connect } from "react-redux";
 import { profileContract } from "../../contractDetails/profile";
 import ipfs from "../../functions/Ipfs";
-
+import { Spin } from "antd";
 const initialData = {
   displayName: "",
   customURL: "",
@@ -35,6 +35,7 @@ const reducer = (state, action) => {
 
 const EditForm = ({ type, image, hash, data, userData }) => {
   const [state, dispatch] = useReducer(reducer, initialData);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     var qs,
       js,
@@ -80,6 +81,7 @@ const EditForm = ({ type, image, hash, data, userData }) => {
     }
   };
   const onFinish = async (selectedData) => {
+    setLoading(true);
     let contract = await profileContract();
     try {
       const doc = JSON.stringify({
@@ -92,6 +94,7 @@ const EditForm = ({ type, image, hash, data, userData }) => {
           from: data.user.data.account,
         },
         (error, transactionHash) => {
+          setLoading(false);
           console.log("error", transactionHash);
         }
       );
@@ -101,132 +104,137 @@ const EditForm = ({ type, image, hash, data, userData }) => {
   };
 
   return (
-    <Form
-      className="edit-form"
-      onFinishFailed={onFinishFailed}
-      onFinish={onFinish}
-    >
-      <div className="two-item">
+    <>
+      <Form
+        className="edit-form"
+        onFinishFailed={onFinishFailed}
+        onFinish={onFinish}
+      >
+        <div className="two-item">
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Title should be something" }]}
+          >
+            <div className="royalti-input">
+              <h3>Display name</h3>
+              <Input
+                placeholder="e.g. 'Redeemable T-Shirt with logo'"
+                value={state.displayName}
+                onChange={(e) => {
+                  handleChange(e, "displayName");
+                }}
+              />
+            </div>
+          </Form.Item>
+          <Form.Item name="customUrl">
+            <div className="royalti-input">
+              <h3>Custom URL</h3>
+              <Input
+                placeholder="Enter your custom URL"
+                // value={userData ? userData.customUrl : null}
+                value={state.customURL}
+                onChange={(e) => {
+                  handleChange(e, "customUrl");
+                }}
+              />
+            </div>
+          </Form.Item>
+        </div>
+        <div className="two-item">
+          <Form.Item name="twitterUserName">
+            <div className="royalti-input">
+              <h3>Twitter Username</h3>
+              <Input
+                placeholder="@"
+                // value={userData ? userData.twitterUserName : null}
+                value={state.twitterUserName}
+                onChange={(e) => {
+                  handleChange(e, "twitterUserName");
+                }}
+              />
+              <p>
+                Link your Twitter account to gain more trust on the marketplace
+              </p>
+            </div>
+          </Form.Item>
+          <Form.Item name="personalSite">
+            <div className="royalti-input">
+              <h3>Personal site or portfolio</h3>
+              <Input
+                placeholder="https://"
+                // value={userData ? userData.personalSite : null}
+                value={state.portfolio}
+                onChange={(e) => {
+                  handleChange(e, "portfolio");
+                }}
+              />
+            </div>
+          </Form.Item>
+        </div>
         <Form.Item
-          name="username"
-          rules={[{ required: true, message: "Title should be something" }]}
+          name="bio"
+          rules={[{ required: true, message: "Bio should be something" }]}
         >
-          <div className="royalti-input">
-            <h3>Display name</h3>
-            <Input
-              placeholder="e.g. 'Redeemable T-Shirt with logo'"
-              value={state.displayName}
-              onChange={(e) => {
-                handleChange(e, "displayName");
-              }}
-            />
+          <div className="bio-box">
+            <div className="royalti-input">
+              <h3>Bio</h3>
+              <Input.TextArea
+                placeholder="Tell about yourself in a few words"
+                // value={userData ? userData.bio : null}
+                value={state.bio}
+                onChange={(e) => {
+                  handleChange(e, "bio");
+                }}
+              />
+            </div>
           </div>
         </Form.Item>
-        <Form.Item name="customUrl">
+        <Form.Item name="email">
           <div className="royalti-input">
-            <h3>Custom URL</h3>
-            <Input
-              placeholder="Enter your custom URL"
-              // value={userData ? userData.customUrl : null}
-              value={state.customURL}
-              onChange={(e) => {
-                handleChange(e, "customUrl");
-              }}
-            />
-          </div>
-        </Form.Item>
-      </div>
-      <div className="two-item">
-        <Form.Item name="twitterUserName">
-          <div className="royalti-input">
-            <h3>Twitter Username</h3>
+            <h3>Email address</h3>
+            <p>Your email for marketplace notifications</p>
             <Input
               placeholder="@"
-              // value={userData ? userData.twitterUserName : null}
-              value={state.twitterUserName}
+              value={state.email}
               onChange={(e) => {
-                handleChange(e, "twitterUserName");
+                handleChange(e, "email");
               }}
             />
             <p>
-              Link your Twitter account to gain more trust on the marketplace
+              You must sign message to view or manage your email.
+              <span> Sign message</span>
             </p>
           </div>
         </Form.Item>
-        <Form.Item name="personalSite">
-          <div className="royalti-input">
-            <h3>Personal site or portfolio</h3>
-            <Input
-              placeholder="https://"
-              // value={userData ? userData.personalSite : null}
-              value={state.portfolio}
-              onChange={(e) => {
-                handleChange(e, "portfolio");
-              }}
-            />
+        <div className="two-item">
+          <div className="verified-box">
+            <h3>Verification</h3>
+            <p>
+              Procceed with verification proccess to get more visibility and
+              gain trust on Rarible Marketplace. Please allow up to several
+              weeks for the process.
+            </p>
           </div>
+          <a
+            className="typeform-share button"
+            href="https://form.typeform.com/to/QFObEPQU?typeform-medium=embed-snippet"
+            data-mode="drawer_right"
+            target="_blank"
+          >
+            Get verified
+          </a>
+          {/* <h4>Get verified</h4> */}
+        </div>
+        <Form.Item>
+          <button className="submit-button" type="primary">
+            Submit
+          </button>
         </Form.Item>
+      </Form>
+      <div className="center-align">
+        <Spin size={"large"} spinning={loading} />
       </div>
-      <Form.Item
-        name="bio"
-        rules={[{ required: true, message: "Bio should be something" }]}
-      >
-        <div className="bio-box">
-          <div className="royalti-input">
-            <h3>Bio</h3>
-            <Input.TextArea
-              placeholder="Tell about yourself in a few words"
-              // value={userData ? userData.bio : null}
-              value={state.bio}
-              onChange={(e) => {
-                handleChange(e, "bio");
-              }}
-            />
-          </div>
-        </div>
-      </Form.Item>
-      <Form.Item name="email">
-        <div className="royalti-input">
-          <h3>Email address</h3>
-          <p>Your email for marketplace notifications</p>
-          <Input
-            placeholder="@"
-            value={state.email}
-            onChange={(e) => {
-              handleChange(e, "email");
-            }}
-          />
-          <p>
-            You must sign message to view or manage your email.
-            <span> Sign message</span>
-          </p>
-        </div>
-      </Form.Item>
-      <div className="two-item">
-        <div className="verified-box">
-          <h3>Verification</h3>
-          <p>
-            Procceed with verification proccess to get more visibility and gain
-            trust on Rarible Marketplace. Please allow up to several weeks for
-            the process.
-          </p>
-        </div>
-        <a
-          className="typeform-share button"
-          href="https://form.typeform.com/to/QFObEPQU?typeform-medium=embed-snippet"
-          data-mode="drawer_right"
-          target="_blank"
-        >
-          Get verified
-        </a>
-        {/* <h4>Get verified</h4> */}
-      </div>
-      <Form.Item>
-        <button className="submit-button" type="primary">
-          Submit
-        </button>
-      </Form.Item>
-    </Form>
+    </>
   );
 };
 

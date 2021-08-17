@@ -38,7 +38,7 @@ const MyContent = () => {
         <TabPane tab={`On sale(${saleProductsCount})`} key="1">
           <SaleList onCallBack={callBack} sale={true} />
         </TabPane>
-        <TabPane tab="Collectible(23)" key="2">
+        <TabPane tab="Collectible(0)" key="2">
           <EmptyContent />
         </TabPane>
         <TabPane tab={`Created(${productsCount})`} key="3">

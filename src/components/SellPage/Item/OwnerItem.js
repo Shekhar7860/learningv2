@@ -17,7 +17,7 @@ const OwnerItem = ({ item, page, data, owner, onClick }) => {
       <div className="owner-content">
         <div className="owner-info">
           <p>{tag}</p>
-          <h5>{sub}</h5>
+          <h5>{page == "owner" || page == "info" ? item.ownerName : sub}</h5>
         </div>
         {page == "bid-list" ? (
           isOwner() == true ? (

@@ -1,7 +1,11 @@
 .edit-form {
   margin-top: 2rem;
 }
-
+.center-align {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+}
 .edit-form h3 {
   margin: 0;
   margin-left: 8px;

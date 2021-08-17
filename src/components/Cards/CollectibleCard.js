@@ -1,6 +1,6 @@
 import { HeartOutlined, MoreOutlined } from "@ant-design/icons";
 import { Tooltip, Avatar, Menu, Dropdown } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import DialogFun from "../../functions/DialogFun";
 import BidDialog from "../Dialogs/BidDialog";
@@ -13,20 +13,25 @@ import VideoThumbnail from "react-video-thumbnail";
 import { audioUrl } from "../../constants/constants";
 import "./CollectibleCard.css";
 import { VideocamOutlined } from "@material-ui/icons";
-
+import { web3 } from "../../constants/constants";
 const menu = (
   togglePurchaseDialog,
   toggleShareDialog,
   toggleBidDialog,
-  toggleReportDialog
+  toggleReportDialog,
+  buttons
 ) => (
   <Menu onClick={() => {}}>
-    <Menu.Item key="0" onClick={togglePurchaseDialog}>
-      Purchase now
-    </Menu.Item>
-    <Menu.Item key="1" onClick={toggleBidDialog}>
-      Place a bid
-    </Menu.Item>
+    {buttons == true ? (
+      <>
+        <Menu.Item key="0" onClick={togglePurchaseDialog}>
+          Purchase now
+        </Menu.Item>
+        <Menu.Item key="1" onClick={toggleBidDialog}>
+          Place a bid
+        </Menu.Item>
+      </>
+    ) : null}
     {/* <Menu.Item key="2">
       <a target="__blank" href="https://www.opensea.io">
         View on OpenSea
@@ -42,6 +47,18 @@ const menu = (
 );
 
 const CollectibleCard = ({ card }) => {
+  const [buttons, showButtons] = useState(false);
+  useEffect(() => {
+    const initializeButtons = async () => {
+      const accounts = await web3.eth.getAccounts();
+      if (card.owner != accounts[0]) {
+        showButtons(true);
+      } else {
+        showButtons(false);
+      }
+    };
+    initializeButtons();
+  }, []);
   const history = useHistory();
   const {
     togglePurchaseDialog,
@@ -169,7 +186,8 @@ const CollectibleCard = ({ card }) => {
                 togglePurchaseDialog,
                 toggleShareDialog,
                 toggleBidDialog,
-                toggleReportDialog
+                toggleReportDialog,
+                buttons
               )}
               trigger={["click"]}
               placement="bottomCenter"

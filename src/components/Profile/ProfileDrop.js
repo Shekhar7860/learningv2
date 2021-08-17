@@ -33,6 +33,7 @@ const ProfileDrop = ({
     } else {
       setAccount(user.data.account);
       setBalance(user.data.balance);
+      console.log("dh", profileData);
       if (profileData) {
         setImage(profileData.file);
         setUserName(profileData.username);
@@ -151,6 +152,7 @@ const ProfileDrop = ({
 const mapStateToProps = (state) => {
   return {
     data: state,
+    profileData: state.user.profileData,
   };
 };
 

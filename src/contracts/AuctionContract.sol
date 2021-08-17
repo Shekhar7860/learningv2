@@ -352,6 +352,32 @@ contract AuctionContract {
         }
     }
 
+
+ function purchasePriceAuction(uint256 _auctionId ) public payable {
+        // uint256 ethAmountSent = msg.value;
+
+        // owner can't bid on their auctions
+        Auction memory myAuction = auctions[_auctionId];
+         if (myAuction.startPrice != msg.value) {
+            revert();
+        }
+        // require(msg.value == ethAmountSent, "msg.value is incorrect" );
+
+        // NFTContract.safeTransferFrom(myAuction.owner, to, tokenId);(msg.sender, myAuction.productId); 
+      
+        if (!myAuction.owner.send(msg.value)) {
+                revert();
+            }
+
+        NFTContract.transferERC721Token(myAuction.owner, msg.sender, myAuction.productId); 
+        if(true){
+                auctions[_auctionId].active = false;
+                auctions[_auctionId].endDate = now;    
+                emit AuctionFinalized(msg.sender, myAuction.startPrice, 0xdF6e287f9a723afaA8B2B42a984Bdc0714b35974, msg.value );
+                // emit Contract( id, name, owner, price,royaltyFee);
+            }
+      
+    }
        /**
      * @dev Finalized an ended auction
      * @dev The auction should be ended, and there should be at least one bid
